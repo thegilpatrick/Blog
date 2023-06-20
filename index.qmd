@@ -1,0 +1,22 @@
+---
+title: The Gilpatrick
+listing:
+  page-size: 6
+  contents: posts
+  sort: "date desc"
+  type: grid
+  categories: true
+  sort-ui: true
+  filter-ui: true
+  feed: true
+  fields: [image, date, title, author, description, categories, reading-time]
+page-layout: full
+format:
+  html:
+    embed-resources: true
+    css: no-title.css
+    grid:
+      margin-width: 0px
+      sidebar-width: 0px
+      gutter-width: 0px
+---

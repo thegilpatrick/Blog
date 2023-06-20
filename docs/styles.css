@@ -1,0 +1,64 @@
+/* css styles */
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.navbar-brand > img {
+    max-height: 70px;
+  }
+  .navbar-brand > img:hover {
+    max-height: 70px;
+    -ms-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+.navbar-brand {
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+  }
+#quarto-margin-sidebar {
+  display: none;
+  z-index: 0;
+}
+.quarto-grid-item:hover {
+  -ms-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.listing-category:hover {
+  -ms-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.quarto-category:hover {
+  -ms-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.listing-author {
+  text-transform: none;
+}
+.quarto-content {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+}
+@media(max-width: 991.98px) {
+  body .page-columns {
+      display:grid;
+      gap: 0;
+      grid-template-columns: [screen-start] 5fr [screen-start-inset page-start page-start-inset body-start-outset] 5fr [body-start] 0px [body-content-start] minmax(500px, calc( 800px - 0px )) [body-content-end] 0px [body-end] 0px [body-end-outset] minmax(0px, 0px) [page-end-inset] 0px [page-end] 5fr [screen-end-inset] 0px [screen-end];
+  }
+}
+@media(max-width: 767.98px) {
+  body .page-columns,body.fullcontent:not(.floating):not(.docked) .page-columns,body.slimcontent:not(.floating):not(.docked) .page-columns,body.docked .page-columns,body.docked.slimcontent .page-columns,body.docked.fullcontent .page-columns,body.floating .page-columns,body.floating.slimcontent .page-columns,body.floating.fullcontent .page-columns {
+      display:grid;
+      gap: 1em;
+      grid-template-columns: [screen-start] 0px [screen-start-inset page-start page-start-inset body-start-outset body-start body-content-start] minmax(0px, 1fr) [body-content-end body-end body-end-outset page-end-inset page-end screen-end-inset] 0px [screen-end]
+  }
+}
+.listing-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    text-align: center;
+}

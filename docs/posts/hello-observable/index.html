@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.159">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Scott Franz">
+<meta name="dcterms.date" content="2022-05-21">
+
+<title>Hello, Observable!</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../thegilpatricklogo.png" rel="icon" type="image/png">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y5TZ8D5H35"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Y5TZ8D5H35', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"headline",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  });
+});
+</script> 
+  
+<script type="module" src="../../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Hello, Observable!">
+<meta property="og:description" content="A quick glance at Observable. A new reactive programming ecosystem geared towards data visualization.">
+<meta property="og:image" content="https://friendly-palmier-209562.netlify.app/posts\hello-observable\observablelogo.png">
+<meta property="og:site-name" content="The Gilpatrick">
+<meta property="og:image:height" content="320">
+<meta property="og:image:width" content="847">
+<meta property="og:image:alt" content="ObservableHQ logo">
+<meta name="twitter:title" content="Hello, Observable!">
+<meta name="twitter:description" content="A quick glance at Observable. A new reactive programming ecosystem geared towards data visualization.">
+<meta name="twitter:image" content="https://friendly-palmier-209562.netlify.app/posts\hello-observable\observablelogo.png">
+<meta name="twitter:image-height" content="320">
+<meta name="twitter:image-width" content="847">
+<meta name="twitter:image:alt" content="ObservableHQ logo">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../thegilpatricklogo.png" alt="The Gilpatrick logo." class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/thegilpatrick/thegilpatrick.github.io" rel="" target="">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/thegilpatrick/thegilpatrick.github.io/issues" rel="" target="">
+ <span class="dropdown-text">Report a Bug</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#tutorials" id="toc-tutorials" class="nav-link" data-scroll-target="#tutorials">Tutorials</a></li>
+  <li><a href="#imports" id="toc-imports" class="nav-link" data-scroll-target="#imports">Imports</a></li>
+  <li><a href="#inputs" id="toc-inputs" class="nav-link" data-scroll-target="#inputs">Inputs</a></li>
+  <li><a href="#data-wrangling-and-analysis" id="toc-data-wrangling-and-analysis" class="nav-link" data-scroll-target="#data-wrangling-and-analysis">Data Wrangling (and Analysis)</a></li>
+  <li><a href="#sharing-your-work" id="toc-sharing-your-work" class="nav-link" data-scroll-target="#sharing-your-work">Sharing Your Work</a></li>
+  </ul>
+</nav>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Hello, Observable!</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">Observable JS</div>
+    <div class="quarto-category">Tutorial</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Scott Franz </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 21, 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    A quick glance at Observable. A new reactive programming ecosystem geared towards data visualization.
+  </div>
+</div>
+
+</header>
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p><a href="https://observablehq.com/@observablehq/observables-not-javascript">Observable</a> is a new environment for JavaScript with a couple of tweaks (also supports HTML, CSS, Markdown, SQL, and TeX). It is the brainchild of Mike Bostock (<a href="https://d3js.org/">D3.js</a> creator). What sets Observable apart from previous programming notebook environments is its reactive <a href="https://observablehq.com/@observablehq/how-observable-runs">runtime</a>. In previous notebook iterations like Jupyter and R Markdown each cell could only reference previous cells in a certain order (from top to bottom). Observable is more like a spreadsheet where any cell/value referenced can update automatically (in any order). This makes it fun to use when composing interactive visualizations.</p>
+<p>Why use Observable when there are so many interactive data visualization libraries in both R and Python? Well my take is that every interactive data visualization library in R and Python probably has JavaScript running under the hood. I feel like the only reasons we use these libraries are:</p>
+<ul>
+<li>We don’t want to learn another language (especially JavaScript).</li>
+<li>JavaScript is geared towards web developers who understand all of the other pieces needed (the DOM, HTML, CSS, SVG, Canvas, SSR, Frameworks, etc).</li>
+<li>Data wrangling in R and Python is a lot easier and more powerful than in JavaScript.</li>
+</ul>
+<p>But since JavaScript is the language that manages interactivity on the web, it only makes sense to use it for interactive data visualizations. Observable helps us use JavaScript without the trouble of not knowing what we are doing as non-web developers.</p>
+</section>
+<section id="tutorials" class="level2">
+<h2 class="anchored" data-anchor-id="tutorials">Tutorials</h2>
+<p>So I know notebooks are not for everyone, but I think they are a great resource for learning (which for me is half the fun of programming). I started using Observable, about two years ago because of this Vega-Lite tutorial (pictured below) by Jeffrey Heer at the University of Washington.</p>
+<p><a href="https://observablehq.com/@uwdata/introduction-to-vega-lite"> <img width="100%" title="Vega-Lite Example Gallery" src="https://raw.githubusercontent.com/vega/vega-lite/next/site/static/teaser.png"></a></p>
+<p>This was the start of the adventure for me. After learning the basics I was hooked. I learned more about what Observable itself is capable of doing. They have a great <a href="https://www.youtube.com/c/Observablehq">YouTube channel</a> with plenty of live-streams and tutorials. They also have notebook tutorials on <a href="https://observablehq.com/collection/@d3/learn-d3">D3</a>, their new <a href="https://observablehq.com/collection/@observablehq/plot">Observable Plot</a>, and <a href="https://observablehq.com/collection/@observablehq/analyzing-time-series-data">how to analyze time series data</a>. There are plenty of other contributors too. These two tutorials on D3: <a href="https://observablehq.com/collection/@thetylerwolf/25-days-of-d3">Tyler Wolf’s 25 Days of D3</a> and <a href="https://observablehq.com/collection/@nyuvis/guides-and-examples">NYU Visualization’s Guides/Examples</a>, were both very helpful. I find the community encouraging. The ability to interact with the code and fork other user’s notebooks has been a huge bonus. I regularly find interesting notebooks where I import a part to use for my own work. <a href="https://observablehq.com/@mkfreeman">Mike Freeman</a>, <a href="https://observablehq.com/@fil">Philippe Rivière</a>, <a href="https://observablehq.com/@enjalot">Ian Johnson</a>, and of course <a href="https://observablehq.com/@mbostock">Mike Bostock</a> have been integral to my learning.</p>
+</section>
+<section id="imports" class="level2">
+<h2 class="anchored" data-anchor-id="imports">Imports</h2>
+<p>In Observable, you can import anything. Whether it is a chart, function, data, input, etc. I will show you a few examples here and give you further reading if you want to get into the details.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" data-startfrom="41" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 40;"><span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {chart <span class="im">as</span> streamgraph} <span class="im">from</span> <span class="st">"@d3/streamgraph-transitions"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<p>The cell above imports a chart from a notebook in the <a href="https://observablehq.com/@d3/gallery">D3 Gallery</a>. It was created by Mike Bostock as an example of what you can do with D3 transitions. Here I am using it as an example of how easy it is to import things. In the cell below all I had to do was type <code>streamgraph</code> and voila.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" data-startfrom="47" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 46;"><span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>streamgraph</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>If we wanted to import a map and a drop down menu from another notebook. We could do that too. This drop down menu (input) selects different map projections. Check it out! It is also interactive. Use your mouse to click and drag to explore.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" data-startfrom="53" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 52;"><span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {chart <span class="im">as</span> map<span class="op">,</span> viewof projectionName} <span class="im">from</span> <span class="st">"@d3/versor-dragging"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" data-startfrom="57" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 56;"><span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>viewof projectionName</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" data-startfrom="61" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 60;"><span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>Below I imported an example dataset and some functions to add my own twist to the chart. Mike Freeman created some add-on functions for Observable Plot that enable you to both customize the tooltips and animation. So I over engineered this faceted scatter plot to animate the dots and when you hover over the dot it shows both a tooltip and enlarges the dot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" data-startfrom="68" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 67;"><span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {barley} <span class="im">from</span> <span class="st">"@observablehq/plot-facets"</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {addTooltips} <span class="im">from</span> <span class="st">"@mkfreeman/plot-tooltip"</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {addAnimation} <span class="im">from</span> <span class="st">"@mkfreeman/plot-animation"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" data-startfrom="73" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 72;"><span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="fu">visibility</span>()<span class="op">.</span><span class="fu">then</span>(() <span class="kw">=&gt;</span></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="fu">addAnimation</span>(<span class="fu">addTooltips</span>(Plot<span class="op">.</span><span class="fu">plot</span>({ <span class="co">// I just added these wrappers to the beginning and</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">110</span><span class="op">,</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">800</span><span class="op">,</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>    <span class="dt">nice</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>    <span class="dt">domain</span><span class="op">:</span> d3<span class="op">.</span><span class="fu">groupSort</span>(barley<span class="op">,</span> g <span class="kw">=&gt;</span> <span class="op">-</span>d3<span class="op">.</span><span class="fu">median</span>(g<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">yield</span>)<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">variety</span>)<span class="op">,</span></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>    <span class="dt">inset</span><span class="op">:</span> <span class="dv">5</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>  <span class="dt">fy</span><span class="op">:</span> {</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>    <span class="dt">domain</span><span class="op">:</span> d3<span class="op">.</span><span class="fu">groupSort</span>(barley<span class="op">,</span> g <span class="kw">=&gt;</span> <span class="op">-</span>d3<span class="op">.</span><span class="fu">median</span>(g<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">yield</span>)<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">site</span>)</span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {</span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span><span class="op">:</span> <span class="st">"categorical"</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>  <span class="dt">facet</span><span class="op">:</span> {</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>    <span class="dt">data</span><span class="op">:</span> barley<span class="op">,</span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> <span class="st">"site"</span><span class="op">,</span></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">90</span></span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">frame</span>()<span class="op">,</span></span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(barley<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"yield"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"variety"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"year"</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> </span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>      <span class="vs">`Yield: </span><span class="sc">${</span><span class="pp">parseFloat</span>((d<span class="op">.</span><span class="at">yield</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>))<span class="sc">}</span><span class="vs">  </span><span class="sc">\n</span><span class="vs"> Variety: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">variety</span><span class="sc">}</span><span class="vs"> </span><span class="sc">\n</span><span class="vs"> Year: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">year</span><span class="sc">}</span><span class="vs"> </span><span class="sc">\n</span><span class="vs"> Site:</span><span class="sc">${</span>d<span class="op">.</span><span class="at">site</span><span class="sc">}</span><span class="vs">`</span>}) <span class="co">// this line for the tooltip titles and</span></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>  ] <span class="co">// this line on the end to add animation and enlarge the dots on hover</span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a>})<span class="op">,</span> {<span class="dt">r</span><span class="op">:</span><span class="dv">15</span>})<span class="op">,</span> {<span class="dt">type</span><span class="op">:</span> <span class="st">"circle"</span><span class="op">,</span> <span class="dt">attribute</span><span class="op">:</span> <span class="st">"r"</span><span class="op">,</span> <span class="dt">endValue</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="dt">delay</span><span class="op">:</span> <span class="dv">100</span>} ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-7" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>But wait that is not all that you can do! You can also modify your imported charts with your own or somebody else’s data. Here is an example of using a Bar Chart Race with the data from the original notebook.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8" data-startfrom="108" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 107;"><span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {chart <span class="im">as</span> barChartRace<span class="op">,</span> viewof replay} <span class="im">from</span> <span class="st">"@d3/bar-chart-race"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9" data-startfrom="112" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 111;"><span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a>viewof replay</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-9" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10" data-startfrom="116" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 115;"><span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a>barChartRace</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-10" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>So above is what it would look like if I didn’t change the data. Below is what it looks like after I import different data. This data comes from Emil Hvitfeldt’s notebook where he uploaded a csv file of R package downloads over time. I could have also uploaded my own csv file, it just has to match the format of the data for the imported chart.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11" data-startfrom="123" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 122;"><span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {data <span class="im">as</span> rPackages} <span class="im">from</span> <span class="st">"@emilhvitfeldt/race-for-most-downloaded-r-package"</span></span>
+<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {chart <span class="im">as</span> rRace<span class="op">,</span> viewof replay <span class="im">as</span> replay2} <span class="cf">with</span> {rPackages <span class="im">as</span> data} <span class="im">from</span> <span class="st">"@d3/bar-chart-race"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-11-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-11-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12" data-startfrom="127" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 126;"><span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a>viewof replay2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-12" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13" data-startfrom="131" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 130;"><span id="cb13-131"><a href="#cb13-131" aria-hidden="true" tabindex="-1"></a>rRace</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-13" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>A couple of things to note before we move on. You may have noticed that most of the charts were named <code>charts</code> in their original notebooks. In order to use more than one imported chart in this notebook I had to change the name. Otherwise, Observable would get confused if I referred to multiple cells with the same name. So in order to do that I use the <code>as newName</code> syntax. Additionally, it is easy to reference whichever Observable notebook you want by using the end of the URL. For example, I referenced most of the D3 charts by using <code>from "@D3/nameofnotebook"</code>. There is a lot more to learn about imports and how useful they can be. Here is an <a href="https://observablehq.com/@observablehq/import">introduction</a> and here is an <a href="https://observablehq.com/@observablehq/version-locking-for-notebook-imports">explainer</a> of a new feature where you can “lock” your imports so that if a dependency changes it doesn’t ruin your import.</p>
+</section>
+<section id="inputs" class="level2">
+<h2 class="anchored" data-anchor-id="inputs">Inputs</h2>
+<p>Observable has some built-in libraries to help with user <a href="https://observablehq.com/@observablehq/inputs">inputs</a>. It leverages <a href="https://observablehq.com/@observablehq/introduction-to-views">views</a> which is a clever and way less confusing way to handle interactions and their outputs on the web.</p>
+<p>In the cell below I gave a range of values <code>0 to 25</code>, I gave a starting value <code>value: 10</code> and I gave an interval to step between values in our range <code>step: 1</code> and then I just named it <code>r</code> so we can reference it later. In Observable notebooks, <code>viewof</code> creates reactive variables of inputs so if I just do the following below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14" data-startfrom="143" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 142;"><span id="cb14-143"><a href="#cb14-143" aria-hidden="true" tabindex="-1"></a>viewof r <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">25</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-14" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15" data-startfrom="147" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 146;"><span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a>r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-15" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>It updates when we move the slider. This works both in JavaScript and in Markdown here is the number: <span><span id="ojs-element-id-1"></span>.</span> This <code>r</code> variable can be plugged into anything we want. Lets add some color and data to make a chart.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16" data-startfrom="153" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 152;"><span id="cb16-153"><a href="#cb16-153" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {penguins} <span class="im">from</span> <span class="st">"@enjalot/palmer-penguins"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-16" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17" data-startfrom="157" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 156;"><span id="cb17-157"><a href="#cb17-157" aria-hidden="true" tabindex="-1"></a>viewof color <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="st">"red"</span><span class="op">,</span> <span class="st">"green"</span><span class="op">,</span> <span class="st">"blue"</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="st">"red"</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-17" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<p>I reused the <code>addTootips</code> function I imported earlier and added the two reactive input variables we just created <code>r</code> and <code>color</code>. These two variables control the attributes when you hover over the dots in this visualization. Go ahead and change the fill color and size of the dots with the inputs above.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18" data-startfrom="163" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 162;"><span id="cb18-163"><a href="#cb18-163" aria-hidden="true" tabindex="-1"></a><span class="fu">addTooltips</span>(</span>
+<span id="cb18-164"><a href="#cb18-164" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb18-165"><a href="#cb18-165" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb18-166"><a href="#cb18-166" aria-hidden="true" tabindex="-1"></a>  <span class="dt">facet</span><span class="op">:</span> {</span>
+<span id="cb18-167"><a href="#cb18-167" aria-hidden="true" tabindex="-1"></a>    <span class="dt">data</span><span class="op">:</span> penguins<span class="op">,</span></span>
+<span id="cb18-168"><a href="#cb18-168" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> <span class="st">"sex"</span><span class="op">,</span></span>
+<span id="cb18-169"><a href="#cb18-169" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> <span class="st">"species"</span><span class="op">,</span></span>
+<span id="cb18-170"><a href="#cb18-170" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb18-171"><a href="#cb18-171" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">80</span></span>
+<span id="cb18-172"><a href="#cb18-172" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb18-173"><a href="#cb18-173" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span> <span class="op">:</span> [</span>
+<span id="cb18-174"><a href="#cb18-174" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">frame</span>()<span class="op">,</span></span>
+<span id="cb18-175"><a href="#cb18-175" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(penguins<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"flipper_length_mm"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"body_mass_g"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"island"</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span></span>
+<span id="cb18-176"><a href="#cb18-176" aria-hidden="true" tabindex="-1"></a>        <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">species</span><span class="sc">}</span><span class="vs"> </span><span class="sc">\n</span><span class="vs"> flipper length: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">flipper_length_mm</span><span class="sc">}</span><span class="vs"> mm </span><span class="sc">\n</span><span class="vs"> body mass: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">body_mass_g</span><span class="sc">}</span><span class="vs"> g`</span>})</span>
+<span id="cb18-177"><a href="#cb18-177" aria-hidden="true" tabindex="-1"></a>  ]})<span class="op">,</span> {<span class="dt">r</span><span class="op">:</span> r<span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> color}) <span class="co">//This is where the reactivity is happening</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-18" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>This also makes interacting with data very easy. Here are some NBA team names with their location.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19" data-startfrom="183" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 182;"><span id="cb19-183"><a href="#cb19-183" aria-hidden="true" tabindex="-1"></a>teams <span class="op">=</span> [</span>
+<span id="cb19-184"><a href="#cb19-184" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Lakers"</span><span class="op">,</span> <span class="dt">location</span><span class="op">:</span> <span class="st">"Los Angeles, California"</span>}<span class="op">,</span></span>
+<span id="cb19-185"><a href="#cb19-185" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Warriors"</span><span class="op">,</span> <span class="dt">location</span><span class="op">:</span> <span class="st">"San Francisco, California"</span>}<span class="op">,</span></span>
+<span id="cb19-186"><a href="#cb19-186" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Celtics"</span><span class="op">,</span> <span class="dt">location</span><span class="op">:</span> <span class="st">"Boston, Massachusetts"</span>}<span class="op">,</span></span>
+<span id="cb19-187"><a href="#cb19-187" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Nets"</span><span class="op">,</span> <span class="dt">location</span><span class="op">:</span> <span class="st">"New York City, New York"</span>}<span class="op">,</span></span>
+<span id="cb19-188"><a href="#cb19-188" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Raptors"</span><span class="op">,</span> <span class="dt">location</span><span class="op">:</span> <span class="st">"Toronto, Ontario"</span>}<span class="op">,</span></span>
+<span id="cb19-189"><a href="#cb19-189" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-19" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20" data-startfrom="193" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 192;"><span id="cb20-193"><a href="#cb20-193" aria-hidden="true" tabindex="-1"></a>viewof favorite <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(teams<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> teams[<span class="dv">0</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Favorite team"</span><span class="op">,</span> <span class="dt">format</span><span class="op">:</span> x <span class="kw">=&gt;</span> x<span class="op">.</span><span class="at">name</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-20" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<p>So the cell above creates our input. It takes the <code>teams</code> dataset and uses the first variable in the array as its starting value <code>value: teams[0]</code>. The format option specifies how you want to present the value to the reader.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21" data-startfrom="199" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 198;"><span id="cb21-199"><a href="#cb21-199" aria-hidden="true" tabindex="-1"></a>favorite<span class="op">.</span><span class="at">location</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-21" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>The name of the reactive input variable is <code>favorite</code> and we can access whichever variable in the dataset by putting a <code>.</code> and then the name of that variable. In this case it is <code>location</code>. To show the location of the team you can use the <code>${favorite.location}</code> in the markdown. Try clicking on the radio buttons to see the different locations: <span><span id="ojs-element-id-2"></span>.</span> This way of writing in markdown is valuable when you want to create data driven documents. No need to edit your values manually in word documents anymore.</p>
+<p>Below is an example of filtering a dataset (I am reusing the penguins dataset here). Click on the options below and see how the data changes when you select different options.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22" data-startfrom="207" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 206;"><span id="cb22-207"><a href="#cb22-207" aria-hidden="true" tabindex="-1"></a>viewof checkbox <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">checkbox</span>(</span>
+<span id="cb22-208"><a href="#cb22-208" aria-hidden="true" tabindex="-1"></a>  d3<span class="op">.</span><span class="fu">group</span>(penguins<span class="op">,</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">island</span>)<span class="op">,</span></span>
+<span id="cb22-209"><a href="#cb22-209" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">key</span><span class="op">:</span> [<span class="st">"Dream"</span><span class="op">,</span> <span class="st">"Torgersen"</span>]}</span>
+<span id="cb22-210"><a href="#cb22-210" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-22" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23" data-startfrom="214" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 213;"><span id="cb23-214"><a href="#cb23-214" aria-hidden="true" tabindex="-1"></a>filtered <span class="op">=</span> checkbox<span class="op">.</span><span class="fu">flat</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-23" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24" data-startfrom="218" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 217;"><span id="cb24-218"><a href="#cb24-218" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">dot</span>(filtered<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"flipper_length_mm"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"body_mass_g"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"island"</span>})<span class="op">.</span><span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-24" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>The chart above uses the filtered dataset to create the scatterplot. As you can imagine there are endless capabilities of pairing these reactive input variables with whatever you are trying to create. I won’t try to make something super complex right now, but explore <a href="https://observablehq.com/trending">Observable</a> and you will get a sense of the possibilities.</p>
+</section>
+<section id="data-wrangling-and-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="data-wrangling-and-analysis">Data Wrangling (and Analysis)</h2>
+<p>Originally, when I first started using Observable I would wrangle my data in R and then save a CSV file and then upload it to Observable. Since then I found <a href="https://observablehq.com/@uwdata/introducing-arquero">Arquero</a> which has been really awesome! There is actually a <a href="https://observablehq.com/@uwdata/tidy-data-in-javascript">Tidy Data in JavaScript using Arquero</a> that follows Hadley Wickham’s <a href="https://r4ds.had.co.nz/tidy-data.html">Tidy Data (Chapter 12, R for Data Science)</a>. Also this <a href="https://observablehq.com/@uwdata/an-illustrated-guide-to-arquero-verbs">Illustrated Guide to Arquero Verbs</a> is a good cheat sheet.</p>
+<p>Data manipulation in vanilla JavaScript is still wonky to me. It makes very little sense in my head. A concern I had in the beginning was doing all of my data work in the browser. Saving my work online with a relatively new service gave me pause. For now Observable allows you to create unlimited amounts of notebooks for free. I have made over one hundred notebooks, and have not had any problems so far. Another concern I had (kinda still have) was Observable’s reliance on the browser’s engine. It is not yet equipped for processing big data files. File sizes are limited to 50 MBs per notebook and 1 GB over a 28-day period. There are alternatives like connecting to <a href="https://observablehq.com/@observablehq/databases">databases through Observable</a> or using <a href="https://observablehq.com/@observablehq/introduction-to-data#apis">web APIs</a>, but even then it is smart to subset your data if it is over a certain number of MBs for performance.</p>
+<p>Luckily, I found a promising new product that will probably be my go to work environment very soon. It is called <a href="https://quarto.org/">Quarto</a>. It is a project sponsored by Rstudio that integrates Observable JS, Julia, R, and Python. It does a lot of cool things that I won’t even touch on but the coolest to me is the ability to write in both R and Observable within the same notebook. So if you need to do something with a large dataset it is possible to preprocess it in R and then do what you want in Observable. There is an option to <a href="https://quarto.org/docs/projects/code-execution.html#freeze">freeze the execution of R</a> if you are doing some heavy processing and you don’t want it to run every time someone loads your site. Additionally, it looks like you can pair <a href="https://quarto.org/docs/interactive/ojs/shiny.html">Observable with Shiny Reactives</a>. Leveraging a Shiny server with an Observable front end seems super convenient for any cases where Observable alone can’t handle the workload. I haven’t used it enough to give my full thoughts on it yet, but so far it has been extremely promising development for my workflow.</p>
+</section>
+<section id="sharing-your-work" class="level2">
+<h2 class="anchored" data-anchor-id="sharing-your-work">Sharing Your Work</h2>
+<p>After you finish your project you can share your notebook within the Observable ecosystem or link it on social media. If you want it to live on your website there are a couple of ways to do that as well. Observable has exporting abilities, a download code option or an embed option. I usually just use the embed option. You can embed it as an iframe, or you can embed it with Observable’s runtime in JavaScript. This is usually what I do, so although you are relying on Observable’s runtime, you can actually customize all of the styling within your own environment. If you choose to go the Quarto route, it is also super easy to either create a stand alone html file or a whole site through Quarto. You are probably looking at this notebook how Quarto rendered it, but here is the original <a href="https://observablehq.com/@scottfranz/hello-observable">Observable notebook</a> as well. Thanks for reading this post. Please let me know if there are really cool things about Observable I missed.</p>
+
+
+<!-- -->
+
+<script type="ojs-module-contents">
+{"contents":[
+  {"methodName":"interpret","inline":"true","source":"htl.html`<span>${r}</span>`", "cellName":"ojs-element-id-1"}
+,
+  {"methodName":"interpret","inline":"true","source":"htl.html`<span>${favorite.location}</span>`", "cellName":"ojs-element-id-2"}
+]}
+</script>
+</section>
+
+</main> <!-- /main -->
+<!-- Begin Mailchimp Signup Form -->
+<link href="http://cdn-images.mailchimp.com/embedcode/slim-10_7_dtp.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font-family: "Karma", sans-serif;  width:300px;}
+	.center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        text-align: center;
+    }
+</style>
+<div class="center">
+<div id="mc_embed_signup">
+    <form action="https://thegilpatrick.us11.list-manage.com/subscribe/post?u=eaf112d4f57b3ee0225c5ffcb&amp;id=01d72b9a9c&amp;f_id=00629ce0f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+        <div id="mc_embed_signup_scroll">
+<div class="center mc-field-group">
+	<input type="email" placeholder="Your Email Address" name="EMAIL" class="required email" id="mce-EMAIL" required=""><input style="margin-top: 10px;" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+</div>
+	<div id="mce-responses" class="clear foot">
+		<div class="center response" id="mce-error-response" style="display:none"></div>
+		<div class="center response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_eaf112d4f57b3ee0225c5ffcb_01d72b9a9c" tabindex="-1" value=""></div>
+        <div class="optionalParent">
+            <div class="clear foot">
+                
+                
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+</div>
+<script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script><script type="text/javascript">(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+<script type="ojs-module-contents">
+{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"import {chart as streamgraph} from \"@d3/streamgraph-transitions\"\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"streamgraph\n"},{"methodName":"interpret","cellName":"ojs-cell-3","inline":false,"source":"import {chart as map, viewof projectionName} from \"@d3/versor-dragging\"\n"},{"methodName":"interpret","cellName":"ojs-cell-4","inline":false,"source":"viewof projectionName\n"},{"methodName":"interpret","cellName":"ojs-cell-5","inline":false,"source":"map\n"},{"methodName":"interpret","cellName":"ojs-cell-6","inline":false,"source":"import {barley} from \"@observablehq/plot-facets\"\nimport {addTooltips} from \"@mkfreeman/plot-tooltip\"\nimport {addAnimation} from \"@mkfreeman/plot-animation\"\n"},{"methodName":"interpret","cellName":"ojs-cell-7","inline":false,"source":"visibility().then(() =>\naddAnimation(addTooltips(Plot.plot({ // I just added these wrappers to the beginning and\n  marginTop: 50,\n  marginLeft: 110,\n  height: 800,\n  grid: true,\n  x: {\n    nice: true\n  },\n  y: {\n    domain: d3.groupSort(barley, g => -d3.median(g, d => d.yield), d => d.variety),\n    inset: 5\n  },\n  fy: {\n    domain: d3.groupSort(barley, g => -d3.median(g, d => d.yield), d => d.site)\n  },\n  color: {\n    type: \"categorical\"\n  },\n  facet: {\n    data: barley,\n    y: \"site\",\n    marginRight: 90\n  },\n  marks: [\n    Plot.frame(),\n    Plot.dot(barley, {x: \"yield\", y: \"variety\", r: 0, stroke: \"year\", title: (d) => \n      `Yield: ${parseFloat((d.yield).toFixed(1))}  \\n Variety: ${d.variety} \\n Year: ${d.year} \\n Site:${d.site}`}) // this line for the tooltip titles and\n  ] // this line on the end to add animation and enlarge the dots on hover\n}), {r:15}), {type: \"circle\", attribute: \"r\", endValue: 3, delay: 100} )) \n"},{"methodName":"interpret","cellName":"ojs-cell-8","inline":false,"source":"import {chart as barChartRace, viewof replay} from \"@d3/bar-chart-race\"\n"},{"methodName":"interpret","cellName":"ojs-cell-9","inline":false,"source":"viewof replay\n"},{"methodName":"interpret","cellName":"ojs-cell-10","inline":false,"source":"barChartRace\n"},{"methodName":"interpret","cellName":"ojs-cell-11","inline":false,"source":"import {data as rPackages} from \"@emilhvitfeldt/race-for-most-downloaded-r-package\"\nimport {chart as rRace, viewof replay as replay2} with {rPackages as data} from \"@d3/bar-chart-race\"\n"},{"methodName":"interpret","cellName":"ojs-cell-12","inline":false,"source":"viewof replay2\n"},{"methodName":"interpret","cellName":"ojs-cell-13","inline":false,"source":"rRace\n"},{"methodName":"interpret","cellName":"ojs-cell-14","inline":false,"source":"viewof r = Inputs.range([0, 25], {value: 10, step: 1})\n"},{"methodName":"interpret","cellName":"ojs-cell-15","inline":false,"source":"r\n"},{"methodName":"interpret","cellName":"ojs-cell-16","inline":false,"source":"import {penguins} from \"@enjalot/palmer-penguins\"\n"},{"methodName":"interpret","cellName":"ojs-cell-17","inline":false,"source":"viewof color = Inputs.radio([\"red\", \"green\", \"blue\"], {value: \"red\"})\n"},{"methodName":"interpret","cellName":"ojs-cell-18","inline":false,"source":"addTooltips(\nPlot.plot({\n  grid: true,\n  facet: {\n    data: penguins,\n    x: \"sex\",\n    y: \"species\",\n    marginTop: 50,\n    marginRight: 80\n  },\n  marks : [\n    Plot.frame(),\n    Plot.dot(penguins, {x: \"flipper_length_mm\", y: \"body_mass_g\", stroke: \"island\", title: (d) =>\n        `${d.species} \\n flipper length: ${d.flipper_length_mm} mm \\n body mass: ${d.body_mass_g} g`})\n  ]}), {r: r, fill: color}) //This is where the reactivity is happening\n"},{"methodName":"interpret","cellName":"ojs-cell-19","inline":false,"source":"teams = [\n  {name: \"Lakers\", location: \"Los Angeles, California\"},\n  {name: \"Warriors\", location: \"San Francisco, California\"},\n  {name: \"Celtics\", location: \"Boston, Massachusetts\"},\n  {name: \"Nets\", location: \"New York City, New York\"},\n  {name: \"Raptors\", location: \"Toronto, Ontario\"},\n]\n"},{"methodName":"interpret","cellName":"ojs-cell-20","inline":false,"source":"viewof favorite = Inputs.radio(teams, {value: teams[0], label: \"Favorite team\", format: x => x.name})\n"},{"methodName":"interpret","cellName":"ojs-cell-21","inline":false,"source":"favorite.location\n"},{"methodName":"interpret","cellName":"ojs-cell-22","inline":false,"source":"viewof checkbox = Inputs.checkbox(\n  d3.group(penguins, (d) => d.island),\n  { key: [\"Dream\", \"Torgersen\"]}\n)\n"},{"methodName":"interpret","cellName":"ojs-cell-23","inline":false,"source":"filtered = checkbox.flat()\n"},{"methodName":"interpret","cellName":"ojs-cell-24","inline":false,"source":"Plot.dot(filtered, {x: \"flipper_length_mm\", y: \"body_mass_g\", stroke: \"island\"}).plot()\n"},{"methodName":"interpretQuiet","source":"shinyInput('r')"},{"methodName":"interpretQuiet","source":"shinyInput('color')"},{"methodName":"interpretQuiet","source":"shinyInput('favorite')"},{"methodName":"interpretQuiet","source":"shinyInput('checkbox')"}]}
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../posts/hello-observable";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "../..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb25" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Hello, Observable!</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> Scott Franz</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 5/21/2022</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="an">abstract:</span><span class="co"> A quick glance at Observable. A new reactive programming ecosystem geared towards data visualization.</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> observablelogo.png</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="an">image-alt:</span><span class="co"> ObservableHQ logo</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Observable JS, Tutorial]</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co">    echo: true</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-location: left</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="co">---</span> </span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Observable</span><span class="co">](https://observablehq.com/@observablehq/observables-not-javascript)</span> is a new environment for JavaScript with a couple of tweaks (also supports HTML, CSS, Markdown, SQL, and TeX). It is the brainchild of Mike Bostock (<span class="co">[</span><span class="ot">D3.js</span><span class="co">](https://d3js.org/)</span> creator). What sets Observable apart from previous programming notebook environments is its reactive <span class="co">[</span><span class="ot">runtime</span><span class="co">](https://observablehq.com/@observablehq/how-observable-runs)</span>. In previous notebook iterations like Jupyter and R Markdown each cell could only reference previous cells in a certain order (from top to bottom). Observable is more like a spreadsheet where any cell/value referenced can update automatically (in any order). This makes it fun to use when composing interactive visualizations.</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>Why use Observable when there are so many interactive data visualization libraries in both R and Python? Well my take is that every interactive data visualization library in R and Python probably has JavaScript running under the hood. I feel like the only reasons we use these libraries are:</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>We don't want to learn another language (especially JavaScript). </span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>JavaScript is geared towards web developers who understand all of the other pieces needed (the DOM, HTML, CSS, SVG, Canvas, SSR, Frameworks, etc). </span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Data wrangling in R and Python is a lot easier and more powerful than in JavaScript. </span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>But since JavaScript is the language that manages interactivity on the web, it only makes sense to use it for interactive data visualizations. Observable helps us use JavaScript without the trouble of not knowing what we are doing as non-web developers.</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tutorials</span></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>So I know notebooks are not for everyone, but I think they are a great resource for learning (which for me is half the fun of programming). I started using Observable, about two years ago because of this Vega-Lite tutorial (pictured below) by Jeffrey Heer at the University of Washington.</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">"https://observablehq.com/@uwdata/introduction-to-vega-lite"</span><span class="kw">&gt;</span> <span class="kw">&lt;img</span> <span class="er">width</span><span class="ot">=</span><span class="st">"100%"</span> <span class="er">title</span><span class="ot">=</span><span class="st">"Vega-Lite Example Gallery"</span> <span class="er">src</span><span class="ot">=</span><span class="st">"https://raw.githubusercontent.com/vega/vega-lite/next/site/static/teaser.png"</span><span class="kw">&gt;&lt;/a&gt;</span></span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>This was the start of the adventure for me. After learning the basics I was hooked. I learned more about what Observable itself is capable of doing. They have a great <span class="co">[</span><span class="ot">YouTube channel</span><span class="co">](https://www.youtube.com/c/Observablehq)</span> with plenty of live-streams and tutorials. They also have notebook tutorials on <span class="co">[</span><span class="ot">D3</span><span class="co">](https://observablehq.com/collection/@d3/learn-d3)</span>, their new <span class="co">[</span><span class="ot">Observable Plot</span><span class="co">](https://observablehq.com/collection/@observablehq/plot)</span>, and <span class="co">[</span><span class="ot">how to analyze time series data</span><span class="co">](https://observablehq.com/collection/@observablehq/analyzing-time-series-data)</span>. There are plenty of other contributors too. These two tutorials on D3: <span class="co">[</span><span class="ot">Tyler Wolf's 25 Days of D3</span><span class="co">](https://observablehq.com/collection/@thetylerwolf/25-days-of-d3)</span> and <span class="co">[</span><span class="ot">NYU Visualization's Guides/Examples</span><span class="co">](https://observablehq.com/collection/@nyuvis/guides-and-examples)</span>, were both very helpful. I find the community encouraging. The ability to interact with the code and fork other user's notebooks has been a huge bonus. I regularly find interesting notebooks where I import a part to use for my own work. <span class="co">[</span><span class="ot">Mike Freeman</span><span class="co">](https://observablehq.com/@mkfreeman)</span>, <span class="co">[</span><span class="ot">Philippe Rivière</span><span class="co">](https://observablehq.com/@fil)</span>, <span class="co">[</span><span class="ot">Ian Johnson</span><span class="co">](https://observablehq.com/@enjalot)</span>, and of course <span class="co">[</span><span class="ot">Mike Bostock</span><span class="co">](https://observablehq.com/@mbostock)</span> have been integral to my learning. </span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Imports</span></span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>In Observable, you can import anything. Whether it is a chart, function, data, input, etc. I will show you a few examples here and give you further reading if you want to get into the details.</span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {chart <span class="im">as</span> streamgraph} <span class="im">from</span> <span class="st">"@d3/streamgraph-transitions"</span></span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a>The cell above imports a chart from a notebook in the <span class="co">[</span><span class="ot">D3 Gallery</span><span class="co">](https://observablehq.com/@d3/gallery)</span>. It was created by Mike Bostock as an example of what you can do with D3 transitions. Here I am using it as an example of how easy it is to import things. In the cell below all I had to do was type <span class="in">`streamgraph`</span> and voila.</span>
+<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-51"><a href="#cb25-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-52"><a href="#cb25-52" aria-hidden="true" tabindex="-1"></a>streamgraph</span>
+<span id="cb25-53"><a href="#cb25-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-54"><a href="#cb25-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-55"><a href="#cb25-55" aria-hidden="true" tabindex="-1"></a>If we wanted to import a map and a drop down menu from another notebook. We could do that too. This drop down menu (input) selects different map projections. Check it out! It is also interactive. Use your mouse to click and drag to explore.</span>
+<span id="cb25-56"><a href="#cb25-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-59"><a href="#cb25-59" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-60"><a href="#cb25-60" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {chart <span class="im">as</span> map<span class="op">,</span> viewof projectionName} <span class="im">from</span> <span class="st">"@d3/versor-dragging"</span></span>
+<span id="cb25-61"><a href="#cb25-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-62"><a href="#cb25-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-65"><a href="#cb25-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-66"><a href="#cb25-66" aria-hidden="true" tabindex="-1"></a>viewof projectionName</span>
+<span id="cb25-67"><a href="#cb25-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-68"><a href="#cb25-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-71"><a href="#cb25-71" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-72"><a href="#cb25-72" aria-hidden="true" tabindex="-1"></a>map</span>
+<span id="cb25-73"><a href="#cb25-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-74"><a href="#cb25-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-75"><a href="#cb25-75" aria-hidden="true" tabindex="-1"></a>Below I imported an example dataset and some functions to add my own twist to the chart. Mike Freeman created some add-on functions for Observable Plot that enable you to both customize the tooltips and animation. So I over engineered this faceted scatter plot to animate the dots and when you hover over the dot it shows both a tooltip and enlarges the dot.</span>
+<span id="cb25-76"><a href="#cb25-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-79"><a href="#cb25-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-80"><a href="#cb25-80" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {barley} <span class="im">from</span> <span class="st">"@observablehq/plot-facets"</span></span>
+<span id="cb25-81"><a href="#cb25-81" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {addTooltips} <span class="im">from</span> <span class="st">"@mkfreeman/plot-tooltip"</span></span>
+<span id="cb25-82"><a href="#cb25-82" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {addAnimation} <span class="im">from</span> <span class="st">"@mkfreeman/plot-animation"</span></span>
+<span id="cb25-83"><a href="#cb25-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-84"><a href="#cb25-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-87"><a href="#cb25-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-88"><a href="#cb25-88" aria-hidden="true" tabindex="-1"></a><span class="fu">visibility</span>()<span class="op">.</span><span class="fu">then</span>(() <span class="kw">=&gt;</span></span>
+<span id="cb25-89"><a href="#cb25-89" aria-hidden="true" tabindex="-1"></a><span class="fu">addAnimation</span>(<span class="fu">addTooltips</span>(Plot<span class="op">.</span><span class="fu">plot</span>({ <span class="co">// I just added these wrappers to the beginning and</span></span>
+<span id="cb25-90"><a href="#cb25-90" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb25-91"><a href="#cb25-91" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">110</span><span class="op">,</span></span>
+<span id="cb25-92"><a href="#cb25-92" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">800</span><span class="op">,</span></span>
+<span id="cb25-93"><a href="#cb25-93" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb25-94"><a href="#cb25-94" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {</span>
+<span id="cb25-95"><a href="#cb25-95" aria-hidden="true" tabindex="-1"></a>    <span class="dt">nice</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb25-96"><a href="#cb25-96" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb25-97"><a href="#cb25-97" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {</span>
+<span id="cb25-98"><a href="#cb25-98" aria-hidden="true" tabindex="-1"></a>    <span class="dt">domain</span><span class="op">:</span> d3<span class="op">.</span><span class="fu">groupSort</span>(barley<span class="op">,</span> g <span class="kw">=&gt;</span> <span class="op">-</span>d3<span class="op">.</span><span class="fu">median</span>(g<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">yield</span>)<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">variety</span>)<span class="op">,</span></span>
+<span id="cb25-99"><a href="#cb25-99" aria-hidden="true" tabindex="-1"></a>    <span class="dt">inset</span><span class="op">:</span> <span class="dv">5</span></span>
+<span id="cb25-100"><a href="#cb25-100" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb25-101"><a href="#cb25-101" aria-hidden="true" tabindex="-1"></a>  <span class="dt">fy</span><span class="op">:</span> {</span>
+<span id="cb25-102"><a href="#cb25-102" aria-hidden="true" tabindex="-1"></a>    <span class="dt">domain</span><span class="op">:</span> d3<span class="op">.</span><span class="fu">groupSort</span>(barley<span class="op">,</span> g <span class="kw">=&gt;</span> <span class="op">-</span>d3<span class="op">.</span><span class="fu">median</span>(g<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">yield</span>)<span class="op">,</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">site</span>)</span>
+<span id="cb25-103"><a href="#cb25-103" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb25-104"><a href="#cb25-104" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {</span>
+<span id="cb25-105"><a href="#cb25-105" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span><span class="op">:</span> <span class="st">"categorical"</span></span>
+<span id="cb25-106"><a href="#cb25-106" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb25-107"><a href="#cb25-107" aria-hidden="true" tabindex="-1"></a>  <span class="dt">facet</span><span class="op">:</span> {</span>
+<span id="cb25-108"><a href="#cb25-108" aria-hidden="true" tabindex="-1"></a>    <span class="dt">data</span><span class="op">:</span> barley<span class="op">,</span></span>
+<span id="cb25-109"><a href="#cb25-109" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> <span class="st">"site"</span><span class="op">,</span></span>
+<span id="cb25-110"><a href="#cb25-110" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">90</span></span>
+<span id="cb25-111"><a href="#cb25-111" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb25-112"><a href="#cb25-112" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb25-113"><a href="#cb25-113" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">frame</span>()<span class="op">,</span></span>
+<span id="cb25-114"><a href="#cb25-114" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(barley<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"yield"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"variety"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"year"</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span> </span>
+<span id="cb25-115"><a href="#cb25-115" aria-hidden="true" tabindex="-1"></a>      <span class="vs">`Yield: </span><span class="sc">${</span><span class="pp">parseFloat</span>((d<span class="op">.</span><span class="at">yield</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>))<span class="sc">}</span><span class="vs">  </span><span class="sc">\n</span><span class="vs"> Variety: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">variety</span><span class="sc">}</span><span class="vs"> </span><span class="sc">\n</span><span class="vs"> Year: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">year</span><span class="sc">}</span><span class="vs"> </span><span class="sc">\n</span><span class="vs"> Site:</span><span class="sc">${</span>d<span class="op">.</span><span class="at">site</span><span class="sc">}</span><span class="vs">`</span>}) <span class="co">// this line for the tooltip titles and</span></span>
+<span id="cb25-116"><a href="#cb25-116" aria-hidden="true" tabindex="-1"></a>  ] <span class="co">// this line on the end to add animation and enlarge the dots on hover</span></span>
+<span id="cb25-117"><a href="#cb25-117" aria-hidden="true" tabindex="-1"></a>})<span class="op">,</span> {<span class="dt">r</span><span class="op">:</span><span class="dv">15</span>})<span class="op">,</span> {<span class="dt">type</span><span class="op">:</span> <span class="st">"circle"</span><span class="op">,</span> <span class="dt">attribute</span><span class="op">:</span> <span class="st">"r"</span><span class="op">,</span> <span class="dt">endValue</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="dt">delay</span><span class="op">:</span> <span class="dv">100</span>} )) </span>
+<span id="cb25-118"><a href="#cb25-118" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-119"><a href="#cb25-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-120"><a href="#cb25-120" aria-hidden="true" tabindex="-1"></a><span class="vs">But wait that is not all that you can do! You can also modify your imported charts with your own or somebody else's data. Here is an example of using a Bar Chart Race with the data from the original notebook.</span></span>
+<span id="cb25-121"><a href="#cb25-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-124"><a href="#cb25-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-125"><a href="#cb25-125" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {chart <span class="im">as</span> barChartRace<span class="op">,</span> viewof replay} <span class="im">from</span> <span class="st">"@d3/bar-chart-race"</span></span>
+<span id="cb25-126"><a href="#cb25-126" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-127"><a href="#cb25-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-130"><a href="#cb25-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-131"><a href="#cb25-131" aria-hidden="true" tabindex="-1"></a>viewof replay</span>
+<span id="cb25-132"><a href="#cb25-132" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-133"><a href="#cb25-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-136"><a href="#cb25-136" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-137"><a href="#cb25-137" aria-hidden="true" tabindex="-1"></a>barChartRace</span>
+<span id="cb25-138"><a href="#cb25-138" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-139"><a href="#cb25-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-140"><a href="#cb25-140" aria-hidden="true" tabindex="-1"></a><span class="vs">So above is what it would look like if I didn't change the data. Below is what it looks like after I import different data. This data comes from Emil Hvitfeldt's notebook where he uploaded a csv file of R package downloads over time. I could have also uploaded my own csv file, it just has to match the format of the data for the imported chart.</span></span>
+<span id="cb25-141"><a href="#cb25-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-144"><a href="#cb25-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-145"><a href="#cb25-145" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {data <span class="im">as</span> rPackages} <span class="im">from</span> <span class="st">"@emilhvitfeldt/race-for-most-downloaded-r-package"</span></span>
+<span id="cb25-146"><a href="#cb25-146" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {chart <span class="im">as</span> rRace<span class="op">,</span> viewof replay <span class="im">as</span> replay2} <span class="cf">with</span> {rPackages <span class="im">as</span> data} <span class="im">from</span> <span class="st">"@d3/bar-chart-race"</span></span>
+<span id="cb25-147"><a href="#cb25-147" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-148"><a href="#cb25-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-151"><a href="#cb25-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-152"><a href="#cb25-152" aria-hidden="true" tabindex="-1"></a>viewof replay2</span>
+<span id="cb25-153"><a href="#cb25-153" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-154"><a href="#cb25-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-157"><a href="#cb25-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-158"><a href="#cb25-158" aria-hidden="true" tabindex="-1"></a>rRace</span>
+<span id="cb25-159"><a href="#cb25-159" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-160"><a href="#cb25-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-161"><a href="#cb25-161" aria-hidden="true" tabindex="-1"></a><span class="vs">A couple of things to note before we move on. You may have noticed that most of the charts were named `</span><span class="fu">charts</span><span class="vs">` in their original notebooks. In order to use more than one imported chart in this notebook I had to change the name. Otherwise, Observable would get confused if I referred to multiple cells with the same name. So in order to do that I use the `</span>as <span class="fu">newName</span><span class="vs">` syntax. Additionally, it is easy to reference whichever Observable notebook you want by using the end of the URL. For example, I referenced most of the D3 charts by using `</span>from <span class="st">"@D3/nameofnotebook"</span><span class="vs">`. There is a lot more to learn about imports and how useful they can be. Here is an [introduction](https://observablehq.com/@observablehq/import) and here is an [explainer](https://observablehq.com/@observablehq/version-locking-for-notebook-imports) of a new feature where you can "lock" your imports so that if a dependency changes it doesn't ruin your import.</span></span>
+<span id="cb25-162"><a href="#cb25-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-163"><a href="#cb25-163" aria-hidden="true" tabindex="-1"></a><span class="vs">## Inputs</span></span>
+<span id="cb25-164"><a href="#cb25-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-165"><a href="#cb25-165" aria-hidden="true" tabindex="-1"></a><span class="vs">Observable has some built-in libraries to help with user [inputs](https://observablehq.com/@observablehq/inputs). It leverages [views](https://observablehq.com/@observablehq/introduction-to-views) which is a clever and way less confusing way to handle interactions and their outputs on the web.</span></span>
+<span id="cb25-166"><a href="#cb25-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-167"><a href="#cb25-167" aria-hidden="true" tabindex="-1"></a><span class="vs">In the cell below I gave a range of values `</span><span class="dv">0</span> to <span class="dv">25</span><span class="vs">`, I gave a starting value `</span>value<span class="op">:</span> <span class="dv">10</span><span class="vs">` and I gave an interval to step between values in our range `</span>step<span class="op">:</span> <span class="dv">1</span><span class="vs">` and then I just named it `</span><span class="fu">r</span><span class="vs">` so we can reference it later. In Observable notebooks, `</span><span class="fu">viewof</span><span class="vs">` creates reactive variables of inputs so if I just do the following below.</span></span>
+<span id="cb25-168"><a href="#cb25-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-171"><a href="#cb25-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-172"><a href="#cb25-172" aria-hidden="true" tabindex="-1"></a>viewof r <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">25</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span>})</span>
+<span id="cb25-173"><a href="#cb25-173" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-174"><a href="#cb25-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-177"><a href="#cb25-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-178"><a href="#cb25-178" aria-hidden="true" tabindex="-1"></a>r</span>
+<span id="cb25-179"><a href="#cb25-179" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-180"><a href="#cb25-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-181"><a href="#cb25-181" aria-hidden="true" tabindex="-1"></a><span class="vs">It updates when we move the slider. This works both in JavaScript and in Markdown here is the number: </span><span class="sc">${</span>r<span class="sc">}</span><span class="vs">. This `</span><span class="fu">r</span><span class="vs">` variable can be plugged into anything we want. Lets add some color and data to make a chart.</span></span>
+<span id="cb25-182"><a href="#cb25-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-185"><a href="#cb25-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-186"><a href="#cb25-186" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {penguins} <span class="im">from</span> <span class="st">"@enjalot/palmer-penguins"</span></span>
+<span id="cb25-187"><a href="#cb25-187" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-188"><a href="#cb25-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-191"><a href="#cb25-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-192"><a href="#cb25-192" aria-hidden="true" tabindex="-1"></a>viewof color <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="st">"red"</span><span class="op">,</span> <span class="st">"green"</span><span class="op">,</span> <span class="st">"blue"</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="st">"red"</span>})</span>
+<span id="cb25-193"><a href="#cb25-193" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-194"><a href="#cb25-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-195"><a href="#cb25-195" aria-hidden="true" tabindex="-1"></a><span class="vs">I reused the `</span><span class="fu">addTootips</span><span class="vs">` function I imported earlier and added the two reactive input variables we just created `</span><span class="fu">r</span><span class="vs">` and `</span><span class="fu">color</span><span class="vs">`. These two variables control the attributes when you hover over the dots in this visualization. Go ahead and change the fill color and size of the dots with the inputs above.</span></span>
+<span id="cb25-196"><a href="#cb25-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-199"><a href="#cb25-199" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-200"><a href="#cb25-200" aria-hidden="true" tabindex="-1"></a><span class="fu">addTooltips</span>(</span>
+<span id="cb25-201"><a href="#cb25-201" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb25-202"><a href="#cb25-202" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb25-203"><a href="#cb25-203" aria-hidden="true" tabindex="-1"></a>  <span class="dt">facet</span><span class="op">:</span> {</span>
+<span id="cb25-204"><a href="#cb25-204" aria-hidden="true" tabindex="-1"></a>    <span class="dt">data</span><span class="op">:</span> penguins<span class="op">,</span></span>
+<span id="cb25-205"><a href="#cb25-205" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> <span class="st">"sex"</span><span class="op">,</span></span>
+<span id="cb25-206"><a href="#cb25-206" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> <span class="st">"species"</span><span class="op">,</span></span>
+<span id="cb25-207"><a href="#cb25-207" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginTop</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb25-208"><a href="#cb25-208" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">80</span></span>
+<span id="cb25-209"><a href="#cb25-209" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb25-210"><a href="#cb25-210" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span> <span class="op">:</span> [</span>
+<span id="cb25-211"><a href="#cb25-211" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">frame</span>()<span class="op">,</span></span>
+<span id="cb25-212"><a href="#cb25-212" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(penguins<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"flipper_length_mm"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"body_mass_g"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"island"</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span></span>
+<span id="cb25-213"><a href="#cb25-213" aria-hidden="true" tabindex="-1"></a>        <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">species</span><span class="sc">}</span><span class="vs"> </span><span class="sc">\n</span><span class="vs"> flipper length: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">flipper_length_mm</span><span class="sc">}</span><span class="vs"> mm </span><span class="sc">\n</span><span class="vs"> body mass: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">body_mass_g</span><span class="sc">}</span><span class="vs"> g`</span>})</span>
+<span id="cb25-214"><a href="#cb25-214" aria-hidden="true" tabindex="-1"></a>  ]})<span class="op">,</span> {<span class="dt">r</span><span class="op">:</span> r<span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> color}) <span class="co">//This is where the reactivity is happening</span></span>
+<span id="cb25-215"><a href="#cb25-215" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-216"><a href="#cb25-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-217"><a href="#cb25-217" aria-hidden="true" tabindex="-1"></a><span class="vs">This also makes interacting with data very easy. Here are some NBA team names with their location.</span></span>
+<span id="cb25-218"><a href="#cb25-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-221"><a href="#cb25-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-222"><a href="#cb25-222" aria-hidden="true" tabindex="-1"></a>teams <span class="op">=</span> [</span>
+<span id="cb25-223"><a href="#cb25-223" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Lakers"</span><span class="op">,</span> <span class="dt">location</span><span class="op">:</span> <span class="st">"Los Angeles, California"</span>}<span class="op">,</span></span>
+<span id="cb25-224"><a href="#cb25-224" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Warriors"</span><span class="op">,</span> <span class="dt">location</span><span class="op">:</span> <span class="st">"San Francisco, California"</span>}<span class="op">,</span></span>
+<span id="cb25-225"><a href="#cb25-225" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Celtics"</span><span class="op">,</span> <span class="dt">location</span><span class="op">:</span> <span class="st">"Boston, Massachusetts"</span>}<span class="op">,</span></span>
+<span id="cb25-226"><a href="#cb25-226" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Nets"</span><span class="op">,</span> <span class="dt">location</span><span class="op">:</span> <span class="st">"New York City, New York"</span>}<span class="op">,</span></span>
+<span id="cb25-227"><a href="#cb25-227" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Raptors"</span><span class="op">,</span> <span class="dt">location</span><span class="op">:</span> <span class="st">"Toronto, Ontario"</span>}<span class="op">,</span></span>
+<span id="cb25-228"><a href="#cb25-228" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb25-229"><a href="#cb25-229" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-230"><a href="#cb25-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-233"><a href="#cb25-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-234"><a href="#cb25-234" aria-hidden="true" tabindex="-1"></a>viewof favorite <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(teams<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> teams[<span class="dv">0</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Favorite team"</span><span class="op">,</span> <span class="dt">format</span><span class="op">:</span> x <span class="kw">=&gt;</span> x<span class="op">.</span><span class="at">name</span>})</span>
+<span id="cb25-235"><a href="#cb25-235" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-236"><a href="#cb25-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-237"><a href="#cb25-237" aria-hidden="true" tabindex="-1"></a><span class="vs">So the cell above creates our input. It takes the `</span><span class="fu">teams</span><span class="vs">` dataset and uses the first variable in the array as its starting value `</span>value<span class="op">:</span> teams[<span class="dv">0</span>]<span class="vs">`. The format option specifies how you want to present the value to the reader.</span></span>
+<span id="cb25-238"><a href="#cb25-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-241"><a href="#cb25-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-242"><a href="#cb25-242" aria-hidden="true" tabindex="-1"></a>favorite<span class="op">.</span><span class="at">location</span></span>
+<span id="cb25-243"><a href="#cb25-243" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-244"><a href="#cb25-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-245"><a href="#cb25-245" aria-hidden="true" tabindex="-1"></a><span class="vs">The name of the reactive input variable is `</span><span class="fu">favorite</span><span class="vs">` and we can access whichever variable in the dataset by putting a `</span><span class="op">.</span><span class="vs">` and then the name of that variable. In this case it is `</span><span class="fu">location</span><span class="vs">`. To show the location of the team you can use the `</span>${favorite<span class="op">.</span><span class="at">location</span>}<span class="vs">` in the markdown. Try clicking on the radio buttons to see the different locations: </span><span class="sc">${</span>favorite<span class="op">.</span><span class="at">location</span><span class="sc">}</span><span class="vs">. This way of writing in markdown is valuable when you want to create data driven documents. No need to edit your values manually in word documents anymore.</span></span>
+<span id="cb25-246"><a href="#cb25-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-247"><a href="#cb25-247" aria-hidden="true" tabindex="-1"></a><span class="vs">Below is an example of filtering a dataset (I am reusing the penguins dataset here). Click on the options below and see how the data changes when you select different options.</span></span>
+<span id="cb25-248"><a href="#cb25-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-251"><a href="#cb25-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-252"><a href="#cb25-252" aria-hidden="true" tabindex="-1"></a>viewof checkbox <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">checkbox</span>(</span>
+<span id="cb25-253"><a href="#cb25-253" aria-hidden="true" tabindex="-1"></a>  d3<span class="op">.</span><span class="fu">group</span>(penguins<span class="op">,</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">island</span>)<span class="op">,</span></span>
+<span id="cb25-254"><a href="#cb25-254" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">key</span><span class="op">:</span> [<span class="st">"Dream"</span><span class="op">,</span> <span class="st">"Torgersen"</span>]}</span>
+<span id="cb25-255"><a href="#cb25-255" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-256"><a href="#cb25-256" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-257"><a href="#cb25-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-260"><a href="#cb25-260" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-261"><a href="#cb25-261" aria-hidden="true" tabindex="-1"></a>filtered <span class="op">=</span> checkbox<span class="op">.</span><span class="fu">flat</span>()</span>
+<span id="cb25-262"><a href="#cb25-262" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-263"><a href="#cb25-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-266"><a href="#cb25-266" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
+<span id="cb25-267"><a href="#cb25-267" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">dot</span>(filtered<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"flipper_length_mm"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"body_mass_g"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"island"</span>})<span class="op">.</span><span class="fu">plot</span>()</span>
+<span id="cb25-268"><a href="#cb25-268" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-269"><a href="#cb25-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-270"><a href="#cb25-270" aria-hidden="true" tabindex="-1"></a><span class="vs">The chart above uses the filtered dataset to create the scatterplot. As you can imagine there are endless capabilities of pairing these reactive input variables with whatever you are trying to create. I won't try to make something super complex right now, but explore [Observable](https://observablehq.com/trending) and you will get a sense of the possibilities.</span></span>
+<span id="cb25-271"><a href="#cb25-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-272"><a href="#cb25-272" aria-hidden="true" tabindex="-1"></a><span class="vs">## Data Wrangling (and Analysis)</span></span>
+<span id="cb25-273"><a href="#cb25-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-274"><a href="#cb25-274" aria-hidden="true" tabindex="-1"></a><span class="vs">Originally, when I first started using Observable I would wrangle my data in R and then save a CSV file and then upload it to Observable. Since then I found [Arquero](https://observablehq.com/@uwdata/introducing-arquero) which has been really awesome! There is actually a [Tidy Data in JavaScript using Arquero](https://observablehq.com/@uwdata/tidy-data-in-javascript) that follows Hadley Wickham's [Tidy Data (Chapter 12, R for Data Science)](https://r4ds.had.co.nz/tidy-data.html). Also this [Illustrated Guide to Arquero Verbs](https://observablehq.com/@uwdata/an-illustrated-guide-to-arquero-verbs) is a good cheat sheet.</span></span>
+<span id="cb25-275"><a href="#cb25-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-276"><a href="#cb25-276" aria-hidden="true" tabindex="-1"></a><span class="vs">Data manipulation in vanilla JavaScript is still wonky to me. It makes very little sense in my head. A concern I had in the beginning was doing all of my data work in the browser. Saving my work online with a relatively new service gave me pause. For now Observable allows you to create unlimited amounts of notebooks for free. I have made over one hundred notebooks, and have not had any problems so far. Another concern I had (kinda still have) was Observable's reliance on the browser's engine. It is not yet equipped for processing big data files. File sizes are limited to 50 MBs per notebook and 1 GB over a 28-day period. There are alternatives like connecting to [databases through Observable](https://observablehq.com/@observablehq/databases) or using [web APIs](https://observablehq.com/@observablehq/introduction-to-data#apis), but even then it is smart to subset your data if it is over a certain number of MBs for performance.</span></span>
+<span id="cb25-277"><a href="#cb25-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-278"><a href="#cb25-278" aria-hidden="true" tabindex="-1"></a><span class="vs">Luckily, I found a promising new product that will probably be my go to work environment very soon. It is called [Quarto](https://quarto.org/). It is a project sponsored by Rstudio that integrates Observable JS, Julia, R, and Python. It does a lot of cool things that I won't even touch on but the coolest to me is the ability to write in both R and Observable within the same notebook. So if you need to do something with a large dataset it is possible to preprocess it in R and then do what you want in Observable. There is an option to [freeze the execution of R](https://quarto.org/docs/projects/code-execution.html#freeze) if you are doing some heavy processing and you don't want it to run every time someone loads your site. Additionally, it looks like you can pair [Observable with Shiny Reactives](https://quarto.org/docs/interactive/ojs/shiny.html). Leveraging a Shiny server with an Observable front end seems super convenient for any cases where Observable alone can't handle the workload. I haven't used it enough to give my full thoughts on it yet, but so far it has been extremely promising development for my workflow.</span></span>
+<span id="cb25-279"><a href="#cb25-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-280"><a href="#cb25-280" aria-hidden="true" tabindex="-1"></a><span class="vs">## Sharing Your Work</span></span>
+<span id="cb25-281"><a href="#cb25-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-282"><a href="#cb25-282" aria-hidden="true" tabindex="-1"></a><span class="vs">After you finish your project you can share your notebook within the Observable ecosystem or link it on social media. If you want it to live on your website there are a couple of ways to do that as well. Observable has exporting abilities, a download code option or an embed option. I usually just use the embed option. You can embed it as an iframe, or you can embed it with Observable's runtime in JavaScript. This is usually what I do, so although you are relying on Observable's runtime, you can actually customize all of the styling within your own environment. If you choose to go the Quarto route, it is also super easy to either create a stand alone html file or a whole site through Quarto. You are probably looking at this notebook how Quarto rendered it, but here is the original [Observable notebook](https://observablehq.com/@scottfranz/hello-observable) as well. Thanks for reading this post. Please let me know if there are really cool things about Observable I missed.</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+  </div>
+</footer>
+
+
+
+</body></html>

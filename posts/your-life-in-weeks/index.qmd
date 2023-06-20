@@ -1,0 +1,75 @@
+---
+title: Your Life in Weeks
+author: Scott Franz 
+date: 2/22/2022
+abstract: A waffle chart displaying how many weeks you have lived, and how many you have left.
+image: waffles.svg
+image-alt: Waffle chart of weeks in your life
+categories: [Observable JS, Calculator]
+format:
+  html:
+    code-fold: true
+    toc: true
+    toc-location: left
+    code-tools: true
+---
+## Introduction
+Here is a little existential angst for your ${week[day]}. Each red box is a week of your life. Each gray box in addition is a week left in an average individual's lifetime in the US.
+
+
+```{ojs}
+viewof birthdate = Inputs.date({label: "Your Birthday", value:"1991-11-11", required: true, submit: true, width})
+```
+
+```{ojs}
+import {addAnimation} from "@mkfreeman/plot-animation"
+
+waffles = addAnimation(Plot.plot({
+  width,
+  color: {
+    range: ["red", "lightgray"]
+  },
+  marks: [
+    Plot.cell(
+      units,
+      Plot.stackY({
+        x: (_, i) => i % 52,
+        fillOpacity: 0,
+        fill: "group"
+      })
+    )],
+  x: { axis: null },
+  y: { axis: null }
+}), { type: "rect", fillOpacity: 1, delay: 2 })
+```
+
+This was my [inspiration](https://waitbutwhy.com/2014/05/life-weeks.html). Also thanks to Fil for the [waffle chart notebook](https://observablehq.com/@fil/waffle-chart)
+
+## Math
+
+```{ojs}
+//| echo: true
+//| code-fold: false
+
+today = new Date()
+
+day = today.getDay()
+
+Difference_Today = today.getTime() - birthdate.getTime();
+
+Life_In_Weeks = +((Difference_Today / (1000 * 3600 * 24)) / 7).toFixed(0);
+
+US_Life_Expectancy_2020 = 77.0 * 52
+
+Difference_In_Life = US_Life_Expectancy_2020 - Life_In_Weeks
+
+week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+data = [
+  {group: "Life", number: Life_In_Weeks},
+  {group: "Total", number: Difference_In_Life}
+]
+
+units = data.flatMap(d => d3.range(Math.round(d.number)).map(() => d))
+```
+

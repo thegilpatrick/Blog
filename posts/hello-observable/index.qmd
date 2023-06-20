@@ -1,0 +1,234 @@
+---
+title: Hello, Observable!
+author: Scott Franz
+date: 5/21/2022
+abstract: A quick glance at Observable. A new reactive programming ecosystem geared towards data visualization.
+image: observablelogo.png
+image-alt: ObservableHQ logo
+categories: [Observable JS, Tutorial]
+format:
+  html:
+    echo: true
+    toc: true
+    toc-location: left
+    code-tools: true
+--- 
+
+## Introduction
+
+[Observable](https://observablehq.com/@observablehq/observables-not-javascript) is a new environment for JavaScript with a couple of tweaks (also supports HTML, CSS, Markdown, SQL, and TeX). It is the brainchild of Mike Bostock ([D3.js](https://d3js.org/) creator). What sets Observable apart from previous programming notebook environments is its reactive [runtime](https://observablehq.com/@observablehq/how-observable-runs). In previous notebook iterations like Jupyter and R Markdown each cell could only reference previous cells in a certain order (from top to bottom). Observable is more like a spreadsheet where any cell/value referenced can update automatically (in any order). This makes it fun to use when composing interactive visualizations.
+
+Why use Observable when there are so many interactive data visualization libraries in both R and Python? Well my take is that every interactive data visualization library in R and Python probably has JavaScript running under the hood. I feel like the only reasons we use these libraries are:
+
+- We don't want to learn another language (especially JavaScript). 
+- JavaScript is geared towards web developers who understand all of the other pieces needed (the DOM, HTML, CSS, SVG, Canvas, SSR, Frameworks, etc). 
+- Data wrangling in R and Python is a lot easier and more powerful than in JavaScript. 
+
+But since JavaScript is the language that manages interactivity on the web, it only makes sense to use it for interactive data visualizations. Observable helps us use JavaScript without the trouble of not knowing what we are doing as non-web developers.
+
+## Tutorials
+
+So I know notebooks are not for everyone, but I think they are a great resource for learning (which for me is half the fun of programming). I started using Observable, about two years ago because of this Vega-Lite tutorial (pictured below) by Jeffrey Heer at the University of Washington.
+
+<a href="https://observablehq.com/@uwdata/introduction-to-vega-lite"> <img width="100%" title="Vega-Lite Example Gallery" src="https://raw.githubusercontent.com/vega/vega-lite/next/site/static/teaser.png"></a>
+
+This was the start of the adventure for me. After learning the basics I was hooked. I learned more about what Observable itself is capable of doing. They have a great [YouTube channel](https://www.youtube.com/c/Observablehq) with plenty of live-streams and tutorials. They also have notebook tutorials on [D3](https://observablehq.com/collection/@d3/learn-d3), their new [Observable Plot](https://observablehq.com/collection/@observablehq/plot), and [how to analyze time series data](https://observablehq.com/collection/@observablehq/analyzing-time-series-data). There are plenty of other contributors too. These two tutorials on D3: [Tyler Wolf's 25 Days of D3](https://observablehq.com/collection/@thetylerwolf/25-days-of-d3) and [NYU Visualization's Guides/Examples](https://observablehq.com/collection/@nyuvis/guides-and-examples), were both very helpful. I find the community encouraging. The ability to interact with the code and fork other user's notebooks has been a huge bonus. I regularly find interesting notebooks where I import a part to use for my own work. [Mike Freeman](https://observablehq.com/@mkfreeman), [Philippe Rivière](https://observablehq.com/@fil), [Ian Johnson](https://observablehq.com/@enjalot), and of course [Mike Bostock](https://observablehq.com/@mbostock) have been integral to my learning. 
+
+## Imports
+
+In Observable, you can import anything. Whether it is a chart, function, data, input, etc. I will show you a few examples here and give you further reading if you want to get into the details.
+
+```{ojs}
+import {chart as streamgraph} from "@d3/streamgraph-transitions"
+```
+
+The cell above imports a chart from a notebook in the [D3 Gallery](https://observablehq.com/@d3/gallery). It was created by Mike Bostock as an example of what you can do with D3 transitions. Here I am using it as an example of how easy it is to import things. In the cell below all I had to do was type `streamgraph` and voila.
+
+```{ojs}
+streamgraph
+```
+
+If we wanted to import a map and a drop down menu from another notebook. We could do that too. This drop down menu (input) selects different map projections. Check it out! It is also interactive. Use your mouse to click and drag to explore.
+
+```{ojs}
+import {chart as map, viewof projectionName} from "@d3/versor-dragging"
+```
+
+```{ojs}
+viewof projectionName
+```
+
+```{ojs}
+map
+```
+
+Below I imported an example dataset and some functions to add my own twist to the chart. Mike Freeman created some add-on functions for Observable Plot that enable you to both customize the tooltips and animation. So I over engineered this faceted scatter plot to animate the dots and when you hover over the dot it shows both a tooltip and enlarges the dot.
+
+```{ojs}
+import {barley} from "@observablehq/plot-facets"
+import {addTooltips} from "@mkfreeman/plot-tooltip"
+import {addAnimation} from "@mkfreeman/plot-animation"
+```
+
+```{ojs}
+visibility().then(() =>
+addAnimation(addTooltips(Plot.plot({ // I just added these wrappers to the beginning and
+  marginTop: 50,
+  marginLeft: 110,
+  height: 800,
+  grid: true,
+  x: {
+    nice: true
+  },
+  y: {
+    domain: d3.groupSort(barley, g => -d3.median(g, d => d.yield), d => d.variety),
+    inset: 5
+  },
+  fy: {
+    domain: d3.groupSort(barley, g => -d3.median(g, d => d.yield), d => d.site)
+  },
+  color: {
+    type: "categorical"
+  },
+  facet: {
+    data: barley,
+    y: "site",
+    marginRight: 90
+  },
+  marks: [
+    Plot.frame(),
+    Plot.dot(barley, {x: "yield", y: "variety", r: 0, stroke: "year", title: (d) => 
+      `Yield: ${parseFloat((d.yield).toFixed(1))}  \n Variety: ${d.variety} \n Year: ${d.year} \n Site:${d.site}`}) // this line for the tooltip titles and
+  ] // this line on the end to add animation and enlarge the dots on hover
+}), {r:15}), {type: "circle", attribute: "r", endValue: 3, delay: 100} )) 
+```
+
+But wait that is not all that you can do! You can also modify your imported charts with your own or somebody else's data. Here is an example of using a Bar Chart Race with the data from the original notebook.
+
+```{ojs}
+import {chart as barChartRace, viewof replay} from "@d3/bar-chart-race"
+```
+
+```{ojs}
+viewof replay
+```
+
+```{ojs}
+barChartRace
+```
+
+So above is what it would look like if I didn't change the data. Below is what it looks like after I import different data. This data comes from Emil Hvitfeldt's notebook where he uploaded a csv file of R package downloads over time. I could have also uploaded my own csv file, it just has to match the format of the data for the imported chart.
+
+```{ojs}
+import {data as rPackages} from "@emilhvitfeldt/race-for-most-downloaded-r-package"
+import {chart as rRace, viewof replay as replay2} with {rPackages as data} from "@d3/bar-chart-race"
+```
+
+```{ojs}
+viewof replay2
+```
+
+```{ojs}
+rRace
+```
+
+A couple of things to note before we move on. You may have noticed that most of the charts were named `charts` in their original notebooks. In order to use more than one imported chart in this notebook I had to change the name. Otherwise, Observable would get confused if I referred to multiple cells with the same name. So in order to do that I use the `as newName` syntax. Additionally, it is easy to reference whichever Observable notebook you want by using the end of the URL. For example, I referenced most of the D3 charts by using `from "@D3/nameofnotebook"`. There is a lot more to learn about imports and how useful they can be. Here is an [introduction](https://observablehq.com/@observablehq/import) and here is an [explainer](https://observablehq.com/@observablehq/version-locking-for-notebook-imports) of a new feature where you can "lock" your imports so that if a dependency changes it doesn't ruin your import.
+
+## Inputs
+
+Observable has some built-in libraries to help with user [inputs](https://observablehq.com/@observablehq/inputs). It leverages [views](https://observablehq.com/@observablehq/introduction-to-views) which is a clever and way less confusing way to handle interactions and their outputs on the web.
+
+In the cell below I gave a range of values `0 to 25`, I gave a starting value `value: 10` and I gave an interval to step between values in our range `step: 1` and then I just named it `r` so we can reference it later. In Observable notebooks, `viewof` creates reactive variables of inputs so if I just do the following below.
+
+```{ojs}
+viewof r = Inputs.range([0, 25], {value: 10, step: 1})
+```
+
+```{ojs}
+r
+```
+
+It updates when we move the slider. This works both in JavaScript and in Markdown here is the number: ${r}. This `r` variable can be plugged into anything we want. Lets add some color and data to make a chart.
+
+```{ojs}
+import {penguins} from "@enjalot/palmer-penguins"
+```
+
+```{ojs}
+viewof color = Inputs.radio(["red", "green", "blue"], {value: "red"})
+```
+
+I reused the `addTootips` function I imported earlier and added the two reactive input variables we just created `r` and `color`. These two variables control the attributes when you hover over the dots in this visualization. Go ahead and change the fill color and size of the dots with the inputs above.
+
+```{ojs}
+addTooltips(
+Plot.plot({
+  grid: true,
+  facet: {
+    data: penguins,
+    x: "sex",
+    y: "species",
+    marginTop: 50,
+    marginRight: 80
+  },
+  marks : [
+    Plot.frame(),
+    Plot.dot(penguins, {x: "flipper_length_mm", y: "body_mass_g", stroke: "island", title: (d) =>
+        `${d.species} \n flipper length: ${d.flipper_length_mm} mm \n body mass: ${d.body_mass_g} g`})
+  ]}), {r: r, fill: color}) //This is where the reactivity is happening
+```
+
+This also makes interacting with data very easy. Here are some NBA team names with their location.
+
+```{ojs}
+teams = [
+  {name: "Lakers", location: "Los Angeles, California"},
+  {name: "Warriors", location: "San Francisco, California"},
+  {name: "Celtics", location: "Boston, Massachusetts"},
+  {name: "Nets", location: "New York City, New York"},
+  {name: "Raptors", location: "Toronto, Ontario"},
+]
+```
+
+```{ojs}
+viewof favorite = Inputs.radio(teams, {value: teams[0], label: "Favorite team", format: x => x.name})
+```
+
+So the cell above creates our input. It takes the `teams` dataset and uses the first variable in the array as its starting value `value: teams[0]`. The format option specifies how you want to present the value to the reader.
+
+```{ojs}
+favorite.location
+```
+
+The name of the reactive input variable is `favorite` and we can access whichever variable in the dataset by putting a `.` and then the name of that variable. In this case it is `location`. To show the location of the team you can use the `${favorite.location}` in the markdown. Try clicking on the radio buttons to see the different locations: ${favorite.location}. This way of writing in markdown is valuable when you want to create data driven documents. No need to edit your values manually in word documents anymore.
+
+Below is an example of filtering a dataset (I am reusing the penguins dataset here). Click on the options below and see how the data changes when you select different options.
+
+```{ojs}
+viewof checkbox = Inputs.checkbox(
+  d3.group(penguins, (d) => d.island),
+  { key: ["Dream", "Torgersen"]}
+)
+```
+
+```{ojs}
+filtered = checkbox.flat()
+```
+
+```{ojs}
+Plot.dot(filtered, {x: "flipper_length_mm", y: "body_mass_g", stroke: "island"}).plot()
+```
+
+The chart above uses the filtered dataset to create the scatterplot. As you can imagine there are endless capabilities of pairing these reactive input variables with whatever you are trying to create. I won't try to make something super complex right now, but explore [Observable](https://observablehq.com/trending) and you will get a sense of the possibilities.
+
+## Data Wrangling (and Analysis)
+
+Originally, when I first started using Observable I would wrangle my data in R and then save a CSV file and then upload it to Observable. Since then I found [Arquero](https://observablehq.com/@uwdata/introducing-arquero) which has been really awesome! There is actually a [Tidy Data in JavaScript using Arquero](https://observablehq.com/@uwdata/tidy-data-in-javascript) that follows Hadley Wickham's [Tidy Data (Chapter 12, R for Data Science)](https://r4ds.had.co.nz/tidy-data.html). Also this [Illustrated Guide to Arquero Verbs](https://observablehq.com/@uwdata/an-illustrated-guide-to-arquero-verbs) is a good cheat sheet.
+
+Data manipulation in vanilla JavaScript is still wonky to me. It makes very little sense in my head. A concern I had in the beginning was doing all of my data work in the browser. Saving my work online with a relatively new service gave me pause. For now Observable allows you to create unlimited amounts of notebooks for free. I have made over one hundred notebooks, and have not had any problems so far. Another concern I had (kinda still have) was Observable's reliance on the browser's engine. It is not yet equipped for processing big data files. File sizes are limited to 50 MBs per notebook and 1 GB over a 28-day period. There are alternatives like connecting to [databases through Observable](https://observablehq.com/@observablehq/databases) or using [web APIs](https://observablehq.com/@observablehq/introduction-to-data#apis), but even then it is smart to subset your data if it is over a certain number of MBs for performance.
+
+Luckily, I found a promising new product that will probably be my go to work environment very soon. It is called [Quarto](https://quarto.org/). It is a project sponsored by Rstudio that integrates Observable JS, Julia, R, and Python. It does a lot of cool things that I won't even touch on but the coolest to me is the ability to write in both R and Observable within the same notebook. So if you need to do something with a large dataset it is possible to preprocess it in R and then do what you want in Observable. There is an option to [freeze the execution of R](https://quarto.org/docs/projects/code-execution.html#freeze) if you are doing some heavy processing and you don't want it to run every time someone loads your site. Additionally, it looks like you can pair [Observable with Shiny Reactives](https://quarto.org/docs/interactive/ojs/shiny.html). Leveraging a Shiny server with an Observable front end seems super convenient for any cases where Observable alone can't handle the workload. I haven't used it enough to give my full thoughts on it yet, but so far it has been extremely promising development for my workflow.
+
+## Sharing Your Work
+
+After you finish your project you can share your notebook within the Observable ecosystem or link it on social media. If you want it to live on your website there are a couple of ways to do that as well. Observable has exporting abilities, a download code option or an embed option. I usually just use the embed option. You can embed it as an iframe, or you can embed it with Observable's runtime in JavaScript. This is usually what I do, so although you are relying on Observable's runtime, you can actually customize all of the styling within your own environment. If you choose to go the Quarto route, it is also super easy to either create a stand alone html file or a whole site through Quarto. You are probably looking at this notebook how Quarto rendered it, but here is the original [Observable notebook](https://observablehq.com/@scottfranz/hello-observable) as well. Thanks for reading this post. Please let me know if there are really cool things about Observable I missed.

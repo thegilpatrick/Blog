@@ -1,0 +1,185 @@
+---
+title: Google Sheets with Observable
+author: Scott Franz
+date: last-modified
+draft: true
+abstract: Tutorial on how to use Google Sheets with Observable in Quarto.
+image: bubbles.svg
+image-alt: Beeswarm chart of state capitals
+categories: [Observable JS, Google Sheets, Tutorial, Web Scraping]
+format:
+  html:
+    echo: true
+    code-fold: true
+    toc: true
+    toc-location: left
+    code-tools: true
+---
+## Introduction
+If you have only attached a data file via `FileAttachment()` or used `ojs_define()` to import data from either Python or R. There is an alternative that fetches data from Google Sheets it is very similar to fetching data through any URL with `d3.csv()`, `d3.json()`, `d3.tsv()`, etc.^[You can actually access Google Sheets this way as well.] This is Observable's recommended way of going about it. I find Google Sheets great for datasets that are updated frequently.
+
+## Read a Google Sheet
+Here is an example that is taken from [Observable's Google Sheets Starter Notebook](https://observablehq.com/@observablehq/google-sheets-starter).
+
+```{ojs}
+//| code-fold: false
+
+getCsvUrl = url => {
+  url = new URL(url);
+  const id = url.pathname.split("/")[3]
+  const gid = new URLSearchParams(url.hash.slice(1)).get("gid") || 0;
+  return `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`
+}
+
+// Above converts a Google Sheets website URL to its CSV URL.
+// You can also go to “File → Publish to web”, select the “Comma-separated values (.csv)” 
+// type, select the sheet with your data, and use that CSV URL directly with `d3.csv` above.
+// If you need data to update faster, try the Google Sheets 
+// API: https://stackoverflow.com/questions/30082277/accessing-a-new-style-public-google-sheet-as-json/44479726#44479726
+
+data = d3.csv(getCsvUrl("https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0"), d3.autoType)
+
+```
+
+I replaced the URL with the [Data is Plural](https://www.data-is-plural.com/) Google Sheet.^[If unfamiliar with the newsletter, definitely check it out. It is a curated list of datasets updated weekly.] I hooked it up to a search input and a table where you can select a row to see the details and dataset links.
+
+```{ojs}
+
+viewof search = Inputs.search(data)
+
+viewof dataset = Inputs.table(search, {sort: "edition", reverse: true, multiple: false, required: false, value: search[1600]})
+
+```
+
+```{ojs}
+
+check(dataset)
+
+// a function to handle null values when searching
+check = (dataset) => {
+  return dataset ? md`### ${dataset.headline}
+${dataset.text}
+${dataset.links}` : md`Ooops! Please select a row from the table.`
+}
+
+```
+
+## Try it Yourself
+You can link to any public Google Sheet below and see the results. Go ahead and copy the URL. This is [The Pudding](https://pudding.cool/)'s backlog of ideas.
+```{ojs}
+viewof url = Inputs.text({label: "Google Sheet URL", width:width, value: "https://docs.google.com/spreadsheets/d/1neuenck0xy5piNZaaxPhPL0Wsmpe_-gqFjeXqV3MbZE/edit#gid=0", submit: true})
+
+example = d3.csv(getCsvUrl(url), d3.autoType)
+
+Inputs.table(example)
+```
+
+## Wikipedia Tables
+Google Sheets also have a super simple way of web scraping. I find it pretty useful for scraping Wikipedia tables. For example, here is a [table of state capitals from Wikipedia](https://en.wikipedia.org/wiki/List_of_capitals_in_the_United_States#State_capitals) with some relevant statistics. All I need to do is enter this [formula](https://support.google.com/docs/answer/3093339?hl=en) `=IMPORTHTML("url",
+"table", index)` in Google Sheets. You just need the URL, the script tag^[Note you can also use "list" if the data is supplied in a list format.], and the index of the tag on the page.^[In my case, my wikipedia table was the second on the page so I supplied a 2.] Here is the full formula I used below:
+
+`=IMPORTHTML("https://en.wikipedia.org/wiki/List_of_capitals_in_the_United_States", "table", 2)`
+
+When using tables from Wikipedia some of the column headers may have sub-categories that make the data a little messy. But it is easy to clean up in a Google Sheet. Just copy the values and paste only the values `ctrl + shift + v` back into the sheet. Then you can edit the values directly. `d3.autoType` did not detect the date variable here so I am fixed it. Also I created a new variable with a new name for convenience.
+
+```{ojs}
+
+wikipedia = d3.csv(getCsvUrl("https://docs.google.com/spreadsheets/d/1nBuDIKv67qX73UXsQy-Gd_cJc609NJPugLQy3Dlp4Tw/edit#gid=0"), d3.autoType)
+
+parseDate = d3.utcParse("%Y")
+
+clean_wiki = wikipedia.map(d => ({...d, population: d.MSA, date: parseDate(d.Since)}))
+
+Inputs.table(clean_wiki)
+```
+
+The charts below are heavily inspired by Mike Bostock's [Bank Failures Plot](https://observablehq.com/@mbostock/bank-failures). 
+
+### Land Area
+```{ojs}
+
+Plot.plot({
+  height: 500,
+  width,
+  insetRight: 70,
+  y: {axis: null},
+  r: {range: [0, 100]},
+  marks: [
+    Plot.dot(clean_wiki, Plot.dodgeY({x: "date", anchor: "bottom", r: "Area", title: (d) => `${d.Capital}\n${d.Area} square miles`,
+        fill: "powderblue", strokeWidth: 1, stroke: "#000"})),
+     Plot.text(
+      clean_wiki,
+      Plot.filter((d) => d.Area > 100,
+       Plot.dodgeY({
+        anchor: "bottom",
+        padding: 2,
+        x: "date",
+        lineWidth: 5,
+        r: "Area",
+        text: (d) => d.Area > 350 
+          ? `${d.Capital}\n${d.Area} sq. miles` 
+          : `${d.Area}`,
+        pointerEvents: "none",
+        fill: "#000",
+        stroke: "powderblue"})))
+        ]
+})
+```
+
+
+### Population Size
+```{ojs}
+Plot.plot({
+  height: 800,
+  width,
+  insetRight: 40,
+  y: {axis: null},
+  r: {range: [0, 60]},
+  marks: [
+    Plot.dot(clean_wiki, Plot.dodgeY({x: "date", anchor: "bottom", r: "population", title: (d) => `${d.Capital}\n${(d.population/ 1000000).toFixed(1)}M`,
+        fill: "thistle", strokeWidth: 1, stroke: "#000"})),
+     Plot.text(
+      clean_wiki,
+      Plot.filter((d) => d.population > 1000000,
+       Plot.dodgeY({
+        anchor: "bottom",
+        //padding: 2,
+        x: "date",
+        //lineWidth: 5,
+        r: "population",
+        text: (d) => d.population > 1900000 
+          ? `${d.Capital}\n${(d.population/ 1000000).toFixed(1)}M` 
+          : `${(d.population/ 1000000).toFixed(1)}M`,
+        pointerEvents: "none",
+        fill: "#000",
+        stroke: "thistle"})))
+        ]
+})
+```
+
+## Write to a Google Sheet
+
+You can also embed a Google Form in an `<iframe>`. After you submit the form, if you refresh the page the form data appears. Check it out!
+
+```{ojs}
+html`<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe_Cw481ZPBImeBoqhrYRmXaci6iHZcfBsWUMovS4dGNRl_kw/viewform?embedded=true" width="${width}$" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>`
+```
+
+```{ojs}
+
+google_form = d3.csv(getCsvUrl("https://docs.google.com/spreadsheets/d/1gV7Rg3Vz3nAQKQhi0fXGfa63qIABDYVr-msD96qSD1w/edit?resourcekey#gid=1990814415"), d3.autoType)
+
+Inputs.table(google_form)
+
+Plot.plot({
+  inset: 10,
+  grid: true,
+  marks: [
+    Plot.line(google_form, {x: "Timestamp", y: "Pick a Number", curve: "catmull-rom", marker: true}),
+    Plot.text(google_form, {x: "Timestamp", y: "Pick a Number", text: (d) => `${d["Write Something Here"]}`, dy: -8})
+  ]
+})
+
+```
+
+That is all I have for now. Thanks for reading!

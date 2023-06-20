@@ -1,0 +1,621 @@
+---
+title: NBA Stats Exploration
+author: Scott Franz 
+date: 3/03/2022
+abstract: An exploration of NBA players from 1996 to 2021. A look into the top players of that era.
+image: nba.svg
+image-alt: Scatterplot of NBA statistics
+categories: [Observable JS, NBA]
+format:
+  html:
+    code-fold: true
+    toc: true
+    toc-location: left
+    code-tools: true
+---
+
+## Introduction
+Hello! This first chart explores all of the seasons in this dataset that I found on [Kaggle](https://www.kaggle.com/justinas/nba-players-data). I organized the stats by team and you can pick whichever statistic and season(s) you would like to compare. If you mouseover the dots you can see the player's name. If you go back far enough you can even see some old teams.
+
+```{ojs}
+exploreChart = Plot.plot({
+  grid: true,
+  marginRight: 60,
+  width: width,
+  x: { label: null, tickRotate: 90 },
+  fy: { tickPadding: -15 },
+  facet: {
+    data: filtered,
+    y: "season",
+    label: null
+  },
+  marks: [
+    Plot.ruleY([0]),
+    Plot.dot(filtered, {
+      x: "team",
+      y: radio,
+      title: "player",
+      stroke: "team"
+    }),
+  ],
+  tooltip: {
+    r: 15
+  }
+})
+```
+
+```{ojs}
+viewof radio = Inputs.radio(stats, { value: stats[0], width:width })
+
+viewof checkbox = Inputs.checkbox(
+  d3.group(nba, (d) => d.season),
+  { key: ["2018-19", "2019-20", "2020-21"]}
+)
+```
+
+Next, I wanted to compare the best players in this era. So I selected the players who were top ten in average points, rebounds, or assists in the NBA over this time period (with at least 10 seasons played). Can you guess who the noodles are in these spaghetti charts? You can mouseover the noodles for the player name and/or toggle the checkbox below to show more detailed statistics of each chart. The results are surprising (at least to me).
+
+::: {.callout-note}
+This is not an optimal way of finding the best NBA players of all time as I only had a snapshot of about 25 seasons. Great players who play/played on either end of this timeline may not have truly been captured by these charts.
+:::
+
+## Top Scorers
+
+```{ojs}
+ptsChart = makeChart1(showPtsChart)
+
+viewof showPtsChart = Inputs.toggle({label: "Show Stats", values: ["ptsChart2", "ptsChart1"]})
+```
+
+## Top Rebounders
+
+```{ojs}
+rebChart = makeChart2(showRebChart)
+
+viewof showRebChart = Inputs.toggle({label: "Show Stats", values: ["rebChart2", "rebChart1"]})
+```
+
+## Top Assisters
+
+```{ojs}
+astChart = makeChart3(showAstChart)
+
+viewof showAstChart = Inputs.toggle({label: "Show Stats", values: ["astChart2", "astChart1"]})
+```
+
+
+As an employee of University of Michigan (go blue!!) and as a husband of a Canadian, I created some charts where you can filter by players' college or country.
+
+
+## Players by College
+
+```{ojs}
+collegeChart = Plot.plot({
+  grid: true, 
+  width: width,
+  marginBottom: 60,
+  x: {
+    tickRotate: 90,
+    label: "Seasons →",
+    type:"point"
+  },
+  marks: [
+    Plot.ruleY([0]),
+    Plot.dot(nba.filter(d => d.college === collegepick), {
+      x: "season",
+      y: radio2,
+      title: (d) => `${d.player}`,
+      stroke: "player",
+      r: 4,
+    }),
+    Plot.line(nba.filter(d => d.college === collegepick), {
+      x: "season",
+      y: radio2,
+      stroke: "player",
+    curve: "catmull-rom"})
+  ],
+  tooltip: {
+    r: 15
+  }
+})
+```
+
+```{ojs}
+viewof radio2 = Inputs.radio(stats2, { value: stats2[0] })
+
+viewof collegepick = Inputs.select(nba.map(d => d.college), {label: "College", value: "Michigan", sort: true, unique: true})
+```
+
+
+## Players by Country
+
+```{ojs}
+countryChart = Plot.plot({
+  grid: true, 
+  width: width,
+  marginBottom: 60,
+  x: {
+    tickRotate: 90,
+    label: "Seasons →",
+    type:"point"
+  },
+  marks: [
+    Plot.ruleY([0]),
+    Plot.dot(nba.filter(d => d.country === countrypick), {
+      x: "season",
+      y: radio3,
+      title: (d) => `${d.player}`,
+      stroke: "player",
+      r: 4,
+    }),
+    Plot.line(nba.filter(d => d.country === countrypick), {
+      x: "season",
+      y: radio3,
+      stroke: "player",
+    curve: "catmull-rom"})
+  ],
+  tooltip: {
+    r: 15
+  }
+})
+```
+
+```{ojs}
+viewof radio3 = Inputs.radio(stats2, { value: stats2[0] })
+
+viewof countrypick = Inputs.select(nba.map(d => d.country), {label: "Country", value: "Canada", sort: true, unique: true})
+```
+
+And finally pick your five favorite players in this era to compare their stats.
+
+## Compare Your Favorite Players
+
+```{ojs}
+favChart = Plot.plot({
+  grid: true,
+  width: width,
+  marginBottom: 60,
+  marginRight: 70,
+  x: {
+    tickRotate: 90,
+    label: "Seasons →",
+    type:"point"
+  },
+  marks: [
+    Plot.ruleY([0]),
+    Plot.dot(nba.filter(d => d.player === playerpick1), {
+      x: "season",
+      y: radio4,
+      title: (d) => `${d.player}`,
+      stroke: "player",
+      r: 4,
+    }),
+    Plot.line(nba.filter(d => d.player === playerpick1), {
+      x: "season",
+      y: radio4,
+      stroke: "player",
+    curve: "catmull-rom"}),
+    Plot.text(nba.filter(d => d.player === playerpick1), Plot.selectLast({x: "season", y: radio4, text: "player", textAnchor: "start", dx: 6})),
+    Plot.dot(nba.filter(d => d.player === playerpick2), {
+      x: "season",
+      y: radio4,
+      title: (d) => `${d.player}`,
+      stroke: "player",
+      r: 4,
+    }),
+    Plot.line(nba.filter(d => d.player === playerpick2), {
+      x: "season",
+      y: radio4,
+      stroke: "player",
+    curve: "catmull-rom"}),
+    Plot.text(nba.filter(d => d.player === playerpick2), Plot.selectLast({x: "season", y: radio4, text: "player", textAnchor: "start", dx: 6})),
+    Plot.dot(nba.filter(d => d.player === playerpick3), {
+      x: "season",
+      y: radio4,
+      title: (d) => `${d.player}`,
+      stroke: "player",
+      r: 4,
+    }),
+    Plot.line(nba.filter(d => d.player === playerpick3), {
+      x: "season",
+      y: radio4,
+      stroke: "player",
+    curve: "catmull-rom"}),
+    Plot.text(nba.filter(d => d.player === playerpick3), Plot.selectLast({x: "season", y: radio4, text: "player", textAnchor: "start", dx: 6})),
+    Plot.dot(nba.filter(d => d.player === playerpick4), {
+      x: "season",
+      y: radio4,
+      title: (d) => `${d.player}`,
+      stroke: "player",
+      r: 4,
+    }),
+    Plot.line(nba.filter(d => d.player === playerpick4), {
+      x: "season",
+      y: radio4,
+      stroke: "player",
+    curve: "catmull-rom"}),
+    Plot.text(nba.filter(d => d.player === playerpick4), Plot.selectLast({x: "season", y: radio4, text: "player", textAnchor: "start", dx: 6})),
+    Plot.dot(nba.filter(d => d.player === playerpick5), {
+      x: "season",
+      y: radio4,
+      title: (d) => `${d.player}`,
+      stroke: "player",
+      r: 4,
+    }),
+    Plot.line(nba.filter(d => d.player === playerpick5), {
+      x: "season",
+      y: radio4,
+      stroke: "player",
+    curve: "catmull-rom"}),
+    Plot.text(nba.filter(d => d.player === playerpick5), Plot.selectLast({x: "season", y: radio4, text: "player", textAnchor: "start", dx: 6}))
+  ],
+  tooltip: {
+    r: 15
+  }
+})
+```
+
+```{ojs}
+viewof radio4 = Inputs.radio(stats2, { value: stats2[0] })
+
+viewof playerpick1 = Inputs.text({label: "Player #1", placeholder: "Enter player's name", value: "LeBron James"})
+
+viewof playerpick2 = Inputs.text({label: "Player #2", placeholder: "Enter player's name", value: "Kobe Bryant"})
+
+viewof playerpick3 = Inputs.text({label: "Player #3", placeholder: "Enter player's name", value: "Kevin Durant"})
+
+viewof playerpick4 = Inputs.text({label: "Player #4", placeholder: "Enter player's name", value: "Russell Westbrook"})
+
+viewof playerpick5 = Inputs.text({label: "Player #5", placeholder: "Enter player's name", value: "Chris Paul"})
+```
+
+Thanks for making it to the end! 
+
+
+
+## Appendix
+
+### Plots
+```{ojs}
+//| echo: true
+//| code-fold: false
+
+import { Plot } from "@mkfreeman/plot-tooltip"
+
+makeChart1 = (showPtsChart) => {
+  return showPtsChart === "ptsChart1" ? ptsChart1() : ptsChart2()
+}
+
+ptsChart1 = () => Plot.plot({
+  width:width,
+  marginBottom: 60,
+  x: {
+    tickRotate: 90,
+    label: "Seasons →",
+    type:"point"
+  },
+  marks: [
+    Plot.line(nba.filter(d => d.player === "LeBron James"), {x: "season", y: "Points", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", strokeOpacity: 0, title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Kevin Durant"), {x: "season", y: "Points", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Allen Iverson"), {x: "season", y: "Points", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "James Harden"), {x: "season", y: "Points", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Kobe Bryant"), {x: "season", y: "Points", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Stephen Curry"), {x: "season", y: "Points", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Russell Westbrook"), {x: "season", y: "Points", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Carmelo Anthony"), {x: "season", y: "Points", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Shaquille O'Neal"), {x: "season", y: "Points", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Dwyane Wade"), {x: "season", y: "Points", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),    
+  ],
+  tooltip: {
+    stroke: "red",
+    "stroke-width": "15px"
+  }
+})
+
+ptsChart2 = () => Plot.plot({
+  width:width,
+  marginBottom: 60,
+  x: {
+    tickRotate: 90,
+    label: "Seasons →",
+    grid: true,
+    type:"point"
+  },
+  y: {
+    grid: true
+  },
+  
+  marks: [
+    Plot.dot(nba.filter(d => d.player === "LeBron James"), {x: "season", y: "Points", stroke: "player", r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Points}`}),
+    Plot.line(nba.filter(d => d.player === "LeBron James"), {x: "season", y: "Points", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Kevin Durant"), {x: "season", y: "Points", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Points}`}),
+    Plot.line(nba.filter(d => d.player === "Kevin Durant"), {x: "season", y: "Points", curve: "catmull-rom",  stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Allen Iverson"), {x: "season", y: "Points", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Points}`}),
+    Plot.line(nba.filter(d => d.player === "Allen Iverson"), {x: "season", y: "Points", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "James Harden"), {x: "season", y: "Points", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Points}`}),
+    Plot.line(nba.filter(d => d.player === "James Harden"), {x: "season", y: "Points", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Kobe Bryant"), {x: "season", y: "Points", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Points}`}),
+    Plot.line(nba.filter(d => d.player === "Kobe Bryant"), {x: "season", y: "Points", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Stephen Curry"), {x: "season", y: "Points", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Points}`}),
+    Plot.line(nba.filter(d => d.player === "Stephen Curry"), {x: "season", y: "Points", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Russell Westbrook"), {x: "season", y: "Points", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Points}`}),
+    Plot.line(nba.filter(d => d.player === "Russell Westbrook"), {x: "season", y: "Points", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Carmelo Anthony"), {x: "season", y: "Points", stroke: "player" ,  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Points}`}),
+    Plot.line(nba.filter(d => d.player === "Carmelo Anthony"), {x: "season", y: "Points", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Shaquille O'Neal"), {x: "season", y: "Points", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Points}`}),
+    Plot.line(nba.filter(d => d.player === "Shaquille O'Neal"), {x: "season", y: "Points", curve: "catmull-rom", stroke: "player"}),
+Plot.dot(nba.filter(d => d.player === "Dwyane Wade"), {x: "season", y: "Points", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Points}`}),
+    Plot.line(nba.filter(d => d.player === "Dwyane Wade"), {x: "season", y: "Points", curve: "catmull-rom", stroke: "player"}),    
+  ],
+  tooltip: {
+    r: 15
+  }
+})
+
+makeChart2 = (showRebChart) => {
+  return showRebChart === "rebChart1" ? rebChart1() : rebChart2()
+}
+
+rebChart1 = () => Plot.plot({
+  width:width,
+  marginBottom: 60,
+  x: {
+    tickRotate: 90,
+    label: "Seasons →",
+    type:"point"
+  },
+  marks: [
+    Plot.line(nba.filter(d => d.player === "Dwight Howard"), {x: "season", y: "Rebounds", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+    
+    Plot.line(nba.filter(d => d.player === "Kevin Love"), {x: "season", y: "Rebounds", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Tim Duncan"), {x: "season", y: "Rebounds", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "DeAndre Jordan"), {x: "season", y: "Rebounds", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Shaquille O'Neal"), {x: "season", y: "Rebounds", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Kevin Garnett"), {x: "season", y: "Rebounds", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Carlos Boozer"), {x: "season", y: "Rebounds", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Chris Webber"), {x: "season", y: "Rebounds", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Marcus Camby"), {x: "season", y: "Rebounds", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Ben Wallace"), {x: "season", y: "Rebounds", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),    
+  ],
+  tooltip: {
+    stroke: "red",
+    "stroke-width": "15px"
+  }
+})
+
+rebChart2 = () => Plot.plot({
+  width:width,
+  marginBottom: 60,
+  x: {
+    tickRotate: 90,
+    label: "Seasons →",
+    grid: true,
+    type:"point"
+  },
+  y: {
+    grid: true
+  },
+  marks: [
+    Plot.dot(nba.filter(d => d.player === "Dwight Howard"), {x: "season", y: "Rebounds", stroke: "player", r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Rebounds}`}),
+    Plot.line(nba.filter(d => d.player === "Dwight Howard"), {x: "season", y: "Rebounds", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Kevin Love"), {x: "season", y: "Rebounds", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Rebounds}`}),
+    Plot.line(nba.filter(d => d.player === "Kevin Love"), {x: "season", y: "Rebounds", curve: "catmull-rom",  stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Tim Duncan"), {x: "season", y: "Rebounds", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Rebounds}`}),
+    Plot.line(nba.filter(d => d.player === "Tim Duncan"), {x: "season", y: "Rebounds", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "DeAndre Jordan"), {x: "season", y: "Rebounds", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Rebounds}`}),
+    Plot.line(nba.filter(d => d.player === "DeAndre Jordan"), {x: "season", y: "Rebounds", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Shaquille O'Neal"), {x: "season", y: "Rebounds", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Rebounds}`}),
+    Plot.line(nba.filter(d => d.player === "Shaquille O'Neal"), {x: "season", y: "Rebounds", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Kevin Garnett"), {x: "season", y: "Rebounds", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Rebounds}`}),
+    Plot.line(nba.filter(d => d.player === "Kevin Garnett"), {x: "season", y: "Rebounds", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Carlos Boozer"), {x: "season", y: "Rebounds", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Rebounds}`}),
+    Plot.line(nba.filter(d => d.player === "Carlos Boozer"), {x: "season", y: "Rebounds", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Chris Webber"), {x: "season", y: "Rebounds", stroke: "player" ,  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Rebounds}`}),
+    Plot.line(nba.filter(d => d.player === "Chris Webber"), {x: "season", y: "Rebounds", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Marcus Camby"), {x: "season", y: "Rebounds", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Rebounds}`}),
+    Plot.line(nba.filter(d => d.player === "Marcus Camby"), {x: "season", y: "Rebounds", curve: "catmull-rom", stroke: "player"}),
+Plot.dot(nba.filter(d => d.player === "Ben Wallace"), {x: "season", y: "Rebounds", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Rebounds}`}),
+    Plot.line(nba.filter(d => d.player === "Ben Wallace"), {x: "season", y: "Rebounds", curve: "catmull-rom", stroke: "player"}),    
+  ],
+  tooltip: {
+    r: 15
+  }
+})
+
+makeChart3 = (showAstChart) => {
+  return showAstChart === "astChart1" ? astChart1() : astChart2()
+}
+
+astChart1 = () => Plot.plot({
+  width:width,
+  marginBottom: 60,
+  x: {
+    tickRotate: 90,
+    label: "Seasons →",
+    type:"point"
+  },
+  marks: [
+    Plot.line(nba.filter(d => d.player === "Chris Paul"), {x: "season", y: "Assists", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+    
+    Plot.line(nba.filter(d => d.player === "Jason Kidd"), {x: "season", y: "Assists", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Russell Westbrook"), {x: "season", y: "Assists", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Rajon Rondo"), {x: "season", y: "Assists", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Steve Nash"), {x: "season", y: "Assists", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Deron Williams"), {x: "season", y: "Assists", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "LeBron James"), {x: "season", y: "Assists", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Stephon Marbury"), {x: "season", y: "Assists", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Baron Davis"), {x: "season", y: "Assists", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),
+
+    Plot.line(nba.filter(d => d.player === "Gary Payton"), {x: "season", y: "Assists", curve: "catmull-rom", strokeWidth: 5, stroke: "lightgray", title: (d) => `${d.player}`}),    
+  ],
+  tooltip: {
+    stroke: "red",
+    "stroke-width": "15px"
+  }
+})
+
+astChart2 = () => Plot.plot({
+  width:width,
+  marginBottom: 60,
+  x: {
+    tickRotate: 90,
+    label: "Seasons →",
+    grid: true,
+    type:"point"
+  },
+  y: {
+    grid: true
+  },
+  marks: [
+    Plot.dot(nba.filter(d => d.player === "Chris Paul"), {x: "season", y: "Assists", stroke: "player", r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Assists}`}),
+    Plot.line(nba.filter(d => d.player === "Chris Paul"), {x: "season", y: "Assists", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Jason Kidd"), {x: "season", y: "Assists", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Assists}`}),
+    Plot.line(nba.filter(d => d.player === "Jason Kidd"), {x: "season", y: "Assists", curve: "catmull-rom",  stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Russell Westbrook"), {x: "season", y: "Assists", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Assists}`}),
+    Plot.line(nba.filter(d => d.player === "Russell Westbrook"), {x: "season", y: "Assists", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Rajon Rondo"), {x: "season", y: "Assists", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Assists}`}),
+    Plot.line(nba.filter(d => d.player === "Rajon Rondo"), {x: "season", y: "Assists", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Steve Nash"), {x: "season", y: "Assists", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Assists}`}),
+    Plot.line(nba.filter(d => d.player === "Steve Nash"), {x: "season", y: "Assists", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Deron Williams"), {x: "season", y: "Assists", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Assists}`}),
+    Plot.line(nba.filter(d => d.player === "Deron Williams"), {x: "season", y: "Assists", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "LeBron James"), {x: "season", y: "Assists", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Assists}`}),
+    Plot.line(nba.filter(d => d.player === "LeBron James"), {x: "season", y: "Assists", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Stephon Marbury"), {x: "season", y: "Assists", stroke: "player" ,  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Assists}`}),
+    Plot.line(nba.filter(d => d.player === "Stephon Marbury"), {x: "season", y: "Assists", curve: "catmull-rom", stroke: "player"}),
+    Plot.dot(nba.filter(d => d.player === "Baron Davis"), {x: "season", y: "Assists", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Assists}`}),
+    Plot.line(nba.filter(d => d.player === "Baron Davis"), {x: "season", y: "Assists", curve: "catmull-rom", stroke: "player"}),
+Plot.dot(nba.filter(d => d.player === "Gary Payton"), {x: "season", y: "Assists", stroke: "player",  r: 4, title: (d) => `${d.player} \n Season Avg: ${d.Assists}`}),
+    Plot.line(nba.filter(d => d.player === "Gary Payton"), {x: "season", y: "Assists", curve: "catmull-rom", stroke: "player"}),    
+  ],
+  tooltip: {
+    r: 15
+  }
+})
+```
+
+### Data
+
+```{ojs} 
+//| echo: true
+//| code-fold: false
+
+import { aq, op } from '@uwdata/arquero'
+
+data = FileAttachment("all_seasons.csv").csv()
+
+stats = ["Points", "Rebounds", "Assists", "Games Played", "Height", "Age"]
+
+stats2 = ["Points", "Rebounds", "Assists"]
+
+nba = {
+  const subset = data.map(
+    ({
+      player_name,
+      team_abbreviation,
+      age,
+      college,
+      country,
+      gp,
+      pts,
+      reb,
+      ast,
+      season,
+      player_height,
+      player_weight,
+      draft_round,
+      draft_number,
+      usg_pct,
+      ts_pct
+    }) => ({
+      player: player_name,
+      team: team_abbreviation,
+      Age: +age,
+      college: college,
+      country: country,
+      ["Games Played"]: +gp,
+      Points: +pts,
+      Rebounds: +reb,
+      Assists: +ast,
+      season: season.toString(),
+      Height: +player_height,
+      Weight: +player_weight,
+      draft_round: draft_round,
+      draft_number: +draft_number,
+      ["Usage Percentage"]: +(usg_pct * 100),
+      ["True Shooting Percentage"]: +(ts_pct * 100)
+    })
+  );
+
+  return subset;
+}
+
+filtered = checkbox.flat()
+
+viewof nba2 = aq 
+  .fromCSV(await FileAttachment('all_seasons.csv').text())
+  .view({ height: 240 }) 
+```
+
+```{ojs}
+//| echo: true
+//| code-fold: false
+
+nba2
+  .groupby('player_name')
+  .rollup({
+    mean_pts: d => op.mean(d.pts),
+    count: op.count()
+  })
+  .filter(d => d.count > 10)
+  .orderby(aq.desc('mean_pts'))
+  .slice(0,10)
+  .view(10)
+
+nba2
+  .groupby('player_name')
+  .rollup({
+    mean_reb: d => op.mean(d.reb),
+    count: op.count()
+  })
+  .filter(d => d.count > 10) 
+  .orderby(aq.desc('mean_reb'))
+  .slice(0,10)
+  .view(10)
+
+nba2
+  .groupby('player_name')
+  .rollup({
+    mean_ast: d => op.mean(d.ast),
+    count: op.count()
+  })
+  .filter(d => d.count > 10) 
+  .orderby(aq.desc('mean_ast'))
+  .slice(0,10)
+  .view(10)
+
+```

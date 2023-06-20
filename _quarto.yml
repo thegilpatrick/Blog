@@ -1,0 +1,45 @@
+project:
+  type: website
+  output-dir: docs
+
+pagetitle: "{{< meta title >}}"
+
+website:
+  title: "The Gilpatrick"
+  favicon: thegilpatricklogo.png
+  open-graph: true
+  twitter-card: true
+  cookie-consent: 
+    type: express
+    style: headline
+    palette: light
+  google-analytics: 
+    tracking-id: "G-Y5TZ8D5H35"
+    anonymize-ip: true
+  site-url: https://thegilpatrick.com
+  navbar:
+    right:
+      - icon: github
+        menu:
+          - text: Source Code
+            url:  https://github.com/thegilpatrick/thegilpatrick.github.io
+          - text: Report a Bug
+            url:  https://github.com/thegilpatrick/thegilpatrick.github.io/issues
+    logo: thegilpatricklogo.png
+    logo-alt: "The Gilpatrick logo."
+    title: false
+    background: white
+    left:
+      - text: "About"
+        file: about.qmd
+format:
+  html:
+    include-after-body: subscribe.html
+    include-in-header:
+      - text: |
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+    theme: cosmo
+    css: styles.css
+
+
+

@@ -1,0 +1,139 @@
+---
+title: UK Pet Cats
+author: Scott Franz 
+date: 1/31/2023
+abstract: A Tidy Tuesday visualization of UK pet cats.
+image: cats.png
+image-alt: Density map of UK pet cats
+categories: [Tidy Tuesday, Observable JS]
+format:
+  html:
+    code-fold: true
+    toc: true
+    toc-location: left
+    code-tools: true
+--- 
+## Introduction
+
+I wanted to do a Tidy Tuesday blog post for a while now and I finally carved out some time to make one. This week has tracking data from a study on pet cats, looks like only the UK test site was included. Checkout the [Github Readme](https://github.com/rfordatascience/tidytuesday/tree/master/data/2023/2023-01-31#pet-cats-uk) for more info.
+
+## Data Processing
+
+I decided to use Observable JS this week and imported the [Arquero](https://observablehq.com/@uwdata/introducing-arquero) library in the spirit of being tidy. Arquero is basically dplyr for JavaScript, so if you were too annoyed or intimidated by JavaScript data wrangling methods before hopefully this gives you another excuse to try it out. I didn't do much processing this week, just combined the `cats_uk.csv` with the `cats_uk_reference.csv`. I left in all of the outliers and didn't compute any summary statistics. You can download my combined dataset by clicking on the button below.
+
+```{ojs}
+
+import { aq, op } from "@uwdata/arquero"
+import {button} from "@jeremiak/download-data-button"
+
+cats_uk = aq.loadCSV("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-01-31/cats_uk.csv")
+
+cats_uk_ref = aq.loadCSV("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2023/2023-01-31/cats_uk_reference.csv")
+
+combine = cats_uk.join(cats_uk_ref)
+data = combine.objects()
+
+Inputs.table(data)
+button(data, "UK_Cats.csv")
+```
+
+## UK Cat Timeline
+
+First, I wanted to see how long each cat was tracked. It looked like the majority were tracked for only a week or less (except for Jessie and Macauley Mccat). If you hover over the bar for each cat with your mouse it will give you more information. In addition, I colored the cats' bars by the number of reported hours they were indoors. But if you would prefer to group them differently try the following options.
+
+```{ojs}
+
+viewof color = {
+  const values =new Map([["# of Hours Indoors", "hrs_indoors"], ["# of Cats in Household", "n_cats"], ["Sex", "animal_sex"], ["Reproductive Status", "animal_reproductive_condition"]]);
+  return Inputs.radio(values, {
+    key: values.keys().next().value
+  });
+}
+
+time = d3.timeFormat("%B %d, %Y")
+
+Plot.plot({
+  marginLeft: 50,
+color:{
+    scheme: "Tableau10",
+    label: color,
+    type: "ordinal",
+    legend: "ramp"
+  },
+  x: {
+    axis: "top",
+    grid: true
+  },
+  y: {
+    axis: null,
+    domain: d3.sort(data, d => d.deploy_on_date).map(d => d.animal_id)
+  },
+  marks: [
+    Plot.barX(data, {
+      x1: "deploy_on_date",
+      x2: "deploy_off_date",
+      y: "animal_id",
+      fill: color,
+      title: (d) => `${d.animal_id}\nStudy Length: ${time(d.deploy_on_date)} - ${time(d.deploy_off_date)} \nSex: ${d.animal_sex == "m" ? "male": "female"} \nAge: ${d.age_years} years old \n# of Cats in Household: ${d.n_cats}`
+    }),
+     Plot.text(cats_uk_ref.objects(), {
+      x: "deploy_on_date",
+      y: "animal_id",
+      text: "animal_id",
+      textAnchor: "end",
+      dx: -3
+    })
+  ]
+})
+```
+
+## Explore Your Favorite Cat
+
+This section was heavily inspired by [Plot's density mark tutorial](https://observablehq.com/@observablehq/plot-density) . I wanted to see each individual cat's footprint for their respective week. You can select your favorite cat using the dropdown below. Some cats barely roamed at all, while others went all over the place. With this plot it is really easy to spot some of the outliers. You can play around with the `thresholds` and `bandwidth` of the plot as well.
+
+```{ojs}
+viewof cat = Inputs.select(data.map(d => d.animal_id), {value:"Lightening Bugg", label: "Cat Tag", sort: true, unique: true})
+viewof thresholds = Inputs.range([1, 40], {value: 10, step: 1, label: "Thresholds"})
+viewof bandwidth = Inputs.range([0, 40], {value: 20, step: 0.2, label: "Bandwidth"})
+
+Plot.plot({
+  inset:20,
+  marginLeft: 60,
+  marks: [
+    Plot.density(data.filter((d) => d.animal_id == cat), {x: "location_long", y: "location_lat", bandwidth, thresholds, clip: true}),
+    Plot.dot(data.filter((d) => d.animal_id == cat), {x: "location_long", y: "location_lat", })
+  ]
+})
+```
+
+#### ${cat}'s Location in Relation to All Cats
+
+Now that you found ${cat} you can see where they are relative to all of their cat peers. As you can see there were a bunch in a pretty small area. Try picking another cat and see where they end up on this density plot.
+
+```{ojs}
+
+density.legend("color", {marginLeft: 5, label: "Density"})
+
+density = Plot.plot({
+  inset: 40,
+  marginLeft: 40,
+  color: {
+    scheme: "ylgnbu",
+  },
+  marks: [
+    Plot.density(data, {x: "location_long", y: "location_lat", fill: "density", clip: true}),
+    Plot.dot(data.filter((d) => d.animal_id == cat), {x: "location_long", y: "location_lat", stroke:"red", }),
+    Plot.text(data.filter((d) => d.animal_id == cat), {x: "location_long", y: "location_lat", dx: 7, fill: "currentColor", stroke: "white", textAnchor: "start", text: (d) => `${cat}`}),
+    Plot.frame()
+  ]
+})
+```
+
+## Felt
+Last thing, I have been following Felt on twitter for a while now.
+I saw this [tweet](https://twitter.com/felt/status/1620467130826358784?s=20&t=CviOaHu67-VGvZzx11Ebrw) and immediately needed to try it. It was super simple to just drag and drop a .csv file and get going. Check it out! You should be able to edit this map if you create your own Felt account. Thanks for reading!
+
+```{ojs}
+html`
+<iframe width="100%" height="600" frameborder="0" title="Felt Map" src="https://felt.com/embed/map/UK-Cats-Qkc0B5HpTzuh4xoLFJ446A?lat=50.418463&lon=-4.789399&zoom=9.138"></iframe>`
+```

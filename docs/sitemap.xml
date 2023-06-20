@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://friendly-palmier-209562.netlify.app/about.html</loc>
+    <lastmod>2023-06-20T17:23:09.883Z</lastmod>
+  </url>
+  <url>
+    <loc>https://friendly-palmier-209562.netlify.app/index.html</loc>
+    <lastmod>2023-06-20T17:27:08.812Z</lastmod>
+  </url>
+  <url>
+    <loc>https://friendly-palmier-209562.netlify.app/posts/hello-observable/index.html</loc>
+    <lastmod>2023-06-20T17:27:14.520Z</lastmod>
+  </url>
+  <url>
+    <loc>https://friendly-palmier-209562.netlify.app/posts/nba-stats-exploration/index.html</loc>
+    <lastmod>2023-06-20T17:27:18.037Z</lastmod>
+  </url>
+  <url>
+    <loc>https://friendly-palmier-209562.netlify.app/posts/pet-cats-uk/index.html</loc>
+    <lastmod>2023-06-20T17:27:19.727Z</lastmod>
+  </url>
+  <url>
+    <loc>https://friendly-palmier-209562.netlify.app/posts/R-TidyCensus/index.html</loc>
+    <lastmod>2023-06-20T17:27:23.387Z</lastmod>
+  </url>
+  <url>
+    <loc>https://friendly-palmier-209562.netlify.app/posts/recipe-web-scrape/index.html</loc>
+    <lastmod>2023-06-20T17:27:24.575Z</lastmod>
+  </url>
+  <url>
+    <loc>https://friendly-palmier-209562.netlify.app/posts/your-life-in-weeks/index.html</loc>
+    <lastmod>2023-06-20T17:27:26.628Z</lastmod>
+  </url>
+</urlset>

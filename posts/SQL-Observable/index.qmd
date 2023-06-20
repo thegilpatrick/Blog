@@ -1,0 +1,64 @@
+---
+title: Databases in Observable
+author: Scott Franz 
+date: last-modified
+draft: true
+abstract: Tutorial on how to use Databases with Observable in Quarto.
+image: duckdb.jpg
+image-alt: Image of DuckDB
+categories: [Observable JS, Databases, SQL]
+format:
+  html:
+    echo: true
+    code-fold: true
+    toc: true
+    toc-location: left
+    code-tools: true
+---
+
+## Introduction
+
+Observable notebooks have SQL cells built-in. In Quarto, you can still write SQL within Observable but there are no code blocks specifically dedicated to them. Observable has a buit-in support for attaching SQLite database files. So I will start with the infamous [chinook.db](https://github.com/lerocha/chinook-database/blob/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite) example database and move on to other databases and database clients. 
+
+:::{.callout-tip}
+But first if you don't know SQL, I recommend these tutorials.
+
+*    [Select Star SQL](https://selectstarsql.com/)
+*    [Mode's SQL Tutorials](https://mode.com/sql-tutorial/)
+*    [SQL Murder Mystery](https://mystery.knightlab.com/)
+*    [Observable's SQL Tutorial](https://youtube.com/playlist?list=PLOHIJAFwtkEft5fmu5OJYUoLF7gOUcMXG)
+:::
+
+## SQLite
+Before we start let's have a quick look at the schema for chinook.db.
+
+```{ojs}
+//| echo: false
+html`<img width="${width}" src="https://www.sqlitetutorial.net/wp-content/uploads/2015/11/sqlite-sample-database-color.jpg">`
+```
+
+First, we attach the local database file then select the tables within the database we are interested in. As you can see there are two ways you can write your query. Unfortunately no syntax highlighting yet.
+```{ojs}
+//| code-fold: false
+
+chinook = FileAttachment("chinook.db").sqlite()
+
+customers = chinook.query(`SELECT * FROM customers`)
+
+artists = chinook.sql`SELECT * FROM artists`
+
+```
+
+They output in json format.
+
+```{ojs}
+artists
+```
+
+```{ojs}
+customers
+```
+
+## Datasette
+
+## DuckDB

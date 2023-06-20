@@ -1,0 +1,13 @@
+---
+title: Nope, Sorry!
+format:
+  html:
+    embed-resources: true
+    echo: false
+    css: 404.css
+---
+```{ojs}
+import {chart} from "@scottfranz/background"
+
+chart
+```

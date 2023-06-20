@@ -1,0 +1,61 @@
+<svg class="plot-d6a7b5" fill="currentColor" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle" width="850" height="500" viewBox="0 0 850 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style>.plot-d6a7b5 {
+  display: block;
+  background: white;
+  height: auto;
+  height: intrinsic;
+  max-width: 100%;
+}
+.plot-d6a7b5 text,
+.plot-d6a7b5 tspan {
+  white-space: pre;
+}</style><g aria-label="x-axis tick" fill="none" stroke="currentColor" transform="translate(0.5,0)"><path transform="translate(118.01635509782234,470)" d="M0,0L0,6"/><path transform="translate(240.53344454316334,470)" d="M0,0L0,6"/><path transform="translate(363.0505339885043,470)" d="M0,0L0,6"/><path transform="translate(485.5676234338452,470)" d="M0,0L0,6"/><path transform="translate(608.0847128791862,470)" d="M0,0L0,6"/><path transform="translate(730.6018023245272,470)" d="M0,0L0,6"/></g><g aria-label="x-axis tick label" font-variant="tabular-nums" transform="translate(0.5,9.5)"><text y="0.71em" transform="translate(118.01635509782234,470)">1650</text><text y="0.71em" transform="translate(240.53344454316334,470)">1700</text><text y="0.71em" transform="translate(363.0505339885043,470)">1750</text><text y="0.71em" transform="translate(485.5676234338452,470)">1800</text><text y="0.71em" transform="translate(608.0847128791862,470)">1850</text><text y="0.71em" transform="translate(730.6018023245272,470)">1900</text></g><g aria-label="dot" fill="powderblue" stroke="#000" transform="translate(0.5,0.5)"><circle cx="745.3009011622636" cy="369" r="100"><title>Juneau
+2716.7 square miles</title></circle><circle cx="755.1025366720459" cy="220.53947898306737" r="47.7837301565118"><title>Oklahoma City
+620.3 square miles</title></circle><circle cx="549.2748998204928" cy="425.00222200318717" r="43.99777799681282"><title>Nashville
+525.9 square miles</title></circle><circle cx="760" cy="128.2363831208218" r="43.6492004083229"><title>Phoenix
+517.6 square miles</title></circle><circle cx="546.8261681565158" cy="343.5630578218088" r="36.47819238294803"><title>Indianapolis
+361.5 square miles</title></circle><circle cx="581.1285380138166" cy="281.41039169642556" r="33.511993448055534"><title>Austin
+305.1 square miles</title></circle><circle cx="524.7674566191002" cy="254.78261121127693" r="27.822669377270703"><title>Columbus
+210.3 square miles</title></circle><circle cx="598.283077369404" cy="225.20487700176113" r="24.25311612041658"><title>Montgomery
+159.8 square miles</title></circle><circle cx="649.7399865822923" cy="288.80114627439895" r="23.754737522311828"><title>Denver
+153.3 square miles</title></circle><circle cx="635.0408877445558" cy="446.0250944703863" r="22.974905529613693"><title>Carson City
+143.4 square miles</title></circle><circle cx="652.1887182462693" cy="241.94269118168316" r="22.167656922539607"><title>Atlanta
+133.5 square miles</title></circle><circle cx="451.2652535765444" cy="447.5325073409928" r="21.467492659007174"><title>Columbia
+125.2 square miles</title></circle><circle cx="537.0245326467335" cy="206.81983646991296" r="20.681508967976107"><title>Little Rock
+116.2 square miles</title></circle><circle cx="465.96435241428077" cy="407.11638352781597" r="20.538629820514114"><title>Raleigh
+114.6 square miles</title></circle><circle cx="627.6879838987508" cy="402.6289932928486" r="20.039714682047208"><title>Salt Lake City
+109.1 square miles</title></circle><circle cx="537.0245326467335" cy="165.48813077185542" r="19.650196730081397"><title>Jackson
+104.9 square miles</title></circle><circle cx="617.8863483889685" cy="363.82479991228297" r="18.98324725960515"><title>Sacramento
+97.9 square miles</title></circle><circle cx="544.3707276386648" cy="126.75976876203987" r="18.768740404534487"><title>Tallahassee
+95.7 square miles</title></circle><circle cx="69.00817754891116" cy="450.83927578127964" r="18.160724218720336"><title>Boston
+89.6 square miles</title></circle><circle cx="681.593624775616" cy="214.85303523840523" r="16.81356350811745"><title>Baton Rouge
+76.8 square miles</title></circle><circle cx="625.2392522347736" cy="327.88220746036995" r="16.703741539286074"><title>Des Moines
+75.8 square miles</title></circle><circle cx="649.7399865822923" cy="201.90531107013652" r="16.570994469101652"><title>Lincoln
+74.6 square miles</title></circle><circle cx="578.6798063498395" cy="189.01823910207804" r="15.90221156810125"><title>Madison
+68.7 square miles</title></circle><circle cx="595.8343457054269" cy="161.0974105183073" r="15.867452594149606"><title>Honolulu
+68.4 square miles</title></circle><circle cx="505.16418559953576" cy="383.76789440146536" r="15.384544597213488"><title>Concord
+64.3 square miles</title></circle><circle cx="644.8425232543381" cy="169.3763116669353" r="15.324612368622473"><title>Boise
+63.8 square miles</title></circle><circle cx="436.5594458849341" cy="385.6407533147633" r="14.873610168909693"><title>Richmond
+60.1 square miles</title></circle><circle cx="622.7838117169226" cy="145.32679620736297" r="14.357313122334542"><title>Topeka
+56 square miles</title></circle><circle cx="563.9739986582292" cy="98.9202006883072" r="14.280191813649527"><title>Augusta
+55.4 square miles</title></circle><circle cx="576.2310746858625" cy="72.22043308592129" r="14.098601605560173"><title>Springfield
+54 square miles</title></circle><circle cx="605.6359812152092" cy="121.57080358857138" r="13.941070386309312"><title>Saint Paul
+52.8 square miles</title></circle><circle cx="620.3350800529455" cy="193.65310784333644" r="12.969918845598563"><title>Salem
+45.7 square miles</title></circle><circle cx="20" cy="457.2825374398935" r="11.717462560106553"><title>Santa Fe
+37.3 square miles</title></circle><circle cx="600.7318090333811" cy="457.6495473632998" r="11.35045263670021"><title>Lansing
+35 square miles</title></circle><circle cx="693.8507008032493" cy="269.7589940175948" r="10.785063337560892"><title>Charleston
+31.6 square miles</title></circle><circle cx="549.2748998204928" cy="78.32259629545467" r="10.024448341191665"><title>Jefferson City
+27.3 square miles</title></circle><circle cx="688.9465286214213" cy="248.58367437304133" r="9.950738162223402"><title>Bismarck
+26.9 square miles</title></circle><circle cx="429.2132508930028" cy="424.97200384193343" r="9.080362109360168"><title>Dover
+22.4 square miles</title></circle><circle cx="478.221428441914" cy="379.2816040615866" r="8.875361378945422"><title>Albany
+21.4 square miles</title></circle><circle cx="654.6441587641203" cy="146.22843822945498" r="8.812931332865793"><title>Cheyenne
+21.1 square miles</title></circle><circle cx="730.6018023245272" cy="84.25576642158654" r="8.25211027308865"><title>Providence
+18.5 square miles</title></circle><circle cx="669.3432576018567" cy="461.0200125161162" r="7.979987483883781"><title>Hartford
+17.3 square miles</title></circle><circle cx="615.4376167249914" cy="256.57873677860164" r="7.84038509161413"><title>Olympia
+16.7 square miles</title></circle><circle cx="465.96435241428077" cy="367.1703849285418" r="7.355934034801385"><title>Frankfort
+14.7 square miles</title></circle><circle cx="669.3432576018567" cy="186.79713475882755" r="7.178656561167271"><title>Helena
+14 square miles</title></circle><circle cx="703.6523363130315" cy="199.19687178789889" r="6.91752655166296"><title>Pierre
+13 square miles</title></circle><circle cx="497.81799060760454" cy="462.87255750020256" r="6.1274424997974535"><title>Montpelier
+10.2 square miles</title></circle><circle cx="514.9658211093181" cy="463.53626552171977" r="5.463734478280205"><title>Harrisburg
+8.11 square miles</title></circle><circle cx="446.3610813947163" cy="366.861169328648" r="5.309988046648066"><title>Trenton
+7.66 square miles</title></circle><circle cx="225.83434570542693" cy="464.02278168296453" r="4.977218317035474"><title>Annapolis
+6.73 square miles</title></circle></g><g aria-label="text" fill="#000" stroke="powderblue" stroke-width="3" stroke-linejoin="round" paint-order="stroke" pointer-events="none" transform="translate(0.5,0.5)"><text transform="translate(745.3009011622636,368)"><tspan x="0" y="-0.68em">Juneau</tspan><tspan x="0" dy="1em">2716.7 sq.</tspan><tspan x="0" dy="1em">miles</tspan></text><text transform="translate(755.1025366720459,218.53731649360728)"><tspan x="0" y="-1.18em">Oklahoma</tspan><tspan x="0" dy="1em">City</tspan><tspan x="0" dy="1em">620.3 sq.</tspan><tspan x="0" dy="1em">miles</tspan></text><text transform="translate(549.2748998204928,424.00222200318717)"><tspan x="0" y="-0.68em">Nashville</tspan><tspan x="0" dy="1em">525.9 sq.</tspan><tspan x="0" dy="1em">miles</tspan></text><text transform="translate(760,125.23282910481896)"><tspan x="0" y="-0.68em">Phoenix</tspan><tspan x="0" dy="1em">517.6 sq.</tspan><tspan x="0" dy="1em">miles</tspan></text><text transform="translate(546.8261681565158,341.5626113580548)"><tspan x="0" y="-0.68em">Indianapolis</tspan><tspan x="0" dy="1em">361.5 sq.</tspan><tspan x="0" dy="1em">miles</tspan></text><text y="0.32em" transform="translate(581.1285380138166,278.2701609539555)">305.1</text><text y="0.32em" transform="translate(524.7674566191002,249.3788470479402)">210.3</text><text y="0.32em" transform="translate(598.283077369404,221.01991989569382)">159.8</text><text y="0.32em" transform="translate(649.7399865822923,286.2542624111509)">153.3</text><text y="0.32em" transform="translate(635.0408877445558,445.0250944703863)">143.4</text><text y="0.32em" transform="translate(652.1887182462693,238.39447132755166)">133.5</text><text y="0.32em" transform="translate(451.2652535765444,446.5325073409928)">125.2</text><text y="0.32em" transform="translate(537.0245326467335,200.3846012880419)">116.2</text><text y="0.32em" transform="translate(465.96435241428077,405.0538946708337)">114.6</text><text y="0.32em" transform="translate(627.6879838987508,400.6150636458708)">109.1</text><text y="0.32em" transform="translate(537.0245326467335,158.05289558998442)">104.9</text></g></svg>

@@ -1,0 +1,148 @@
+---
+title: Recipe Web Scraping in Observable
+author: Scott Franz
+date: last-modified
+abstract: Tutorial on how to web scrape recipes with Observable.
+image: recipe.webp
+image-alt: Zucchini Courgette
+categories: [Observable JS, Web Scraping, Tutorial]
+format:
+  html:
+    echo: true
+    code-fold: true
+    toc: true
+    toc-location: left
+    code-tools: true
+---
+
+## Introduction
+
+This web scraping blog post is heavily inspired by the [Paprika App](https://www.paprikaapp.com/) which I just started using. It saves the recipe information and gets rid of all of the annoying ads. My biggest pet peeve is scrolling through 5 million pop-up ads to get to a recipe. This blog post is really just to see if I could web scrape in ObservableJS. I plan on creating an actual recipe web app with Sveltekit eventually where I can save recipe information to my own database. But for now this is my proof of concept.
+
+
+## How it Works
+I stumbled upon [Ben Awad's blog post](https://www.benawad.com/scraping-recipe-websites/) on scraping recipe websites. It turns out that most websites have metadata for search engines. [Nicolas Lambert's Observable Notebook](https://observablehq.com/@neocartocnrs/web-scraping-using-axios-cheerio) shows how you can use both [Axios](https://axios-http.com/) and [Cheerio](https://cheerio.js.org/) in ObservableJS to web scrape data. 
+
+:::{.callout-tip}
+One problem with this method is that if a recipe website uses purely JavaScript you might need to do more work (look into [Selenium](https://inspectelement.org/browser_automation.html#tutorial) or Puppeteer).
+:::
+
+```{ojs}
+//|code-fold: false
+
+axios = require('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js')
+
+result = axios({
+  method: "get",
+  url: `https://corsproxy.io/?${input}`
+}).then((result) => result.data)
+
+```
+
+Most of the time recipe websites will not have CORS enabled so to get the request you will need to set up a CORS proxy server. So the above code gets the HTML request via the Axios library. Here is what the raw HTML looks like.
+
+```{ojs}
+result
+```
+
+We need to parse the HTML with the the Cheerio.js library to find the script with `type="application/ld+json"` this is the metadata.
+
+
+```{ojs}
+//|code-fold: false
+
+cheerio = require('https://bundle.run/cheerio@1.0.0-rc.5')
+
+$ = cheerio.load(result)
+
+jsonRaw = $("script[type='application/ld+json']")[0].children[0].data
+
+json = JSON.parse(jsonRaw)
+
+json
+
+```
+
+Every website has their metadata organized slightly differently so I created this function to check for where the recipe data is. It is not very elegant but it gets the job done most of the time.
+
+```{ojs}
+//| code-fold: false
+
+function checkRecipe(json) {
+  let recipe;
+  if (json.hasOwnProperty("@graph")) {
+  const object = json["@graph"].filter(obj => { return obj["@type"] === "Recipe"});
+    recipe = object[0];
+  } else {
+    recipe = json[0];
+  }
+  return recipe;
+}
+
+data = checkRecipe(json)
+```
+
+Then I just pull out the relevant info that I want.
+
+```{ojs}
+name = data.name
+
+pic = data.image[0] ? data.image[0] : data.image.url
+
+ingredients = Object.assign(data.recipeIngredient)
+
+instructions = Object.assign(data.recipeInstructions).map((item) => {
+  return item['text'];
+});
+
+```
+
+Go ahead and try your favorite recipe website and [let me know how it goes](mailto:scottafranz@gmail.com).
+
+```{ojs}
+
+viewof input = Inputs.text({label: "Recipe URL", width:width, value: "https://justinesnacks.com/courgette-tart-with-lemon-ricotta/", submit: true})
+```
+:::{.callout-note}
+If the recipe website uses WordPress or something similar it has a higher likelihood of working 🤞. But there are no guarantees in the world of web scraping. 
+:::
+
+Here are a couple of sites that work:
+
+*    <a href="https://dishingouthealth.com" target="_blank" rel="noopener noreferrer">Dishing Out Health</a>
+*    <a href="https://budgetbytes.com" target="_blank" rel="noopener noreferrer">Budget Bytes</a>
+*    <a href="https://ambitiouskitchen.com" target="_blank" rel="noopener noreferrer">Ambitious Kitchen</a>
+*    <a href="https://sallysbakingaddiction.com" target="_blank" rel="noopener noreferrer">Sally's Baking Addiction</a>
+*    <a href="https://cookerru.com" target="_blank" rel="noopener noreferrer">Cookerru</a>
+
+## Recipe
+
+```{ojs}
+md`### ${name}`
+html`<img style="object-fit: cover;" height="600" width="100%" src="${pic}">`
+```
+
+Here I use D3 to create the ingredient and recipe lists.
+```{ojs}
+ingredientList = {
+  const ul = d3.create('ul');
+  
+  ul.selectAll('li')  
+    .data(ingredients)   
+    .join('li')       
+      .text(d => `${d}`) 
+  
+  return ul.node(); 
+}
+
+instructionList = {
+  const ol = d3.create('ol');
+  
+  ol.selectAll('li')  
+    .data(instructions)   
+    .join('li')       
+      .text(d => `${d}`) 
+  
+  return ol.node(); 
+}
+```

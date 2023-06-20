@@ -1,0 +1,72 @@
+---
+title: Hey! I'm Scott Franz
+about: 
+  template: marquee
+  image: profile.jpg
+  image-shape: rounded
+  links:
+    - icon: envelope
+      text: Email
+      href: mailto:scottafranz@gmail.com
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com
+format:
+  html:
+    embed-resources: true
+    echo: false
+    css: about.css
+---
+
+I am the <a href="https://thegilpatrick.com" class="highlight orange"><b>Editor of The Gilpatrick</b></a>. Currently, I am the only author of this blog, but I hope in the future that changes 🤞. If you are interested in collaborationg on a data project or writing a blog post feel free to reach out via email.
+
+I work as a data wrangler at the <a href="https://isr.umich.edu/" class="highlight blue"><b>Institute for Social Resarch</b></a>. I volunteer for <a href="https://www.wbwc.org/" class="highlight orange"><b>Walk Bike Washtenaw</b></a> an organization helping create safer and more comfortable transportation infrastructure for people in and around Ann Arbor, MI 🌳. 
+
+I <a href="https://journals.sagepub.com/doi/abs/10.1177/0013916520952452?journalCode=eaba" class="highlight green"><b>designed a study and wrote a paper</b></a> about mindfulness, connection to nature, and pro-environmental behavior. I also helped <a href="https://academic.oup.com/edited-volume/28216/chapter-abstract/213234231?redirectedFrom=fulltext" class="highlight green"><b>analyze mother-adolscent conversations</b></a> about volunteering in graduate school.
+
+The timeline below indicates approximations of where I have spent my time thus far in my life.
+```{ojs}
+
+import { Plot } from "@mkfreeman/plot-tooltip"
+
+career = FileAttachment("career.csv").csv({typed: true})
+
+
+parseDate = d3.utcParse("%Y")
+
+clean_career = career.map(d => ({...d, start2: parseDate(d.start), end2: parseDate(d.end)}))
+
+
+Plot.plot({
+  marginLeft: 45,
+  width,
+  axis: null,
+  color: {
+    scheme: "pastel2"
+  },
+  x: {
+    axis: "top",
+    grid: true,
+  },
+  marks: [
+    Plot.barX(clean_career, {
+      x1: "start2",
+      x2: "end2",
+      fill: "type",
+      y: "institution",
+      title: (d) => `${d.title}`,
+      sort: {y: "x1"}
+    }),
+    Plot.text(clean_career, {
+      x: "start2",
+      y: "institution",
+      text: "institution",
+      textAnchor: "end",
+      dx: -3
+    })
+  ],
+  tooltip: {
+    stroke: "cornflowerblue"
+  }
+})
+```

@@ -1,0 +1,355 @@
+---
+title: R TidyCensus with Observable
+author: Scott Franz
+date: 1/27/2023
+abstract: Tutorial on how to use the R TidyCensus package with Observable in Quarto.
+image: geo.png
+image-alt: Choropleth of US median household income by county
+categories: [Observable JS, R, TidyCensus, Maps, Tutorial]
+format:
+  html:
+    echo: true
+    toc: true
+    toc-location: left
+    code-tools: true
+--- 
+
+## Introduction
+As you may already know I am a big fan of [ObservableJS](https://thegilpatrick.com/blog/helloObservable.html). I use it to create dashboards at work and for fun side projects like this [blog](https://thegilpatrick.com). I think a big advantage to ObservableJS is that it is an extension of JavaScript with a reactive runtime. JavaScript is the language of interactivity on the web. All of it can be run from your browser, you don't even need a server like you do for [Shiny](https://shiny.rstudio.com/). 
+
+Sure there are R packages that create interactive graphs and maps, but for the most part they are built on top of JavaScript. There are also limitations to the browser's engine, you have to be wise with the amount of data you are using (or be wise about how you use it). But the degree to which you can customize your visualizations without knowing too much about web development is pretty unparalleled. Sure you could learn a JavaScript framework like [React](https://reactjs.org/) or [Svelte](https://svelte.dev/) and spend hours learning all of the related languages of the web. 
+
+But I find that ObservableJS allows you to live at the sweet spot of knowing just enough to do whatever you envision without being a full blown full stack web developer. [Observable Plot](https://observablehq.com/@observablehq/plot) just came out with some new mapping capabilities. There is a great [tutorial](https://observablehq.com/@observablehq/build-your-first-map-with-observable-plot) on how to use these new features of Plot. But today I am going to show you how you can pair ObservableJS with the R tidycensus package using Quarto.
+
+## TidyCensus examples
+
+The tidycensus package is a nice and tidy way to interact with the Census API. [Kyle Walker](https://walker-data.com/about.html) created the tidycensus R package and has a free book called [Analyzing US Census Data](https://walker-data.com/census-r/) that covers the package extensively. I highly recommend perusing it if this is the first time you have heard of the tidycensus package. Below are two examples straight from his book. 
+
+When you first use tidycensus you will want to run the `census_api_key()` function. You can get a [free API key from the Census](https://api.census.gov/data/key_signup.html). The second argument allows R to save your API key for future R sessions. So you don't have to use this function everytime you use tidycensus. I wont go over the R code line by line but I commented in what each chunk is doing. Quarto enables us to use R for wrangling and pass the data into Observable. 
+
+```{r}
+#| output: false
+#| execute: freeze
+library(tidycensus)
+library(tidyverse)
+
+# census_api_key("YOUR KEY GOES HERE", install = TRUE)
+
+# gets median age of each state in 2010 census
+age10 <- get_decennial(geography = "state", 
+                       variables = "P013001", 
+                       year = 2010) 
+
+# function to make the data usable in Observable JS
+ojs_define(example1 = age10) 
+
+```
+
+### State Median Ages
+
+ObservableJS has a bunch of inputs built in. `Inputs.table()` is an easy way to see your data in a table. It isn't an input in this example because it isn't connected to anything. It is just a table to see our data columns and rows visually. But if you hover on the left side of the table you can select certain rows. This could be used as an [input](https://observablehq.com/@observablehq/inputs) to filter rows in a dataset. You can also sort the rows in either ascending or descending order if you click on the column header.
+
+```{ojs}
+
+Inputs.table(transpose(example1))
+
+```
+
+My only complaint (and it is a small one) is that you need to transpose the data when it is passed into an ObservableJS environment from R. Which either means you always have to put your data name in a `transpose()` function or have another step to name your dataset so it looks prettier. But renaming your data all the time gets old fast. So I tend to just transpose inline.
+
+#### Observable Plot
+
+Below I recreated Kyle's [basic ggplot2 example](https://walker-data.com/tidycensus/articles/basic-usage.html) for comparison's sake. Except I added a tooltip that enlarges the circle and shows the median age when you hover over it. This is obviously achievable in many R interactive graphing packages.
+
+```{ojs}
+//| code-fold: true
+
+import {Plot} from "@mkfreeman/plot-tooltip" 
+// Import tooltip functionality from this Observable notebook observablehq.com/@user/slug
+
+Plot.plot({
+    marginLeft: 100, // Add some space on the left for the state names
+    marks: [
+        Plot.dot(transpose(example1), 
+        {x: "value", y: "NAME", title: (d) => `Median Age: ${d.value}`, sort: {y: "x"}})    
+  ],
+  tooltip: {
+    r: 15 // When mouse hovers make the radius of the dot 18 pixels
+  }
+})
+
+```
+
+With this same example dataset I wanted to create a grid choropleth map so I could see if there is a relationship between age and region of the US.
+
+```{ojs}
+//| code-fold: true
+
+import {grid} from "@observablehq/observable-plot-grid-choropleth" 
+// map layout coordinates
+
+// This uses the state names from my example1 dataset
+// and maps on their coordinates for the grid layout
+states = transpose(example1)
+  .filter((d) => grid.has(d.NAME))
+  .map((d) => ({ ...d, ...grid.get(d.NAME) }))
+
+Plot.plot({
+  height: 420,
+  x: { axis: null },
+  y: { axis: null },
+    color: {
+    type: "linear",
+    range: ["#79e6df", "#515859"] // uses d3.interpolateRgb
+  },
+  marks: [
+    Plot.cell(states, {x: "x", y: "y", fill: "value"}),
+    Plot.text(states, {x: "x", y: "y", text: "key", fill: "white", dy: -2}),
+    Plot.text(states, {x: "x", y: "y", text: "value", dy: 10, fill: "white"})
+  ]})
+
+
+```
+
+It looks like in 2010 younger folks were not moving (and/or staying) to the northeast as much as they were to states like California, Texas, and Georgia. I think the Mormon influence of big families (lots of kids) probably explains younger median age in Utah and Florida's reputation as a warm place to retire probably plays a role here as well.
+
+### Metro Public Transit Ridership
+
+Kyle had another [example](https://walker-data.com/census-r/exploring-us-census-data-with-visualization.html#customizing-ggplot2-visualizations) using American Community Survey data that I wrote in Observable Plot for comparison. Below is the R code that pulls the data we want from the Census API.
+
+```{r}
+#| output: false
+#| execute: freeze
+
+# gets % of commuters who take public transit in the ACS 2019 survey
+# then takes top 20 metro areas and cleans up the names for Plot
+metros19 <-  get_acs(
+  geography = "cbsa",
+  variables = "DP03_0021P",
+  summary_var = "B01003_001",
+  survey = "acs1",
+  year = 2019) |>
+  slice_max(summary_est, n = 20) |>
+  mutate(NAME = str_remove(NAME, "-.*$")) |>
+  mutate(NAME = str_remove(NAME, ",.*$"))
+
+ojs_define(example2 = metros19)
+
+```
+
+```{ojs}
+
+Inputs.table(transpose(example2))
+
+```
+
+#### Observable Plot
+
+And this is the recreation of the ggplot2 example with Observable Plot.
+
+```{ojs}
+//| code-fold: true
+
+Plot.plot({
+    marginLeft: 80,
+    marks: [
+        Plot.barX(transpose(example2), 
+        {x: "estimate", y: "NAME",  title: (d) => `Public Transit Ridership: ${d.estimate}%`, sort: {y: "x", reverse: true}})    
+  ]
+})
+
+//Notice I used the tooltip functionality I imported earlier.
+
+```
+
+Going one step further I imported a D3 bubble chart. There are many cool things about ObservableJS as I will show you, but the ability to import bespoke D3 charts with so few lines of code is up there. If you click on a bubble it takes you to that city's wikipedia page.
+
+```{ojs}
+//| code-fold: true
+
+import {BubbleChart} from "@d3/bubble-chart"
+
+BubbleChart(transpose(example2), {
+  label: d => `${d.NAME}\n${d.estimate}%`,
+  value: d => d.estimate,
+  group: d => d.NAME,
+  title: d => `${d.NAME}\n${d.estimate}%`,
+  link: d => `https://en.wikipedia.org/wiki/${d.NAME}`
+})
+
+```
+
+As you can see there are only about 6 major cities in the US that have public transit ridership at around 10% or higher. Someday I will make a blog post about why this is really sad and we need to do better. But today is not that day.
+
+## A Deeper Dive
+
+Alright now that we have the basic examples down I am going to look at variables at the county level. So lets do another API call through the tidycensus package and get what we are looking for.
+
+```{r}
+#| output: false
+
+counties <- get_acs(
+  geography = "county",
+  variables = c(medinc = "B19013_001", # median income
+                medage = "B01002_001"), # median age
+  output = "wide", 
+  year = 2020) |>
+  mutate(county = str_remove(NAME, "\\s.*$")) |>
+  mutate(state = str_extract(NAME, "\\b[^,]+$"))
+
+ojs_define(example3 = counties)
+
+```
+
+I did some string manipulation with the stringr package, because I wanted just the name of the county so it is easier to search for. I also wanted to keep the state info so I made a new `state` variable too.
+
+```{ojs}
+
+Inputs.table(transpose(example3))
+
+```
+
+`E` at the end of the variable name stands for estimate. `M` at the end stands for margin of error. This comes standard in tidycensus when you request a `wide` form dataset.
+
+### Observable Inputs
+
+To view a specific county's income or age you can create a search input pretty easily. You can use the datalist option to give suggested county names. If you click on the search bar and delete "Washtenaw", you should see a list of county name suggestions populate.
+
+```{ojs}
+// Search input
+viewof search = Inputs.text({
+  label: "U.S. County",
+  placeholder: "Your County",
+  width: 380,
+  datalist: transpose(example3).map(d => d.county),
+  value: "Washtenaw",
+  submit: true
+})
+
+search //name of my input above
+
+// this filters my data by county with the word you search
+filteredData = transpose(example3).filter(
+    ({ county }) => county.toLocaleLowerCase() === search.toLocaleLowerCase()
+  );
+```
+
+When you hit submit you can see the name populate as a string. The `viewof` option allows you to just type your named input again to see the results. I am filtering the data based on that `search` variable I just made. I set them to lower case to not have an error due to punctuation. But multiple states have the same county name. `Lincoln`, `Washington`, or any president's last name for example are popular county names in multiple states. To ensure we get the county from the right state I added simple radio button that will populate based on the `filteredData` we just created with the `search` input.
+
+```{ojs}
+
+viewof radio = {
+  const values = d3.group(filteredData, (d) => d.state);
+  return Inputs.radio(values, {
+    key: values.keys().next().value
+  });
+}
+```
+
+
+```{ojs}
+
+radio
+
+```
+
+Now I can see my `radio` object that is returned. I can use that data even in my markdown in Quarto. So for example this
+`${radio[0].NAME}` Gives me this: ${radio[0].NAME}. Which is controlled by both the search bar and the radio buttons above. So go ahead and search another name or click on a different state button and check back here. Median income in ${radio[0].NAME} is $${radio[0].medincE.toLocaleString("en-US")} and the median age is ${radio[0].medageE} years old.
+
+### Observable Maps
+
+Before we can put our data on a map we need spatial data. Observable has a bunch of topojson files we can use to connect our county level data to our map projections.
+
+```{ojs}
+
+import {us} from "@observablehq/plot-geo"
+// Importing a topojson file to connect our county level median age and income onto a US map
+
+// This combines our median age and income to a topojson file
+counties = {
+  const income = new Map(transpose(example3).map(({GEOID, medincE}) => [GEOID, medincE]));
+  const age = new Map(transpose(example3).map(({GEOID, medageE}) => [GEOID, medageE]));
+  const state = new Map(transpose(example3).map(({GEOID, state}) => [GEOID, state]));
+  const counties = topojson.feature(us, us.objects.counties);
+  for (const county of counties.features) county.properties.medincE = income.get(county.id);
+  for (const county of counties.features) county.properties.medageE = age.get(county.id);
+  for (const county of counties.features) county.properties.state = state.get(county.id);
+  return counties;
+}
+
+```
+
+Because this is a topojson file now it would be pointless to view it in a table, because there are nested variables within. Instead Observable has a built in way of viewing JSON. all you need to do is type the name of your JSON dataset. Which I have been doing to show you results of inputs but it is also helpful for looking at nested data.
+
+```{ojs}
+counties
+```
+
+Below is the Observable Plot's new geo mark enabling a lot of D3 mapping capabilities in the same readable and easy to understand code format as Plot. I put in a dropdown menu to choose from different county names. Some are very common like `Lewis`, or `Pike` but some are original like `Washtenaw` or `Kern`. Because I am matching just the county name and not the the state it shows all counties that have that name in the US. Give it a try. If you hover over a county with your mouse it will show you a tooltip as well.
+
+```{ojs}
+
+data3 = transpose(example3)
+
+// Select input
+viewof select = Inputs.select(data3, {format: x => x.county, label: "U.S. County", value: data3.find(t => t.NAME === "Washtenaw County, Michigan")})
+```
+
+I exposed the `select` object and how I find the name `select.county`.
+
+```{ojs}
+select
+
+select.county
+```
+
+I seperated out the legend to show you can customize it with Plot. It is taking info from the color scale which is declared within the choropleth plot.
+```{ojs}
+//| code-fold: true
+
+countyIncome.legend("color", {width: 330, tickFormat: (d) => d3.format("($,.2r")(d)})
+
+```
+
+```{ojs}
+//| code-fold: true
+
+countyIncome = Plot.plot({
+  projection: "albers-usa",
+  color: {
+    type: "quantile",
+    n: 8,
+    scheme: "blues",
+    label: "Median Income"
+  },
+  marks: [
+    Plot.geo(counties, {fill: (d) => d.properties.medincE, 
+    title: (d) => `${d.properties.name} County, ${d.properties.state} \n${d3.format("$,")(d.properties.medincE)}`}),
+    Plot.dot(
+      counties.features,
+      Plot.centroid({
+        r:5,
+        stroke: "red",
+        filter: (d) => d.properties.name.match(select.county)
+      })),
+      Plot.text(
+      counties.features,
+      Plot.centroid({
+        text: (d) => `${d.properties.name} County \n${d3.format("($,.2r")(d.properties.medincE)}`, 
+        fill: "currentColor",
+        stroke: "white",
+        textAnchor: "start",
+        dx: 7,
+        filter: (d) => d.properties.name.match(select.county)
+      }))
+  ],
+  tooltip: {
+    stroke: "black"
+  }
+})
+
+```
+
+
+Well I planned out a bunch of other stuff to try, but I guess I should stop here before this gets too long. In the future I will play around with the combination of R and Observable. I would like to do some more mapping, some more complex interactions, and some other APIs. Thanks for reading and you have any questions or spotted something funky in my code that could be better let me know!
+
