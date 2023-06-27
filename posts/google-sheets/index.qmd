@@ -1,8 +1,7 @@
 ---
-title: Google Sheets with Observable
+title: Google Sheets in Observable
 author: Scott Franz
 date: last-modified
-draft: true
 abstract: Tutorial on how to use Google Sheets with Observable in Quarto.
 image: bubbles.svg
 image-alt: Beeswarm chart of state capitals
@@ -16,7 +15,7 @@ format:
     code-tools: true
 ---
 ## Introduction
-If you have only attached a data file via `FileAttachment()` or used `ojs_define()` to import data from either Python or R. There is an alternative that fetches data from Google Sheets it is very similar to fetching data through any URL with `d3.csv()`, `d3.json()`, `d3.tsv()`, etc.^[You can actually access Google Sheets this way as well.] This is Observable's recommended way of going about it. I find Google Sheets great for datasets that are updated frequently.
+Google Sheets are a great way to stream data into your Quarto workflow with Observable. D3 has a handy way of fetching different data files if you provide the URL. This is Observable’s recommended way of going about it. I find Google Sheets great for small datasets that are updated frequently.
 
 ## Read a Google Sheet
 Here is an example that is taken from [Observable's Google Sheets Starter Notebook](https://observablehq.com/@observablehq/google-sheets-starter).
@@ -41,7 +40,7 @@ data = d3.csv(getCsvUrl("https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP
 
 ```
 
-I replaced the URL with the [Data is Plural](https://www.data-is-plural.com/) Google Sheet.^[If unfamiliar with the newsletter, definitely check it out. It is a curated list of datasets updated weekly.] I hooked it up to a search input and a table where you can select a row to see the details and dataset links.
+I replaced the URL with the [Data is Plural](https://www.data-is-plural.com/) Google Sheet.^[A newsletter with a curated list of datasets updated weekly.] I hooked it up to a search input and a table where you can select a row to see the details and dataset links.
 
 ```{ojs}
 
@@ -65,7 +64,7 @@ ${dataset.links}` : md`Ooops! Please select a row from the table.`
 ```
 
 ## Try it Yourself
-You can link to any public Google Sheet below and see the results. Go ahead and copy the URL. This is [The Pudding](https://pudding.cool/)'s backlog of ideas.
+You can link to any public Google Sheet below and see the results. Go ahead and copy the URL and click submit. This is [The Pudding](https://pudding.cool/)'s backlog of ideas.
 ```{ojs}
 viewof url = Inputs.text({label: "Google Sheet URL", width:width, value: "https://docs.google.com/spreadsheets/d/1neuenck0xy5piNZaaxPhPL0Wsmpe_-gqFjeXqV3MbZE/edit#gid=0", submit: true})
 
@@ -159,7 +158,7 @@ Plot.plot({
 
 ## Write to a Google Sheet
 
-You can also embed a Google Form in an `<iframe>`. After you submit the form, if you refresh the page the form data appears. Check it out!
+You can also embed a Google Form in an `<iframe>`. After you submit the form, if you refresh this page the form data appears. Check it out!
 
 ```{ojs}
 html`<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe_Cw481ZPBImeBoqhrYRmXaci6iHZcfBsWUMovS4dGNRl_kw/viewform?embedded=true" width="${width}$" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>`

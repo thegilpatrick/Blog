@@ -2,10 +2,11 @@
 title: Nope, Sorry!
 format:
   html:
-    embed-resources: true
     echo: false
     css: 404.css
 ---
+
+Try using the magnifying glass in the top right hand corner to search for what you are looking for.
 ```{ojs}
 import {chart} from "@scottfranz/background"
 

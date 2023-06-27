@@ -22,9 +22,9 @@ website:
       - icon: github
         menu:
           - text: Source Code
-            url:  https://github.com/thegilpatrick/thegilpatrick.github.io
+            url:  https://github.com/thegilpatrick/Blog
           - text: Report a Bug
-            url:  https://github.com/thegilpatrick/thegilpatrick.github.io/issues
+            url:  https://github.com/thegilpatrick/Blog/issues
     logo: thegilpatricklogo.png
     logo-alt: "The Gilpatrick logo."
     title: false

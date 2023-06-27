@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.159">
+<meta name="generator" content="quarto-1.4.176">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,9 +19,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -48,43 +49,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -114,6 +85,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   "panel-placement": "end",
   "type": "overlay",
   "limit": 20,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -123,7 +99,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y5TZ8D5H35"></script>
@@ -147,6 +124,8 @@ cookieconsent.run({
   "notice_banner_reject_button_hide":false,
   "preferences_center_close_button_hide":false,
   "website_name":""
+  ,
+"language":"en"
   });
 });
 </script> 
@@ -159,12 +138,12 @@ cookieconsent.run({
 <link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="NBA Stats Exploration">
 <meta property="og:description" content="An exploration of NBA players from 1996 to 2021. A look into the top players of that era.">
-<meta property="og:image" content="https://friendly-palmier-209562.netlify.app/posts\nba-stats-exploration\nba.svg">
-<meta property="og:site-name" content="The Gilpatrick">
+<meta property="og:image" content="https://thegilpatrick.com/posts/nba-stats-exploration/nba.svg">
+<meta property="og:site_name" content="The Gilpatrick">
 <meta property="og:image:alt" content="Scatterplot of NBA statistics">
 <meta name="twitter:title" content="NBA Stats Exploration">
 <meta name="twitter:description" content="An exploration of NBA players from 1996 to 2021. A look into the top players of that era.">
-<meta name="twitter:image" content="https://friendly-palmier-209562.netlify.app/posts\nba-stats-exploration\nba.svg">
+<meta name="twitter:image" content="https://thegilpatrick.com/posts/nba-stats-exploration/nba.svg">
 <meta name="twitter:image:alt" content="Scatterplot of NBA statistics">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -175,11 +154,12 @@ cookieconsent.run({
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../thegilpatricklogo.png" alt="The Gilpatrick logo." class="navbar-logo">
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -199,25 +179,26 @@ cookieconsent.run({
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
         <li>
-    <a class="dropdown-item" href="https://github.com/thegilpatrick/thegilpatrick.github.io" rel="" target="">
+    <a class="dropdown-item" href="https://github.com/thegilpatrick/Blog" rel="" target="">
  <span class="dropdown-text">Source Code</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://github.com/thegilpatrick/thegilpatrick.github.io/issues" rel="" target="">
+    <a class="dropdown-item" href="https://github.com/thegilpatrick/Blog/issues" rel="" target="">
  <span class="dropdown-text">Report a Bug</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
@@ -237,6 +218,7 @@ cookieconsent.run({
   </ul>
 </nav>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
@@ -345,12 +327,12 @@ cookieconsent.run({
 </div>
 </div>
 <p>Next, I wanted to compare the best players in this era. So I selected the players who were top ten in average points, rebounds, or assists in the NBA over this time period (with at least 10 seasons played). Can you guess who the noodles are in these spaghetti charts? You can mouseover the noodles for the player name and/or toggle the checkbox below to show more detailed statistics of each chart. The results are surprising (at least to me).</p>
-<div class="callout callout-style-default callout-note callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -1201,8 +1183,6 @@ Note
 <!-- Begin Mailchimp Signup Form -->
 <link href="http://cdn-images.mailchimp.com/embedcode/slim-10_7_dtp.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <style type="text/css">
 	#mc_embed_signup{background:#fff; clear:left; font-family: "Karma", sans-serif;  width:300px;}
 	.center {
@@ -1275,9 +1255,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1364,10 +1358,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1377,8 +1370,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1391,6 +1393,60 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1434,6 +1490,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1562,7 +1619,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>    <span class="dt">r</span><span class="op">:</span> <span class="dv">15</span></span>
 <span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>viewof radio <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(stats<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> stats[<span class="dv">0</span>]<span class="op">,</span> <span class="dt">width</span><span class="op">:</span>width })</span>
@@ -1571,43 +1628,43 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>  d3<span class="op">.</span><span class="fu">group</span>(nba<span class="op">,</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">season</span>)<span class="op">,</span></span>
 <span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">key</span><span class="op">:</span> [<span class="st">"2018-19"</span><span class="op">,</span> <span class="st">"2019-20"</span><span class="op">,</span> <span class="st">"2020-21"</span>]}</span>
 <span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="vs">Next, I wanted to compare the best players in this era. So I selected the players who were top ten in average points, rebounds, or assists in the NBA over this time period (with at least 10 seasons played). Can you guess who the noodles are in these spaghetti charts? You can mouseover the noodles for the player name and/or toggle the checkbox below to show more detailed statistics of each chart. The results are surprising (at least to me).</span></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a>Next, I wanted to compare the best players in this era. So I selected the players who were top ten in average points, rebounds, or assists in the NBA over this time period (with at least 10 seasons played). Can you guess who the noodles are in these spaghetti charts? You can mouseover the noodles for the player name and/or toggle the checkbox below to show more detailed statistics of each chart. The results are surprising (at least to me).</span>
 <span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a><span class="vs">::: {.callout-note}</span></span>
-<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="vs">This is not an optimal way of finding the best NBA players of all time as I only had a snapshot of about 25 seasons. Great players who play/played on either end of this timeline may not have truly been captured by these charts.</span></span>
-<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a><span class="vs">:::</span></span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a>This is not an optimal way of finding the best NBA players of all time as I only had a snapshot of about 25 seasons. Great players who play/played on either end of this timeline may not have truly been captured by these charts.</span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a><span class="vs">## Top Scorers</span></span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## Top Scorers</span></span>
 <span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a>ptsChart <span class="op">=</span> <span class="fu">makeChart1</span>(showPtsChart)</span>
 <span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a>viewof showPtsChart <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">toggle</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Show Stats"</span><span class="op">,</span> <span class="dt">values</span><span class="op">:</span> [<span class="st">"ptsChart2"</span><span class="op">,</span> <span class="st">"ptsChart1"</span>]})</span>
-<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a><span class="vs">## Top Rebounders</span></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a><span class="fu">## Top Rebounders</span></span>
 <span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a>rebChart <span class="op">=</span> <span class="fu">makeChart2</span>(showRebChart)</span>
 <span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a>viewof showRebChart <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">toggle</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Show Stats"</span><span class="op">,</span> <span class="dt">values</span><span class="op">:</span> [<span class="st">"rebChart2"</span><span class="op">,</span> <span class="st">"rebChart1"</span>]})</span>
-<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a><span class="vs">## Top Assisters</span></span>
+<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Top Assisters</span></span>
 <span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a>astChart <span class="op">=</span> <span class="fu">makeChart3</span>(showAstChart)</span>
 <span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a>viewof showAstChart <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">toggle</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Show Stats"</span><span class="op">,</span> <span class="dt">values</span><span class="op">:</span> [<span class="st">"astChart2"</span><span class="op">,</span> <span class="st">"astChart1"</span>]})</span>
-<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a><span class="vs">As an employee of University of Michigan (go blue!!) and as a husband of a Canadian, I created some charts where you can filter by players' college or country.</span></span>
+<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a>As an employee of University of Michigan (go blue!!) and as a husband of a Canadian, I created some charts where you can filter by players' college or country.</span>
 <span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a><span class="vs">## Players by College</span></span>
+<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## Players by College</span></span>
 <span id="cb17-101"><a href="#cb17-101" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-104"><a href="#cb17-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-105"><a href="#cb17-105" aria-hidden="true" tabindex="-1"></a>collegeChart <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
@@ -1638,16 +1695,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-130"><a href="#cb17-130" aria-hidden="true" tabindex="-1"></a>    <span class="dt">r</span><span class="op">:</span> <span class="dv">15</span></span>
 <span id="cb17-131"><a href="#cb17-131" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb17-132"><a href="#cb17-132" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb17-133"><a href="#cb17-133" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-133"><a href="#cb17-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-134"><a href="#cb17-134" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-137"><a href="#cb17-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-138"><a href="#cb17-138" aria-hidden="true" tabindex="-1"></a>viewof radio2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(stats2<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> stats2[<span class="dv">0</span>] })</span>
 <span id="cb17-139"><a href="#cb17-139" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-140"><a href="#cb17-140" aria-hidden="true" tabindex="-1"></a>viewof collegepick <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(nba<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">college</span>)<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"College"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"Michigan"</span><span class="op">,</span> <span class="dt">sort</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">unique</span><span class="op">:</span> <span class="kw">true</span>})</span>
-<span id="cb17-141"><a href="#cb17-141" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-141"><a href="#cb17-141" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-142"><a href="#cb17-142" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-143"><a href="#cb17-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-144"><a href="#cb17-144" aria-hidden="true" tabindex="-1"></a><span class="vs">## Players by Country</span></span>
+<span id="cb17-144"><a href="#cb17-144" aria-hidden="true" tabindex="-1"></a><span class="fu">## Players by Country</span></span>
 <span id="cb17-145"><a href="#cb17-145" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-148"><a href="#cb17-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-149"><a href="#cb17-149" aria-hidden="true" tabindex="-1"></a>countryChart <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
@@ -1678,17 +1735,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-174"><a href="#cb17-174" aria-hidden="true" tabindex="-1"></a>    <span class="dt">r</span><span class="op">:</span> <span class="dv">15</span></span>
 <span id="cb17-175"><a href="#cb17-175" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb17-176"><a href="#cb17-176" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb17-177"><a href="#cb17-177" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-177"><a href="#cb17-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-178"><a href="#cb17-178" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-181"><a href="#cb17-181" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-182"><a href="#cb17-182" aria-hidden="true" tabindex="-1"></a>viewof radio3 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(stats2<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> stats2[<span class="dv">0</span>] })</span>
 <span id="cb17-183"><a href="#cb17-183" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-184"><a href="#cb17-184" aria-hidden="true" tabindex="-1"></a>viewof countrypick <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(nba<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">country</span>)<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Country"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"Canada"</span><span class="op">,</span> <span class="dt">sort</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">unique</span><span class="op">:</span> <span class="kw">true</span>})</span>
-<span id="cb17-185"><a href="#cb17-185" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-185"><a href="#cb17-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-186"><a href="#cb17-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-187"><a href="#cb17-187" aria-hidden="true" tabindex="-1"></a><span class="vs">And finally pick your five favorite players in this era to compare their stats.</span></span>
+<span id="cb17-187"><a href="#cb17-187" aria-hidden="true" tabindex="-1"></a>And finally pick your five favorite players in this era to compare their stats.</span>
 <span id="cb17-188"><a href="#cb17-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-189"><a href="#cb17-189" aria-hidden="true" tabindex="-1"></a><span class="vs">## Compare Your Favorite Players</span></span>
+<span id="cb17-189"><a href="#cb17-189" aria-hidden="true" tabindex="-1"></a><span class="fu">## Compare Your Favorite Players</span></span>
 <span id="cb17-190"><a href="#cb17-190" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-193"><a href="#cb17-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-194"><a href="#cb17-194" aria-hidden="true" tabindex="-1"></a>favChart <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
@@ -1773,7 +1830,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-273"><a href="#cb17-273" aria-hidden="true" tabindex="-1"></a>    <span class="dt">r</span><span class="op">:</span> <span class="dv">15</span></span>
 <span id="cb17-274"><a href="#cb17-274" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb17-275"><a href="#cb17-275" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb17-276"><a href="#cb17-276" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-276"><a href="#cb17-276" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-277"><a href="#cb17-277" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-280"><a href="#cb17-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-281"><a href="#cb17-281" aria-hidden="true" tabindex="-1"></a>viewof radio4 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(stats2<span class="op">,</span> { <span class="dt">value</span><span class="op">:</span> stats2[<span class="dv">0</span>] })</span>
@@ -1787,15 +1844,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-289"><a href="#cb17-289" aria-hidden="true" tabindex="-1"></a>viewof playerpick4 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Player #4"</span><span class="op">,</span> <span class="dt">placeholder</span><span class="op">:</span> <span class="st">"Enter player's name"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"Russell Westbrook"</span>})</span>
 <span id="cb17-290"><a href="#cb17-290" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-291"><a href="#cb17-291" aria-hidden="true" tabindex="-1"></a>viewof playerpick5 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Player #5"</span><span class="op">,</span> <span class="dt">placeholder</span><span class="op">:</span> <span class="st">"Enter player's name"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"Chris Paul"</span>})</span>
-<span id="cb17-292"><a href="#cb17-292" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-292"><a href="#cb17-292" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-293"><a href="#cb17-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-294"><a href="#cb17-294" aria-hidden="true" tabindex="-1"></a><span class="vs">Thanks for making it to the end! </span></span>
+<span id="cb17-294"><a href="#cb17-294" aria-hidden="true" tabindex="-1"></a>Thanks for making it to the end! </span>
 <span id="cb17-295"><a href="#cb17-295" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-296"><a href="#cb17-296" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-297"><a href="#cb17-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-298"><a href="#cb17-298" aria-hidden="true" tabindex="-1"></a><span class="vs">## Appendix</span></span>
+<span id="cb17-298"><a href="#cb17-298" aria-hidden="true" tabindex="-1"></a><span class="fu">## Appendix</span></span>
 <span id="cb17-299"><a href="#cb17-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-300"><a href="#cb17-300" aria-hidden="true" tabindex="-1"></a><span class="vs">### Plots</span></span>
+<span id="cb17-300"><a href="#cb17-300" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plots</span></span>
 <span id="cb17-303"><a href="#cb17-303" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-304"><a href="#cb17-304" aria-hidden="true" tabindex="-1"></a><span class="co">//| echo: true</span></span>
 <span id="cb17-305"><a href="#cb17-305" aria-hidden="true" tabindex="-1"></a><span class="co">//| code-fold: false</span></span>
@@ -2036,9 +2093,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-540"><a href="#cb17-540" aria-hidden="true" tabindex="-1"></a>    <span class="dt">r</span><span class="op">:</span> <span class="dv">15</span></span>
 <span id="cb17-541"><a href="#cb17-541" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb17-542"><a href="#cb17-542" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb17-543"><a href="#cb17-543" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-543"><a href="#cb17-543" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-544"><a href="#cb17-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-545"><a href="#cb17-545" aria-hidden="true" tabindex="-1"></a><span class="vs">### Data</span></span>
+<span id="cb17-545"><a href="#cb17-545" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data</span></span>
 <span id="cb17-546"><a href="#cb17-546" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-549"><a href="#cb17-549" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-550"><a href="#cb17-550" aria-hidden="true" tabindex="-1"></a><span class="co">//| echo: true</span></span>
@@ -2099,7 +2156,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-605"><a href="#cb17-605" aria-hidden="true" tabindex="-1"></a>viewof nba2 <span class="op">=</span> aq </span>
 <span id="cb17-606"><a href="#cb17-606" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">fromCSV</span>(<span class="cf">await</span> <span class="fu">FileAttachment</span>(<span class="st">'all_seasons.csv'</span>)<span class="op">.</span><span class="fu">text</span>())</span>
 <span id="cb17-607"><a href="#cb17-607" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">view</span>({ <span class="dt">height</span><span class="op">:</span> <span class="dv">240</span> }) </span>
-<span id="cb17-608"><a href="#cb17-608" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-608"><a href="#cb17-608" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb17-609"><a href="#cb17-609" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-612"><a href="#cb17-612" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb17-613"><a href="#cb17-613" aria-hidden="true" tabindex="-1"></a><span class="co">//| echo: true</span></span>
@@ -2138,15 +2195,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb17-646"><a href="#cb17-646" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span><span class="dv">10</span>)</span>
 <span id="cb17-647"><a href="#cb17-647" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">view</span>(<span class="dv">10</span>)</span>
 <span id="cb17-648"><a href="#cb17-648" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-649"><a href="#cb17-649" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb17-649"><a href="#cb17-649" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
   </div>
 </footer>
+
 
 
 

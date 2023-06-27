@@ -13,7 +13,6 @@ listing:
 page-layout: full
 format:
   html:
-    embed-resources: true
     css: no-title.css
     grid:
       margin-width: 0px

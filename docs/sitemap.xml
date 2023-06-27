@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://friendly-palmier-209562.netlify.app/about.html</loc>
-    <lastmod>2023-06-20T17:23:09.883Z</lastmod>
+    <loc>https://thegilpatrick.com/posts/your-life-in-weeks/index.html</loc>
+    <lastmod>2023-06-19T20:30:04.327Z</lastmod>
   </url>
   <url>
-    <loc>https://friendly-palmier-209562.netlify.app/index.html</loc>
-    <lastmod>2023-06-20T17:27:08.812Z</lastmod>
+    <loc>https://thegilpatrick.com/posts/recipe-web-scrape/index.html</loc>
+    <lastmod>2023-06-27T20:48:58.485Z</lastmod>
   </url>
   <url>
-    <loc>https://friendly-palmier-209562.netlify.app/posts/hello-observable/index.html</loc>
-    <lastmod>2023-06-20T17:27:14.520Z</lastmod>
+    <loc>https://thegilpatrick.com/posts/nba-stats-exploration/index.html</loc>
+    <lastmod>2023-06-19T20:31:12.906Z</lastmod>
   </url>
   <url>
-    <loc>https://friendly-palmier-209562.netlify.app/posts/nba-stats-exploration/index.html</loc>
-    <lastmod>2023-06-20T17:27:18.037Z</lastmod>
+    <loc>https://thegilpatrick.com/posts/google-sheets/index.html</loc>
+    <lastmod>2023-06-27T20:42:42.855Z</lastmod>
   </url>
   <url>
-    <loc>https://friendly-palmier-209562.netlify.app/posts/pet-cats-uk/index.html</loc>
-    <lastmod>2023-06-20T17:27:19.727Z</lastmod>
+    <loc>https://thegilpatrick.com/index.html</loc>
+    <lastmod>2023-06-27T20:42:09.176Z</lastmod>
   </url>
   <url>
-    <loc>https://friendly-palmier-209562.netlify.app/posts/R-TidyCensus/index.html</loc>
-    <lastmod>2023-06-20T17:27:23.387Z</lastmod>
+    <loc>https://thegilpatrick.com/about.html</loc>
+    <lastmod>2023-06-27T20:57:34.024Z</lastmod>
   </url>
   <url>
-    <loc>https://friendly-palmier-209562.netlify.app/posts/recipe-web-scrape/index.html</loc>
-    <lastmod>2023-06-20T17:27:24.575Z</lastmod>
+    <loc>https://thegilpatrick.com/posts/hello-observable/index.html</loc>
+    <lastmod>2023-06-21T15:35:54.755Z</lastmod>
   </url>
   <url>
-    <loc>https://friendly-palmier-209562.netlify.app/posts/your-life-in-weeks/index.html</loc>
-    <lastmod>2023-06-20T17:27:26.628Z</lastmod>
+    <loc>https://thegilpatrick.com/posts/pet-cats-uk/index.html</loc>
+    <lastmod>2023-06-20T17:13:00.659Z</lastmod>
+  </url>
+  <url>
+    <loc>https://thegilpatrick.com/posts/R-TidyCensus/index.html</loc>
+    <lastmod>2023-06-27T20:01:31.631Z</lastmod>
   </url>
 </urlset>

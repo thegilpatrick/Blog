@@ -28,8 +28,7 @@ The tidycensus package is a nice and tidy way to interact with the Census API. [
 When you first use tidycensus you will want to run the `census_api_key()` function. You can get a [free API key from the Census](https://api.census.gov/data/key_signup.html). The second argument allows R to save your API key for future R sessions. So you don't have to use this function everytime you use tidycensus. I wont go over the R code line by line but I commented in what each chunk is doing. Quarto enables us to use R for wrangling and pass the data into Observable. 
 
 ```{r}
-#| output: false
-#| execute: freeze
+
 library(tidycensus)
 library(tidyverse)
 
@@ -118,8 +117,6 @@ It looks like in 2010 younger folks were not moving (and/or staying) to the nort
 Kyle had another [example](https://walker-data.com/census-r/exploring-us-census-data-with-visualization.html#customizing-ggplot2-visualizations) using American Community Survey data that I wrote in Observable Plot for comparison. Below is the R code that pulls the data we want from the Census API.
 
 ```{r}
-#| output: false
-#| execute: freeze
 
 # gets % of commuters who take public transit in the ACS 2019 survey
 # then takes top 20 metro areas and cleans up the names for Plot

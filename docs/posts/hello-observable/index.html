@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.159">
+<meta name="generator" content="quarto-1.4.176">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,9 +19,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -48,43 +49,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -114,6 +85,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   "panel-placement": "end",
   "type": "overlay",
   "limit": 20,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -123,7 +99,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y5TZ8D5H35"></script>
@@ -147,6 +124,8 @@ cookieconsent.run({
   "notice_banner_reject_button_hide":false,
   "preferences_center_close_button_hide":false,
   "website_name":""
+  ,
+"language":"en"
   });
 });
 </script> 
@@ -159,14 +138,14 @@ cookieconsent.run({
 <link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="Hello, Observable!">
 <meta property="og:description" content="A quick glance at Observable. A new reactive programming ecosystem geared towards data visualization.">
-<meta property="og:image" content="https://friendly-palmier-209562.netlify.app/posts\hello-observable\observablelogo.png">
-<meta property="og:site-name" content="The Gilpatrick">
+<meta property="og:image" content="https://thegilpatrick.com/posts/hello-observable/observablelogo.png">
+<meta property="og:site_name" content="The Gilpatrick">
 <meta property="og:image:height" content="320">
 <meta property="og:image:width" content="847">
 <meta property="og:image:alt" content="ObservableHQ logo">
 <meta name="twitter:title" content="Hello, Observable!">
 <meta name="twitter:description" content="A quick glance at Observable. A new reactive programming ecosystem geared towards data visualization.">
-<meta name="twitter:image" content="https://friendly-palmier-209562.netlify.app/posts\hello-observable\observablelogo.png">
+<meta name="twitter:image" content="https://thegilpatrick.com/posts/hello-observable/observablelogo.png">
 <meta name="twitter:image-height" content="320">
 <meta name="twitter:image-width" content="847">
 <meta name="twitter:image:alt" content="ObservableHQ logo">
@@ -179,11 +158,12 @@ cookieconsent.run({
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../thegilpatricklogo.png" alt="The Gilpatrick logo." class="navbar-logo">
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -203,25 +183,26 @@ cookieconsent.run({
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
         <li>
-    <a class="dropdown-item" href="https://github.com/thegilpatrick/thegilpatrick.github.io" rel="" target="">
+    <a class="dropdown-item" href="https://github.com/thegilpatrick/Blog" rel="" target="">
  <span class="dropdown-text">Source Code</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://github.com/thegilpatrick/thegilpatrick.github.io/issues" rel="" target="">
+    <a class="dropdown-item" href="https://github.com/thegilpatrick/Blog/issues" rel="" target="">
  <span class="dropdown-text">Report a Bug</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
@@ -235,6 +216,7 @@ cookieconsent.run({
   </ul>
 </nav>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
@@ -617,8 +599,6 @@ cookieconsent.run({
 <!-- Begin Mailchimp Signup Form -->
 <link href="http://cdn-images.mailchimp.com/embedcode/slim-10_7_dtp.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <style type="text/css">
 	#mc_embed_signup{background:#fff; clear:left; font-family: "Karma", sans-serif;  width:300px;}
 	.center {
@@ -691,9 +671,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -780,10 +774,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -793,8 +786,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -807,6 +809,60 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    if (id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        return container.innerHTML
+      } else {
+        return note.innerHTML;
+      }
+    } else {
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      try { hash = new URL(url).hash; } catch {}
+      const id = hash.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        try {
+          const html = processXRef(id, note);
+          instance.setContent(html);
+        } finally {
+          instance.enable();
+          instance.show();
+        }
+      } else {
+        // See if we can fetch this
+        fetch(url.split('#')[0])
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.getElementById(id);
+          if (note !== null) {
+            const html = processXRef(id, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -850,6 +906,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1037,64 +1094,64 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-115"><a href="#cb25-115" aria-hidden="true" tabindex="-1"></a>      <span class="vs">`Yield: </span><span class="sc">${</span><span class="pp">parseFloat</span>((d<span class="op">.</span><span class="at">yield</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>))<span class="sc">}</span><span class="vs">  </span><span class="sc">\n</span><span class="vs"> Variety: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">variety</span><span class="sc">}</span><span class="vs"> </span><span class="sc">\n</span><span class="vs"> Year: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">year</span><span class="sc">}</span><span class="vs"> </span><span class="sc">\n</span><span class="vs"> Site:</span><span class="sc">${</span>d<span class="op">.</span><span class="at">site</span><span class="sc">}</span><span class="vs">`</span>}) <span class="co">// this line for the tooltip titles and</span></span>
 <span id="cb25-116"><a href="#cb25-116" aria-hidden="true" tabindex="-1"></a>  ] <span class="co">// this line on the end to add animation and enlarge the dots on hover</span></span>
 <span id="cb25-117"><a href="#cb25-117" aria-hidden="true" tabindex="-1"></a>})<span class="op">,</span> {<span class="dt">r</span><span class="op">:</span><span class="dv">15</span>})<span class="op">,</span> {<span class="dt">type</span><span class="op">:</span> <span class="st">"circle"</span><span class="op">,</span> <span class="dt">attribute</span><span class="op">:</span> <span class="st">"r"</span><span class="op">,</span> <span class="dt">endValue</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="dt">delay</span><span class="op">:</span> <span class="dv">100</span>} )) </span>
-<span id="cb25-118"><a href="#cb25-118" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-118"><a href="#cb25-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-119"><a href="#cb25-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-120"><a href="#cb25-120" aria-hidden="true" tabindex="-1"></a><span class="vs">But wait that is not all that you can do! You can also modify your imported charts with your own or somebody else's data. Here is an example of using a Bar Chart Race with the data from the original notebook.</span></span>
+<span id="cb25-120"><a href="#cb25-120" aria-hidden="true" tabindex="-1"></a>But wait that is not all that you can do! You can also modify your imported charts with your own or somebody else's data. Here is an example of using a Bar Chart Race with the data from the original notebook.</span>
 <span id="cb25-121"><a href="#cb25-121" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-124"><a href="#cb25-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-125"><a href="#cb25-125" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {chart <span class="im">as</span> barChartRace<span class="op">,</span> viewof replay} <span class="im">from</span> <span class="st">"@d3/bar-chart-race"</span></span>
-<span id="cb25-126"><a href="#cb25-126" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-126"><a href="#cb25-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-127"><a href="#cb25-127" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-130"><a href="#cb25-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-131"><a href="#cb25-131" aria-hidden="true" tabindex="-1"></a>viewof replay</span>
-<span id="cb25-132"><a href="#cb25-132" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-132"><a href="#cb25-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-133"><a href="#cb25-133" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-136"><a href="#cb25-136" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-137"><a href="#cb25-137" aria-hidden="true" tabindex="-1"></a>barChartRace</span>
-<span id="cb25-138"><a href="#cb25-138" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-138"><a href="#cb25-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-139"><a href="#cb25-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-140"><a href="#cb25-140" aria-hidden="true" tabindex="-1"></a><span class="vs">So above is what it would look like if I didn't change the data. Below is what it looks like after I import different data. This data comes from Emil Hvitfeldt's notebook where he uploaded a csv file of R package downloads over time. I could have also uploaded my own csv file, it just has to match the format of the data for the imported chart.</span></span>
+<span id="cb25-140"><a href="#cb25-140" aria-hidden="true" tabindex="-1"></a>So above is what it would look like if I didn't change the data. Below is what it looks like after I import different data. This data comes from Emil Hvitfeldt's notebook where he uploaded a csv file of R package downloads over time. I could have also uploaded my own csv file, it just has to match the format of the data for the imported chart.</span>
 <span id="cb25-141"><a href="#cb25-141" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-144"><a href="#cb25-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-145"><a href="#cb25-145" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {data <span class="im">as</span> rPackages} <span class="im">from</span> <span class="st">"@emilhvitfeldt/race-for-most-downloaded-r-package"</span></span>
 <span id="cb25-146"><a href="#cb25-146" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {chart <span class="im">as</span> rRace<span class="op">,</span> viewof replay <span class="im">as</span> replay2} <span class="cf">with</span> {rPackages <span class="im">as</span> data} <span class="im">from</span> <span class="st">"@d3/bar-chart-race"</span></span>
-<span id="cb25-147"><a href="#cb25-147" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-147"><a href="#cb25-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-148"><a href="#cb25-148" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-151"><a href="#cb25-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-152"><a href="#cb25-152" aria-hidden="true" tabindex="-1"></a>viewof replay2</span>
-<span id="cb25-153"><a href="#cb25-153" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-153"><a href="#cb25-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-154"><a href="#cb25-154" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-157"><a href="#cb25-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-158"><a href="#cb25-158" aria-hidden="true" tabindex="-1"></a>rRace</span>
-<span id="cb25-159"><a href="#cb25-159" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-159"><a href="#cb25-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-160"><a href="#cb25-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-161"><a href="#cb25-161" aria-hidden="true" tabindex="-1"></a><span class="vs">A couple of things to note before we move on. You may have noticed that most of the charts were named `</span><span class="fu">charts</span><span class="vs">` in their original notebooks. In order to use more than one imported chart in this notebook I had to change the name. Otherwise, Observable would get confused if I referred to multiple cells with the same name. So in order to do that I use the `</span>as <span class="fu">newName</span><span class="vs">` syntax. Additionally, it is easy to reference whichever Observable notebook you want by using the end of the URL. For example, I referenced most of the D3 charts by using `</span>from <span class="st">"@D3/nameofnotebook"</span><span class="vs">`. There is a lot more to learn about imports and how useful they can be. Here is an [introduction](https://observablehq.com/@observablehq/import) and here is an [explainer](https://observablehq.com/@observablehq/version-locking-for-notebook-imports) of a new feature where you can "lock" your imports so that if a dependency changes it doesn't ruin your import.</span></span>
+<span id="cb25-161"><a href="#cb25-161" aria-hidden="true" tabindex="-1"></a>A couple of things to note before we move on. You may have noticed that most of the charts were named <span class="in">`charts`</span> in their original notebooks. In order to use more than one imported chart in this notebook I had to change the name. Otherwise, Observable would get confused if I referred to multiple cells with the same name. So in order to do that I use the <span class="in">`as newName`</span> syntax. Additionally, it is easy to reference whichever Observable notebook you want by using the end of the URL. For example, I referenced most of the D3 charts by using <span class="in">`from "@D3/nameofnotebook"`</span>. There is a lot more to learn about imports and how useful they can be. Here is an <span class="co">[</span><span class="ot">introduction</span><span class="co">](https://observablehq.com/@observablehq/import)</span> and here is an <span class="co">[</span><span class="ot">explainer</span><span class="co">](https://observablehq.com/@observablehq/version-locking-for-notebook-imports)</span> of a new feature where you can "lock" your imports so that if a dependency changes it doesn't ruin your import.</span>
 <span id="cb25-162"><a href="#cb25-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-163"><a href="#cb25-163" aria-hidden="true" tabindex="-1"></a><span class="vs">## Inputs</span></span>
+<span id="cb25-163"><a href="#cb25-163" aria-hidden="true" tabindex="-1"></a><span class="fu">## Inputs</span></span>
 <span id="cb25-164"><a href="#cb25-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-165"><a href="#cb25-165" aria-hidden="true" tabindex="-1"></a><span class="vs">Observable has some built-in libraries to help with user [inputs](https://observablehq.com/@observablehq/inputs). It leverages [views](https://observablehq.com/@observablehq/introduction-to-views) which is a clever and way less confusing way to handle interactions and their outputs on the web.</span></span>
+<span id="cb25-165"><a href="#cb25-165" aria-hidden="true" tabindex="-1"></a>Observable has some built-in libraries to help with user <span class="co">[</span><span class="ot">inputs</span><span class="co">](https://observablehq.com/@observablehq/inputs)</span>. It leverages <span class="co">[</span><span class="ot">views</span><span class="co">](https://observablehq.com/@observablehq/introduction-to-views)</span> which is a clever and way less confusing way to handle interactions and their outputs on the web.</span>
 <span id="cb25-166"><a href="#cb25-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-167"><a href="#cb25-167" aria-hidden="true" tabindex="-1"></a><span class="vs">In the cell below I gave a range of values `</span><span class="dv">0</span> to <span class="dv">25</span><span class="vs">`, I gave a starting value `</span>value<span class="op">:</span> <span class="dv">10</span><span class="vs">` and I gave an interval to step between values in our range `</span>step<span class="op">:</span> <span class="dv">1</span><span class="vs">` and then I just named it `</span><span class="fu">r</span><span class="vs">` so we can reference it later. In Observable notebooks, `</span><span class="fu">viewof</span><span class="vs">` creates reactive variables of inputs so if I just do the following below.</span></span>
+<span id="cb25-167"><a href="#cb25-167" aria-hidden="true" tabindex="-1"></a>In the cell below I gave a range of values <span class="in">`0 to 25`</span>, I gave a starting value <span class="in">`value: 10`</span> and I gave an interval to step between values in our range <span class="in">`step: 1`</span> and then I just named it <span class="in">`r`</span> so we can reference it later. In Observable notebooks, <span class="in">`viewof`</span> creates reactive variables of inputs so if I just do the following below.</span>
 <span id="cb25-168"><a href="#cb25-168" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-171"><a href="#cb25-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-172"><a href="#cb25-172" aria-hidden="true" tabindex="-1"></a>viewof r <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">25</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span>})</span>
-<span id="cb25-173"><a href="#cb25-173" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-173"><a href="#cb25-173" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-174"><a href="#cb25-174" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-177"><a href="#cb25-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-178"><a href="#cb25-178" aria-hidden="true" tabindex="-1"></a>r</span>
-<span id="cb25-179"><a href="#cb25-179" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-179"><a href="#cb25-179" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-180"><a href="#cb25-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-181"><a href="#cb25-181" aria-hidden="true" tabindex="-1"></a><span class="vs">It updates when we move the slider. This works both in JavaScript and in Markdown here is the number: </span><span class="sc">${</span>r<span class="sc">}</span><span class="vs">. This `</span><span class="fu">r</span><span class="vs">` variable can be plugged into anything we want. Lets add some color and data to make a chart.</span></span>
+<span id="cb25-181"><a href="#cb25-181" aria-hidden="true" tabindex="-1"></a>It updates when we move the slider. This works both in JavaScript and in Markdown here is the number: ${r}. This <span class="in">`r`</span> variable can be plugged into anything we want. Lets add some color and data to make a chart.</span>
 <span id="cb25-182"><a href="#cb25-182" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-185"><a href="#cb25-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-186"><a href="#cb25-186" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {penguins} <span class="im">from</span> <span class="st">"@enjalot/palmer-penguins"</span></span>
-<span id="cb25-187"><a href="#cb25-187" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-187"><a href="#cb25-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-188"><a href="#cb25-188" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-191"><a href="#cb25-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-192"><a href="#cb25-192" aria-hidden="true" tabindex="-1"></a>viewof color <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="st">"red"</span><span class="op">,</span> <span class="st">"green"</span><span class="op">,</span> <span class="st">"blue"</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="st">"red"</span>})</span>
-<span id="cb25-193"><a href="#cb25-193" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-193"><a href="#cb25-193" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-194"><a href="#cb25-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-195"><a href="#cb25-195" aria-hidden="true" tabindex="-1"></a><span class="vs">I reused the `</span><span class="fu">addTootips</span><span class="vs">` function I imported earlier and added the two reactive input variables we just created `</span><span class="fu">r</span><span class="vs">` and `</span><span class="fu">color</span><span class="vs">`. These two variables control the attributes when you hover over the dots in this visualization. Go ahead and change the fill color and size of the dots with the inputs above.</span></span>
+<span id="cb25-195"><a href="#cb25-195" aria-hidden="true" tabindex="-1"></a>I reused the <span class="in">`addTootips`</span> function I imported earlier and added the two reactive input variables we just created <span class="in">`r`</span> and <span class="in">`color`</span>. These two variables control the attributes when you hover over the dots in this visualization. Go ahead and change the fill color and size of the dots with the inputs above.</span>
 <span id="cb25-196"><a href="#cb25-196" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-199"><a href="#cb25-199" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-200"><a href="#cb25-200" aria-hidden="true" tabindex="-1"></a><span class="fu">addTooltips</span>(</span>
@@ -1112,9 +1169,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-212"><a href="#cb25-212" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(penguins<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"flipper_length_mm"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"body_mass_g"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"island"</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> (d) <span class="kw">=&gt;</span></span>
 <span id="cb25-213"><a href="#cb25-213" aria-hidden="true" tabindex="-1"></a>        <span class="vs">`</span><span class="sc">${</span>d<span class="op">.</span><span class="at">species</span><span class="sc">}</span><span class="vs"> </span><span class="sc">\n</span><span class="vs"> flipper length: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">flipper_length_mm</span><span class="sc">}</span><span class="vs"> mm </span><span class="sc">\n</span><span class="vs"> body mass: </span><span class="sc">${</span>d<span class="op">.</span><span class="at">body_mass_g</span><span class="sc">}</span><span class="vs"> g`</span>})</span>
 <span id="cb25-214"><a href="#cb25-214" aria-hidden="true" tabindex="-1"></a>  ]})<span class="op">,</span> {<span class="dt">r</span><span class="op">:</span> r<span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> color}) <span class="co">//This is where the reactivity is happening</span></span>
-<span id="cb25-215"><a href="#cb25-215" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-215"><a href="#cb25-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-216"><a href="#cb25-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-217"><a href="#cb25-217" aria-hidden="true" tabindex="-1"></a><span class="vs">This also makes interacting with data very easy. Here are some NBA team names with their location.</span></span>
+<span id="cb25-217"><a href="#cb25-217" aria-hidden="true" tabindex="-1"></a>This also makes interacting with data very easy. Here are some NBA team names with their location.</span>
 <span id="cb25-218"><a href="#cb25-218" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-221"><a href="#cb25-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-222"><a href="#cb25-222" aria-hidden="true" tabindex="-1"></a>teams <span class="op">=</span> [</span>
@@ -1124,58 +1181,67 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-226"><a href="#cb25-226" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Nets"</span><span class="op">,</span> <span class="dt">location</span><span class="op">:</span> <span class="st">"New York City, New York"</span>}<span class="op">,</span></span>
 <span id="cb25-227"><a href="#cb25-227" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Raptors"</span><span class="op">,</span> <span class="dt">location</span><span class="op">:</span> <span class="st">"Toronto, Ontario"</span>}<span class="op">,</span></span>
 <span id="cb25-228"><a href="#cb25-228" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb25-229"><a href="#cb25-229" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-229"><a href="#cb25-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-230"><a href="#cb25-230" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-233"><a href="#cb25-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-234"><a href="#cb25-234" aria-hidden="true" tabindex="-1"></a>viewof favorite <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(teams<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> teams[<span class="dv">0</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Favorite team"</span><span class="op">,</span> <span class="dt">format</span><span class="op">:</span> x <span class="kw">=&gt;</span> x<span class="op">.</span><span class="at">name</span>})</span>
-<span id="cb25-235"><a href="#cb25-235" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-235"><a href="#cb25-235" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-236"><a href="#cb25-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-237"><a href="#cb25-237" aria-hidden="true" tabindex="-1"></a><span class="vs">So the cell above creates our input. It takes the `</span><span class="fu">teams</span><span class="vs">` dataset and uses the first variable in the array as its starting value `</span>value<span class="op">:</span> teams[<span class="dv">0</span>]<span class="vs">`. The format option specifies how you want to present the value to the reader.</span></span>
+<span id="cb25-237"><a href="#cb25-237" aria-hidden="true" tabindex="-1"></a>So the cell above creates our input. It takes the <span class="in">`teams`</span> dataset and uses the first variable in the array as its starting value <span class="in">`value: teams[0]`</span>. The format option specifies how you want to present the value to the reader.</span>
 <span id="cb25-238"><a href="#cb25-238" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-241"><a href="#cb25-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-242"><a href="#cb25-242" aria-hidden="true" tabindex="-1"></a>favorite<span class="op">.</span><span class="at">location</span></span>
-<span id="cb25-243"><a href="#cb25-243" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-243"><a href="#cb25-243" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-244"><a href="#cb25-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-245"><a href="#cb25-245" aria-hidden="true" tabindex="-1"></a><span class="vs">The name of the reactive input variable is `</span><span class="fu">favorite</span><span class="vs">` and we can access whichever variable in the dataset by putting a `</span><span class="op">.</span><span class="vs">` and then the name of that variable. In this case it is `</span><span class="fu">location</span><span class="vs">`. To show the location of the team you can use the `</span>${favorite<span class="op">.</span><span class="at">location</span>}<span class="vs">` in the markdown. Try clicking on the radio buttons to see the different locations: </span><span class="sc">${</span>favorite<span class="op">.</span><span class="at">location</span><span class="sc">}</span><span class="vs">. This way of writing in markdown is valuable when you want to create data driven documents. No need to edit your values manually in word documents anymore.</span></span>
+<span id="cb25-245"><a href="#cb25-245" aria-hidden="true" tabindex="-1"></a>The name of the reactive input variable is <span class="in">`favorite`</span> and we can access whichever variable in the dataset by putting a <span class="in">`.`</span> and then the name of that variable. In this case it is <span class="in">`location`</span>. To show the location of the team you can use the <span class="in">`${favorite.location}`</span> in the markdown. Try clicking on the radio buttons to see the different locations: ${favorite.location}. This way of writing in markdown is valuable when you want to create data driven documents. No need to edit your values manually in word documents anymore.</span>
 <span id="cb25-246"><a href="#cb25-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-247"><a href="#cb25-247" aria-hidden="true" tabindex="-1"></a><span class="vs">Below is an example of filtering a dataset (I am reusing the penguins dataset here). Click on the options below and see how the data changes when you select different options.</span></span>
+<span id="cb25-247"><a href="#cb25-247" aria-hidden="true" tabindex="-1"></a>Below is an example of filtering a dataset (I am reusing the penguins dataset here). Click on the options below and see how the data changes when you select different options.</span>
 <span id="cb25-248"><a href="#cb25-248" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-251"><a href="#cb25-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-252"><a href="#cb25-252" aria-hidden="true" tabindex="-1"></a>viewof checkbox <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">checkbox</span>(</span>
 <span id="cb25-253"><a href="#cb25-253" aria-hidden="true" tabindex="-1"></a>  d3<span class="op">.</span><span class="fu">group</span>(penguins<span class="op">,</span> (d) <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">island</span>)<span class="op">,</span></span>
 <span id="cb25-254"><a href="#cb25-254" aria-hidden="true" tabindex="-1"></a>  { <span class="dt">key</span><span class="op">:</span> [<span class="st">"Dream"</span><span class="op">,</span> <span class="st">"Torgersen"</span>]}</span>
 <span id="cb25-255"><a href="#cb25-255" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb25-256"><a href="#cb25-256" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-256"><a href="#cb25-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-257"><a href="#cb25-257" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-260"><a href="#cb25-260" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-261"><a href="#cb25-261" aria-hidden="true" tabindex="-1"></a>filtered <span class="op">=</span> checkbox<span class="op">.</span><span class="fu">flat</span>()</span>
-<span id="cb25-262"><a href="#cb25-262" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-262"><a href="#cb25-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-263"><a href="#cb25-263" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-266"><a href="#cb25-266" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb25-267"><a href="#cb25-267" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">dot</span>(filtered<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"flipper_length_mm"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"body_mass_g"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"island"</span>})<span class="op">.</span><span class="fu">plot</span>()</span>
-<span id="cb25-268"><a href="#cb25-268" aria-hidden="true" tabindex="-1"></a><span class="vs">```</span></span>
+<span id="cb25-268"><a href="#cb25-268" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-269"><a href="#cb25-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-270"><a href="#cb25-270" aria-hidden="true" tabindex="-1"></a><span class="vs">The chart above uses the filtered dataset to create the scatterplot. As you can imagine there are endless capabilities of pairing these reactive input variables with whatever you are trying to create. I won't try to make something super complex right now, but explore [Observable](https://observablehq.com/trending) and you will get a sense of the possibilities.</span></span>
+<span id="cb25-270"><a href="#cb25-270" aria-hidden="true" tabindex="-1"></a>The chart above uses the filtered dataset to create the scatterplot. As you can imagine there are endless capabilities of pairing these reactive input variables with whatever you are trying to create. I won't try to make something super complex right now, but explore <span class="co">[</span><span class="ot">Observable</span><span class="co">](https://observablehq.com/trending)</span> and you will get a sense of the possibilities.</span>
 <span id="cb25-271"><a href="#cb25-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-272"><a href="#cb25-272" aria-hidden="true" tabindex="-1"></a><span class="vs">## Data Wrangling (and Analysis)</span></span>
+<span id="cb25-272"><a href="#cb25-272" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Wrangling (and Analysis)</span></span>
 <span id="cb25-273"><a href="#cb25-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-274"><a href="#cb25-274" aria-hidden="true" tabindex="-1"></a><span class="vs">Originally, when I first started using Observable I would wrangle my data in R and then save a CSV file and then upload it to Observable. Since then I found [Arquero](https://observablehq.com/@uwdata/introducing-arquero) which has been really awesome! There is actually a [Tidy Data in JavaScript using Arquero](https://observablehq.com/@uwdata/tidy-data-in-javascript) that follows Hadley Wickham's [Tidy Data (Chapter 12, R for Data Science)](https://r4ds.had.co.nz/tidy-data.html). Also this [Illustrated Guide to Arquero Verbs](https://observablehq.com/@uwdata/an-illustrated-guide-to-arquero-verbs) is a good cheat sheet.</span></span>
+<span id="cb25-274"><a href="#cb25-274" aria-hidden="true" tabindex="-1"></a>Originally, when I first started using Observable I would wrangle my data in R and then save a CSV file and then upload it to Observable. Since then I found <span class="co">[</span><span class="ot">Arquero</span><span class="co">](https://observablehq.com/@uwdata/introducing-arquero)</span> which has been really awesome! There is actually a <span class="co">[</span><span class="ot">Tidy Data in JavaScript using Arquero</span><span class="co">](https://observablehq.com/@uwdata/tidy-data-in-javascript)</span> that follows Hadley Wickham's <span class="co">[</span><span class="ot">Tidy Data (Chapter 12, R for Data Science)</span><span class="co">](https://r4ds.had.co.nz/tidy-data.html)</span>. Also this <span class="co">[</span><span class="ot">Illustrated Guide to Arquero Verbs</span><span class="co">](https://observablehq.com/@uwdata/an-illustrated-guide-to-arquero-verbs)</span> is a good cheat sheet.</span>
 <span id="cb25-275"><a href="#cb25-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-276"><a href="#cb25-276" aria-hidden="true" tabindex="-1"></a><span class="vs">Data manipulation in vanilla JavaScript is still wonky to me. It makes very little sense in my head. A concern I had in the beginning was doing all of my data work in the browser. Saving my work online with a relatively new service gave me pause. For now Observable allows you to create unlimited amounts of notebooks for free. I have made over one hundred notebooks, and have not had any problems so far. Another concern I had (kinda still have) was Observable's reliance on the browser's engine. It is not yet equipped for processing big data files. File sizes are limited to 50 MBs per notebook and 1 GB over a 28-day period. There are alternatives like connecting to [databases through Observable](https://observablehq.com/@observablehq/databases) or using [web APIs](https://observablehq.com/@observablehq/introduction-to-data#apis), but even then it is smart to subset your data if it is over a certain number of MBs for performance.</span></span>
+<span id="cb25-276"><a href="#cb25-276" aria-hidden="true" tabindex="-1"></a>Data manipulation in vanilla JavaScript is still wonky to me. It makes very little sense in my head. A concern I had in the beginning was doing all of my data work in the browser. Saving my work online with a relatively new service gave me pause. For now Observable allows you to create unlimited amounts of notebooks for free. I have made over one hundred notebooks, and have not had any problems so far. Another concern I had (kinda still have) was Observable's reliance on the browser's engine. It is not yet equipped for processing big data files. File sizes are limited to 50 MBs per notebook and 1 GB over a 28-day period. There are alternatives like connecting to <span class="co">[</span><span class="ot">databases through Observable</span><span class="co">](https://observablehq.com/@observablehq/databases)</span> or using <span class="co">[</span><span class="ot">web APIs</span><span class="co">](https://observablehq.com/@observablehq/introduction-to-data#apis)</span>, but even then it is smart to subset your data if it is over a certain number of MBs for performance.</span>
 <span id="cb25-277"><a href="#cb25-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-278"><a href="#cb25-278" aria-hidden="true" tabindex="-1"></a><span class="vs">Luckily, I found a promising new product that will probably be my go to work environment very soon. It is called [Quarto](https://quarto.org/). It is a project sponsored by Rstudio that integrates Observable JS, Julia, R, and Python. It does a lot of cool things that I won't even touch on but the coolest to me is the ability to write in both R and Observable within the same notebook. So if you need to do something with a large dataset it is possible to preprocess it in R and then do what you want in Observable. There is an option to [freeze the execution of R](https://quarto.org/docs/projects/code-execution.html#freeze) if you are doing some heavy processing and you don't want it to run every time someone loads your site. Additionally, it looks like you can pair [Observable with Shiny Reactives](https://quarto.org/docs/interactive/ojs/shiny.html). Leveraging a Shiny server with an Observable front end seems super convenient for any cases where Observable alone can't handle the workload. I haven't used it enough to give my full thoughts on it yet, but so far it has been extremely promising development for my workflow.</span></span>
+<span id="cb25-278"><a href="#cb25-278" aria-hidden="true" tabindex="-1"></a>Luckily, I found a promising new product that will probably be my go to work environment very soon. It is called <span class="co">[</span><span class="ot">Quarto</span><span class="co">](https://quarto.org/)</span>. It is a project sponsored by Rstudio that integrates Observable JS, Julia, R, and Python. It does a lot of cool things that I won't even touch on but the coolest to me is the ability to write in both R and Observable within the same notebook. So if you need to do something with a large dataset it is possible to preprocess it in R and then do what you want in Observable. There is an option to <span class="co">[</span><span class="ot">freeze the execution of R</span><span class="co">](https://quarto.org/docs/projects/code-execution.html#freeze)</span> if you are doing some heavy processing and you don't want it to run every time someone loads your site. Additionally, it looks like you can pair <span class="co">[</span><span class="ot">Observable with Shiny Reactives</span><span class="co">](https://quarto.org/docs/interactive/ojs/shiny.html)</span>. Leveraging a Shiny server with an Observable front end seems super convenient for any cases where Observable alone can't handle the workload. I haven't used it enough to give my full thoughts on it yet, but so far it has been extremely promising development for my workflow.</span>
 <span id="cb25-279"><a href="#cb25-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-280"><a href="#cb25-280" aria-hidden="true" tabindex="-1"></a><span class="vs">## Sharing Your Work</span></span>
+<span id="cb25-280"><a href="#cb25-280" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sharing Your Work</span></span>
 <span id="cb25-281"><a href="#cb25-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-282"><a href="#cb25-282" aria-hidden="true" tabindex="-1"></a><span class="vs">After you finish your project you can share your notebook within the Observable ecosystem or link it on social media. If you want it to live on your website there are a couple of ways to do that as well. Observable has exporting abilities, a download code option or an embed option. I usually just use the embed option. You can embed it as an iframe, or you can embed it with Observable's runtime in JavaScript. This is usually what I do, so although you are relying on Observable's runtime, you can actually customize all of the styling within your own environment. If you choose to go the Quarto route, it is also super easy to either create a stand alone html file or a whole site through Quarto. You are probably looking at this notebook how Quarto rendered it, but here is the original [Observable notebook](https://observablehq.com/@scottfranz/hello-observable) as well. Thanks for reading this post. Please let me know if there are really cool things about Observable I missed.</span></span>
+<span id="cb25-282"><a href="#cb25-282" aria-hidden="true" tabindex="-1"></a>After you finish your project you can share your notebook within the Observable ecosystem or link it on social media. If you want it to live on your website there are a couple of ways to do that as well. Observable has exporting abilities, a download code option or an embed option. I usually just use the embed option. You can embed it as an iframe, or you can embed it with Observable's runtime in JavaScript. This is usually what I do, so although you are relying on Observable's runtime, you can actually customize all of the styling within your own environment. If you choose to go the Quarto route, it is also super easy to either create a stand alone html file or a whole site through Quarto. You are probably looking at this notebook how Quarto rendered it, but here is the original <span class="co">[</span><span class="ot">Observable notebook</span><span class="co">](https://observablehq.com/@scottfranz/hello-observable)</span> as well. Thanks for reading this post. Please let me know if there are really cool things about Observable I missed.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-      <div class="nav-footer-center"><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
   </div>
 </footer>
+
 
 
 

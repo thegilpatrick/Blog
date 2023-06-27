@@ -1,8 +1,8 @@
 ---
 title: Recipe Web Scraping in Observable
 author: Scott Franz
-date: last-modified
-abstract: Tutorial on how to web scrape recipes with Observable.
+date: 06/19/2023
+abstract: Tutorial on how to web scrape recipes with Observable in Quarto.
 image: recipe.webp
 image-alt: Zucchini Courgette
 categories: [Observable JS, Web Scraping, Tutorial]
