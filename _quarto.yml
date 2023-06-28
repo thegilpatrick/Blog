@@ -34,10 +34,10 @@ website:
         file: about.qmd
 format:
   html:
-    include-after-body: subscribe.html
     include-in-header:
       - text: |
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+    include-after-body: subscribe.html
     theme: cosmo
     css: styles.css
 
