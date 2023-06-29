@@ -14,8 +14,4 @@ page-layout: full
 format:
   html:
     css: no-title.css
-    grid:
-      margin-width: 0px
-      sidebar-width: 0px
-      gutter-width: 0px
 ---

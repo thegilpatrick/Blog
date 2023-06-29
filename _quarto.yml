@@ -40,6 +40,10 @@ format:
     include-after-body: subscribe.html
     theme: cosmo
     css: styles.css
+    grid:
+      margin-width: 0px
+      sidebar-width: 0px
+      gutter-width: 0px
 
 
 
