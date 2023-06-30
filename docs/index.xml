@@ -10,7 +10,7 @@
 <atom:link href="https://thegilpatrick.com/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.4.176</generator>
-<lastBuildDate>Tue, 27 Jun 2023 20:42:42 GMT</lastBuildDate>
+<lastBuildDate>Thu, 29 Jun 2023 00:12:34 GMT</lastBuildDate>
 <item>
   <title>Google Sheets in Observable</title>
   <dc:creator>Scott Franz</dc:creator>
@@ -1363,7 +1363,7 @@ font-style: inherit;">8</span>})</span>
   <category>Tutorial</category>
   <category>Web Scraping</category>
   <guid>https://thegilpatrick.com/posts/google-sheets/index.html</guid>
-  <pubDate>Tue, 27 Jun 2023 20:42:42 GMT</pubDate>
+  <pubDate>Thu, 29 Jun 2023 00:12:34 GMT</pubDate>
   <media:content url="https://thegilpatrick.com/posts/google-sheets/bubbles.svg" medium="image" type="image/svg+xml"/>
 </item>
 <item>
@@ -8648,7 +8648,7 @@ font-style: inherit;">"Chris Paul"</span>})</span></code></pre></div>
 <section id="plots" class="level3">
 <h3 class="anchored" data-anchor-id="plots">Plots</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12" data-startfrom="283" data-source-offset="-1" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 282;"><span id="cb12-283"><span class="im" style="color: #00769E;
+<div class="sourceCode cell-code" id="cb12" data-startfrom="283" data-source-offset="-2" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 282;"><span id="cb12-283"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> { Plot } <span class="im" style="color: #00769E;
 background-color: null;
@@ -16047,7 +16047,7 @@ font-style: inherit;">15</span></span>
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">Data</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13" data-startfrom="527" data-source-offset="-1" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 526;"><span id="cb13-527"><span class="im" style="color: #00769E;
+<div class="sourceCode cell-code" id="cb13" data-startfrom="527" data-source-offset="-2" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 526;"><span id="cb13-527"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> { aq<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -16413,7 +16413,7 @@ font-style: inherit;">240</span> })</span></code></pre></div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14" data-startfrom="588" data-source-offset="-1" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 587;"><span id="cb14-588">nba2</span>
+<div class="sourceCode cell-code" id="cb14" data-startfrom="588" data-source-offset="-2" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 587;"><span id="cb14-588">nba2</span>
 <span id="cb14-589">  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
@@ -16504,7 +16504,7 @@ font-style: inherit;">10</span>)</span></code></pre></div>
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb15" data-startfrom="599" data-source-offset="-195" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 598;"><span id="cb15-599">nba2</span>
+<div class="sourceCode cell-code" id="cb15" data-startfrom="599" data-source-offset="-207" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 598;"><span id="cb15-599">nba2</span>
 <span id="cb15-600">  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
@@ -16595,7 +16595,7 @@ font-style: inherit;">10</span>)</span></code></pre></div>
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb16" data-startfrom="610" data-source-offset="-390" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 609;"><span id="cb16-610">nba2</span>
+<div class="sourceCode cell-code" id="cb16" data-startfrom="610" data-source-offset="-413" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 609;"><span id="cb16-610">nba2</span>
 <span id="cb16-611">  <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
@@ -16926,7 +16926,7 @@ font-style: inherit;">2</span> })</span></code></pre></div>
 <section id="math" class="level2">
 <h2 class="anchored" data-anchor-id="math">Math</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" data-startfrom="54" data-source-offset="-1" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 53;"><span id="cb3-54">today <span class="op" style="color: #5E5E5E;
+<div class="sourceCode cell-code" id="cb3" data-startfrom="54" data-source-offset="-2" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 53;"><span id="cb3-54">today <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="kw" style="color: #003B4F;
 background-color: null;
