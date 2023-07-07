@@ -5,13 +5,17 @@ listing:
   contents: posts
   sort: "date desc"
   type: grid
-  categories: true
+  categories: false
   sort-ui: true
   filter-ui: true
   feed: true
   fields: [image, date, title, author, description, categories, reading-time]
-page-layout: full
+page-layout: article
 format:
   html:
     css: no-title.css
 ---
+
+:::{#posts .column-page-inset}
+
+:::
