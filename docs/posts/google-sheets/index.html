@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Scott Franz">
-<meta name="dcterms.date" content="2023-06-27">
+<meta name="dcterms.date" content="2023-07-07">
 
 <title>Google Sheets in Observable</title>
 <style>
@@ -208,8 +208,8 @@ cookieconsent.run({
   <li><a href="#try-it-yourself" id="toc-try-it-yourself" class="nav-link" data-scroll-target="#try-it-yourself">Try it Yourself</a></li>
   <li><a href="#wikipedia-tables" id="toc-wikipedia-tables" class="nav-link" data-scroll-target="#wikipedia-tables">Wikipedia Tables</a>
   <ul class="collapse">
-  <li><a href="#land-area" id="toc-land-area" class="nav-link" data-scroll-target="#land-area">Land Area</a></li>
-  <li><a href="#population-size" id="toc-population-size" class="nav-link" data-scroll-target="#population-size">Population Size</a></li>
+  <li><a href="#state-capitals-by-land-area" id="toc-state-capitals-by-land-area" class="nav-link" data-scroll-target="#state-capitals-by-land-area">State Capitals by Land Area</a></li>
+  <li><a href="#state-capitals-by-population-size" id="toc-state-capitals-by-population-size" class="nav-link" data-scroll-target="#state-capitals-by-population-size">State Capitals by Population Size</a></li>
   </ul></li>
   <li><a href="#write-to-a-google-sheet" id="toc-write-to-a-google-sheet" class="nav-link" data-scroll-target="#write-to-a-google-sheet">Write to a Google Sheet</a></li>
   </ul>
@@ -247,7 +247,7 @@ cookieconsent.run({
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 27, 2023</p>
+      <p class="date">July 7, 2023</p>
     </div>
   </div>
   
@@ -391,7 +391,7 @@ cookieconsent.run({
 <h2 class="anchored" data-anchor-id="wikipedia-tables">Wikipedia Tables</h2>
 <p>Google Sheets also have a super simple way of web scraping. I find it pretty useful for scraping Wikipedia tables. For example, here is a <a href="https://en.wikipedia.org/wiki/List_of_capitals_in_the_United_States#State_capitals">table of state capitals from Wikipedia</a> with some relevant statistics. All I need to do is enter this <a href="https://support.google.com/docs/answer/3093339?hl=en">formula</a> <code>=IMPORTHTML("url", "table", index)</code> in Google Sheets. You just need the URL, the script tag<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, and the index of the tag on the page.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Here is the full formula I used below:</p>
 <p><code>=IMPORTHTML("https://en.wikipedia.org/wiki/List_of_capitals_in_the_United_States", "table", 2)</code></p>
-<p>When using tables from Wikipedia some of the column headers may have sub-categories that make the data a little messy. But it is easy to clean up in a Google Sheet. Just copy the values and paste only the values <code>ctrl + shift + v</code> back into the sheet. Then you can edit the values directly. <code>d3.autoType</code> did not detect the date variable here so I am fixed it. Also I created a new variable with a new name for convenience.</p>
+<p>When using tables from Wikipedia some of the column headers may have sub-categories that make the data a little messy. But it is easy to clean up in a Google Sheet. Just copy the values and paste only the values <code>ctrl + shift + v</code> back into the sheet. Then you can edit the values directly. <code>d3.autoType</code> did not detect the date variable here so I fixed it. Also I created new variables with a new names for convenience.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -433,8 +433,8 @@ cookieconsent.run({
 </div>
 </div>
 <p>The charts below are heavily inspired by Mike Bostock’s <a href="https://observablehq.com/@mbostock/bank-failures">Bank Failures Plot</a>.</p>
-<section id="land-area" class="level3">
-<h3 class="anchored" data-anchor-id="land-area">Land Area</h3>
+<section id="state-capitals-by-land-area" class="level3">
+<h3 class="anchored" data-anchor-id="state-capitals-by-land-area">State Capitals by Land Area</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -472,8 +472,8 @@ cookieconsent.run({
 </div>
 </div>
 </section>
-<section id="population-size" class="level3">
-<h3 class="anchored" data-anchor-id="population-size">Population Size</h3>
+<section id="state-capitals-by-population-size" class="level3">
+<h3 class="anchored" data-anchor-id="state-capitals-by-population-size">State Capitals by Population Size</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -1082,7 +1082,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a><span class="in">`=IMPORTHTML("https://en.wikipedia.org/wiki/List_of_capitals_in_the_United_States", "table", 2)`</span></span>
 <span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>When using tables from Wikipedia some of the column headers may have sub-categories that make the data a little messy. But it is easy to clean up in a Google Sheet. Just copy the values and paste only the values <span class="in">`ctrl + shift + v`</span> back into the sheet. Then you can edit the values directly. <span class="in">`d3.autoType`</span> did not detect the date variable here so I am fixed it. Also I created a new variable with a new name for convenience.</span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>When using tables from Wikipedia some of the column headers may have sub-categories that make the data a little messy. But it is easy to clean up in a Google Sheet. Just copy the values and paste only the values <span class="in">`ctrl + shift + v`</span> back into the sheet. Then you can edit the values directly. <span class="in">`d3.autoType`</span> did not detect the date variable here so I fixed it. Also I created new variables with a new names for convenience.</span>
 <span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a>wikipedia <span class="op">=</span> d3<span class="op">.</span><span class="fu">csv</span>(<span class="fu">getCsvUrl</span>(<span class="st">"https://docs.google.com/spreadsheets/d/1nBuDIKv67qX73UXsQy-Gd_cJc609NJPugLQy3Dlp4Tw/edit#gid=0"</span>)<span class="op">,</span> d3<span class="op">.</span><span class="at">autoType</span>)</span>
@@ -1096,7 +1096,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>The charts below are heavily inspired by Mike Bostock's <span class="co">[</span><span class="ot">Bank Failures Plot</span><span class="co">](https://observablehq.com/@mbostock/bank-failures)</span>. </span>
 <span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a><span class="fu">### Land Area</span></span>
+<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a><span class="fu">### State Capitals by Land Area</span></span>
 <span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
 <span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">500</span><span class="op">,</span></span>
@@ -1127,7 +1127,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a><span class="fu">### Population Size</span></span>
+<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a><span class="fu">### State Capitals by Population Size</span></span>
 <span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{ojs}</span></span>
 <span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
 <span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">800</span><span class="op">,</span></span>

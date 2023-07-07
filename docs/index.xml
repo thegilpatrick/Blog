@@ -10,7 +10,7 @@
 <atom:link href="https://thegilpatrick.com/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.4.176</generator>
-<lastBuildDate>Tue, 27 Jun 2023 20:42:42 GMT</lastBuildDate>
+<lastBuildDate>Fri, 07 Jul 2023 15:03:14 GMT</lastBuildDate>
 <item>
   <title>Google Sheets in Observable</title>
   <dc:creator>Scott Franz</dc:creator>
@@ -397,7 +397,7 @@ font-style: inherit;">table</span>(example)</span></code></pre></div>
 <h2 class="anchored" data-anchor-id="wikipedia-tables">Wikipedia Tables</h2>
 <p>Google Sheets also have a super simple way of web scraping. I find it pretty useful for scraping Wikipedia tables. For example, here is a <a href="https://en.wikipedia.org/wiki/List_of_capitals_in_the_United_States#State_capitals">table of state capitals from Wikipedia</a> with some relevant statistics. All I need to do is enter this <a href="https://support.google.com/docs/answer/3093339?hl=en">formula</a> <code>=IMPORTHTML("url", "table", index)</code> in Google Sheets. You just need the URL, the script tag<sup>2</sup>, and the index of the tag on the page.<sup>3</sup> Here is the full formula I used below:</p>
 <p><code>=IMPORTHTML("https://en.wikipedia.org/wiki/List_of_capitals_in_the_United_States", "table", 2)</code></p>
-<p>When using tables from Wikipedia some of the column headers may have sub-categories that make the data a little messy. But it is easy to clean up in a Google Sheet. Just copy the values and paste only the values <code>ctrl + shift + v</code> back into the sheet. Then you can edit the values directly. <code>d3.autoType</code> did not detect the date variable here so I am fixed it. Also I created a new variable with a new name for convenience.</p>
+<p>When using tables from Wikipedia some of the column headers may have sub-categories that make the data a little messy. But it is easy to clean up in a Google Sheet. Just copy the values and paste only the values <code>ctrl + shift + v</code> back into the sheet. Then you can edit the values directly. <code>d3.autoType</code> did not detect the date variable here so I fixed it. Also I created new variables with a new names for convenience.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -499,8 +499,8 @@ font-style: inherit;">table</span>(clean_wiki)</span></code></pre></div>
 </div>
 </div>
 <p>The charts below are heavily inspired by Mike Bostock’s <a href="https://observablehq.com/@mbostock/bank-failures">Bank Failures Plot</a>.</p>
-<section id="land-area" class="level3">
-<h3 class="anchored" data-anchor-id="land-area">Land Area</h3>
+<section id="state-capitals-by-land-area" class="level3">
+<h3 class="anchored" data-anchor-id="state-capitals-by-land-area">State Capitals by Land Area</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -814,8 +814,8 @@ font-style: inherit;">"powderblue"</span>})))</span>
 </div>
 </div>
 </section>
-<section id="population-size" class="level3">
-<h3 class="anchored" data-anchor-id="population-size">Population Size</h3>
+<section id="state-capitals-by-population-size" class="level3">
+<h3 class="anchored" data-anchor-id="state-capitals-by-population-size">State Capitals by Population Size</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -1363,7 +1363,7 @@ font-style: inherit;">8</span>})</span>
   <category>Tutorial</category>
   <category>Web Scraping</category>
   <guid>https://thegilpatrick.com/posts/google-sheets/index.html</guid>
-  <pubDate>Tue, 27 Jun 2023 20:42:42 GMT</pubDate>
+  <pubDate>Fri, 07 Jul 2023 15:03:14 GMT</pubDate>
   <media:content url="https://thegilpatrick.com/posts/google-sheets/bubbles.svg" medium="image" type="image/svg+xml"/>
 </item>
 <item>
@@ -17177,6 +17177,42 @@ font-style: inherit;">=&gt;</span> d))</span></code></pre></div>
   <guid>https://thegilpatrick.com/posts/your-life-in-weeks/index.html</guid>
   <pubDate>Tue, 22 Feb 2022 05:00:00 GMT</pubDate>
   <media:content url="https://thegilpatrick.com/posts/your-life-in-weeks/waffles.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>OJS Code Annotation</title>
+  <link>https://thegilpatrick.com/posts/github-issue/index.html</link>
+  <description><![CDATA[ 
+
+
+
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-1" data-startfrom="7" data-source-offset="0" style="background: #f1f3f5;"><pre class="sourceCode js code-annotation-code code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 6;"><span id="annotated-cell-1-7">variable <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span></code></pre></div>
+<div class="cell-annotation">
+<dl>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1">Does this work?</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+
+
+
+ ]]></description>
+  <guid>https://thegilpatrick.com/posts/github-issue/index.html</guid>
+  <pubDate>Fri, 07 Jul 2023 15:03:34 GMT</pubDate>
 </item>
 </channel>
 </rss>

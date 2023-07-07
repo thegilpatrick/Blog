@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/github-issue/index.html",
       "/posts/google-sheets/index.html",
       "/posts/recipe-web-scrape/index.html",
       "/posts/pet-cats-uk/index.html",
