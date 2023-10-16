@@ -143,7 +143,7 @@ import {Drawer} from "@d3/draw-me"
 
 ### Data
 
-Salvador Dali data is actively being scraped from [WikiArt](https://www.wikiart.org/). Everytime you load this page it scrapes the data so hopefully this post doesn't get too popular. If you would like to download the Dali Dataset there is a button below.
+Salvador Dali data was scraped from [WikiArt](https://www.wikiart.org/). If you would like to download the Dali Dataset there is a button below.
 
 
 
