@@ -79,7 +79,7 @@ Google Sheets also have a super simple way of web scraping. I find it pretty use
 
 `=IMPORTHTML("https://en.wikipedia.org/wiki/List_of_capitals_in_the_United_States", "table", 2)`
 
-When using tables from Wikipedia some of the column headers may have sub-categories that make the data a little messy. But it is easy to clean up in a Google Sheet. Just copy the values and paste only the values `ctrl + shift + v` back into the sheet. Then you can edit the values directly. `d3.autoType` did not detect the date variable here so I am fixed it. Also I created a new variable with a new name for convenience.
+When using tables from Wikipedia some of the column headers may have sub-categories that make the data a little messy. But it is easy to clean up in a Google Sheet. Just copy the values and paste only the values `ctrl + shift + v` back into the sheet. Then you can edit the values directly. `d3.autoType` did not detect the date variable here so I fixed it. Also I created new variables with a new names for convenience.
 
 ```{ojs}
 
@@ -94,7 +94,7 @@ Inputs.table(clean_wiki)
 
 The charts below are heavily inspired by Mike Bostock's [Bank Failures Plot](https://observablehq.com/@mbostock/bank-failures). 
 
-### Land Area
+### State Capitals by Land Area
 ```{ojs}
 
 Plot.plot({
@@ -126,7 +126,7 @@ Plot.plot({
 ```
 
 
-### Population Size
+### State Capitals by Population Size
 ```{ojs}
 Plot.plot({
   height: 800,

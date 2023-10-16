@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/salvador-dahlia/index.html",
       "/posts/google-sheets/index.html",
       "/posts/recipe-web-scrape/index.html",
       "/posts/pet-cats-uk/index.html",
@@ -9,6 +10,12 @@
       "/posts/hello-observable/index.html",
       "/posts/nba-stats-exploration/index.html",
       "/posts/your-life-in-weeks/index.html"
+    ]
+  },
+  {
+    "listing": "/about.html",
+    "items": [
+      "/authors/scott_franz/index.html"
     ]
   }
 ]

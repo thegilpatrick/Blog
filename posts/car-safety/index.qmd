@@ -1,19 +1,113 @@
 ---
-title: Car Safety in the US
+title: The Car's War on Cities
 author: Scott Franz
 date: last-modified
+abstract: Exploration of negative externalites associated with automobiles.
+image: bubbles.svg
+image-alt: Beeswarm chart of state capitals
+categories: [Urbanism, Transportation, Land Use, Safety]
+bibliography: references.bib
 draft: true
-abstract: Tutorial on how to use Google Sheets with Observable.
-image: recipe.webp
-image-alt: Zucchini Courgette
-categories: [Politics, Urbanism, Safety]
 format:
   html:
-    echo: true
-    code-fold: true
+    echo: false
+    code-fold: false
     toc: true
     toc-location: left
     code-tools: true
 ---
+
+# Introduction
+I hope to convince you that relying on personal cars as the main form of transportation in our cities was a very bad idea. I will outline the dangers we just accept because of the reliance on motor vehicles in our cities. Then I would like to explain how we ruined cities so that cars could be marginally more convenient. Finally, I would like to address the current technological advances that are being touted as the solution to all of the problems with cars.
+
+This will sound extremely controversial, but the health of our cities may have faired better if we were just simply bombed rather than invaded by cars. The car's parasitic effects have killed more innocent civilians than the combined deaths of all of our soldiers/civilians from all of our wars.^[The total US war death estimate includes wounded, combat, and non-combat deaths. Non-combat deaths including those from bombing, massacres, disease, suicide, and murder. The dates of these estimates range 244 years and pre-date the car by over 100 years starting with the American Revolutionary War in 1775.] Or put in another way we experience over thirteen 9/11s every year due to traffic violence.
+
+```{ojs}
+deaths =[{
+  type: "Cars",
+  number: 3955409,
+  label: "100k"
+},
+{ type: "Wars",
+  number: 2892932,
+  label: "100k"
+}]
+
+units = deaths.flatMap(d => d3.range(Math.round(d.number/100000)).map(() => d))
+
+Plot.plot({
+  marginLeft: 75,
+  x: {label: "→ Deaths"},
+  y: {label: null },
+  marks: [
+    Plot.barX(deaths, {x: "number", y: "type", fill: "type"})
+  ]
+})
+
+html`<br>`
+Plot.plot({
+  width,
+  marks: [
+    Plot.cell(
+      units,
+      Plot.stackX({
+        y: (_, i) => i % 5,
+        fill: "type"
+      })
+    ),
+    Plot.text(
+      units,
+      Plot.stackX({
+        y: (_, i) => i % 5,
+        text: "label"
+      })
+    )],
+  x: { axis: null },
+  y: { axis: null }
+})
+```
+
+
+# Dangers We Accept
+
+## Crashes
+The annual death toll of car crashes worldwide is over one million. Somewhere between 20 to 50 million non-fatal injuries occur yearly according to the World Health Organization [-@world_health_organization_global_2018]. The first time I realized we just accept 40,000 preventable annual deaths from cars in the US was reading [Right of Way](https://islandpress.org/books/right-way). @schmitt_right_2020 put our acceptance of traffic deaths bluntly here:
+
+:::{.callout-note}
+## Author's Note
+"Early in the [COVID] crisis, many right-wing figures, including President Trump, used traffic deaths—some 37,000 annually—to make the case that some amount of loss
+of life is an acceptable price to pay for a strong economy. (In the case of the
+pandemic, we’re talking truly staggering figures.) It was a bad analogy in a
+lot of ways, but it helped emphasize the strange tolerance we have in our
+culture for traffic deaths and how they can desensitize us to other forms of
+cruelty and injustice."
+:::
+
+In the US, we are uniquely bad a preventing traffic deaths compared to our peer countries. Even in countries that are as car-dependent as us their safety rates seem to be improving.
+
+
+
+
+@singer_there_2023 thinks that one of the reasons for our tolerance of traffic deaths stems from calling them "accidents". It absolves us of any sort of responsibility, because "accident" implies that it occurs by chance and cannot be prevented. This diffusion of responsibility should be handled by the National Highway and Traffic Safety Administration and for a time after Ralph Nader's Unsafe at Any Speed
+
+## Pollution
+
+- Air Pollution
+- Water Pollution
+- Noise Pollution
+- Soil Pollution
+
+## Our Health
+
+- Unnecessary Police Involvement
+- Lack of Physical Activity
+
+
+# Land Use
+Why did we build our cities to accomodate the car?
+
+## References
+
+
 
 

@@ -1,0 +1,137 @@
+---
+title: State Grid Layout
+author: Scott Franz
+date: last-modified
+code-annotations: true
+draft: true
+abstract: An exploration of data with a neighboring states grid layout.
+image: state_grid.svg
+image-alt: Neighbor State Grid Layout
+categories: [Observable JS, Politics, Maps]
+format:
+  html:
+    echo: true
+    code-fold: false
+    toc: true
+    toc-location: left
+    code-tools: true
+---
+
+*    Combine State_Grid with election data
+*    Faceted cell fill with state-level dem or rep votes
+*    Zoomed in scatterplots of dem votes or rep votes and voter turnout
+*    Difference Area Chart with rep versus dem votes over time
+
+## Introduction
+I saw [Peter Gorman](https://www.barelymaps.com/)'s neighboring states graphic the other day on Twitter and thought it would be cool to recreate in Plot. While I was recreating the image, I started imagining more things you could do with it. So this is my attempt to do some things with the layout.
+```{ojs}
+
+import {tweet} from "@observablehq/tweet" 
+
+tweet("1664651271817809920")
+```
+
+I spent about 4 hours creating a grid layout in google sheets to map onto for Plot. Probably could have done it programmatically or in a more time efficient matter but I don't regret it. Below is my attempt at recreating the neighoring states grid.
+
+```{ojs}
+State_Grid = FileAttachment("grid.csv").csv({ typed: true })
+
+Plot.plot({
+  width: 1000,
+  height: 1700,
+  fx: {axis: null},
+  fy: {axis: null},
+  x: {type: "band", axis: null},
+  y: {type: "band", axis: null},
+  facet: {
+    data: State_Grid,
+    x: "facet_x",
+    y: "facet_y"
+  },
+  marks: [
+    Plot.cell(State_Grid, {x: "inner_x", y: "inner_y", fill: d => d.comparison === "focus" ? "yellow" : "white", stroke: "steelblue"}),
+    Plot.text(State_Grid, {x: "inner_x", y: "inner_y", text: d => d.state_initials})
+  ]
+})
+```
+
+I thought it would be cool to hook up to some data. So I went back into the archives to find some county-level election data.
+
+```{ojs}
+Election_Data = FileAttachment("election_data.csv").csv({ typed: true })
+
+
+// Function to merge datasets based on the "state" variable
+function mergeDatasets(dataset1, dataset2) {
+  return dataset1.map((item1) => {
+    const matchedItem = dataset2.find((item2) => item2.state.toLowerCase() === item1.state.toLowerCase());
+
+    if (matchedItem) {
+      return { ...item1, ...matchedItem };
+    }
+
+    return item1;
+  });
+}
+
+// Merge the datasets
+mergedData = mergeDatasets(Election_Data, State_Grid);
+
+Inputs.table(mergedData)
+```
+
+```{ojs}
+
+d3.group(State_Grid, d => d.state_group)
+
+d3.group(State_Grid, d => d.state)
+
+viewof state = Inputs.select(d3.group(mergedData, d => d.state_group), {label: "State"})
+
+state
+
+```
+
+```{ojs}
+Plot.plot({
+  height:600,
+  width:600,
+  x: {
+    domain: [1,2,3]
+  },
+  y: {
+    domain: [1,2,3]
+  },
+  marks: [
+    Plot.cell(state, {x: "inner_x", y: "inner_y", fill: d => d.comparison === "focus" ? "yellow" : "white", stroke: "steelblue"}),
+    Plot.text(state, {x: "inner_x", y: "inner_y", text: d => d.state})
+  ]
+})
+```
+
+```{ojs}
+Plot.plot({
+  marginLeft: 140,
+  facet: {
+    data: state,
+    x: "inner_x",
+    y: "inner_y"
+  },
+  x: {
+    axis: null
+  },
+  fx: {
+    axis: null,
+    domain: [1,2,3]
+  },
+  fy: {
+    axis: null,
+    domain: [1,2,3]
+  },
+  marks: [
+    Plot.frame(),
+    Plot.barY(state, {x: "county_name", y: "totalvotes", fill: d => d.comparison === "focus" ? "red" : "steelblue"}),
+    Plot.text(state, {frameAnchor: "top", text: d => d.state})
+  ]
+})
+```

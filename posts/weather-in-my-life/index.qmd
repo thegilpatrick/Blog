@@ -1,0 +1,18 @@
+---
+title: Weather In My Life
+author: Scott Franz
+date: last-modified
+draft: true
+abstract: A look into the weather in my life.
+image: picture.jpg
+image-alt: Weather Heatmaps
+categories: [Observable JS, Weather, Quantified Self]
+format:
+  html:
+    echo: true
+    code-fold: true
+    toc: true
+    toc-location: left
+    code-tools: true
+---
+

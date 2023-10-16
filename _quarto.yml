@@ -32,13 +32,15 @@ website:
     left:
       - text: "About"
         file: about.qmd
+      - text: "Posts"
+        file: index.qmd
 format:
   html:
     include-in-header:
       - text: |
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
     include-after-body: subscribe.html
-    theme: cosmo
+    theme: yeti
     css: styles.css
 
 

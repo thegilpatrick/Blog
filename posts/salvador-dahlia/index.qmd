@@ -1,0 +1,220 @@
+---
+title: Salvador Dahlia
+author: Scott Franz
+date: 10/16/2023
+abstract: Color palettes from Dahlias and Dali's artwork.
+image: IMG-2867.jpg
+image-alt: Picture of a Dahlia
+categories: [Observable JS, Color, Web Scraping]
+format:
+  html:
+    echo: true
+    code-fold: true
+    toc: true
+    toc-location: left
+    code-tools: true
+---
+
+## Introduction
+
+I was inspired by [Shruti Muhkhtyar's Observable notebook](https://observablehq.com/@mukhtyar/day-4-flora) a very long time ago. Originally, I was planning on taking pictures of Ann Arbor's infamous [Peony Garden at the University of Michigan's Nichols Arboretum](https://mbgna.umich.edu/nichols-arboretum/nichols-arboretum-gardens-collections/peony-garden/). The peonies bloomed in early June. My family and I definitely enjoyed them, but I forgot to take pictures. So instead, this blog post was left on my long list of ideas.
+
+Back in August, I went on a long walk and ended up at a community garden by my house. This time I remembered to take pictures, and so below are the pictures I took of a beautiful dahlia garden. [Project Grow](https://www.projectgrowgardens.org/) is an awesome organization in Ann Arbor. They just had their 20th Annual Tomato tasting. We had a plot when we first moved to Ann Arbor. It was so much fun. My family and I always try to go to their plant sales in the early spring.
+
+## Dahlia Garden
+I imported [Pierre Ripoll's image input](https://observablehq.com/@pierreleripoll/selectflatimages) and used it to navigate the pictures of flowers I took on my phone. If you click on or hover over a photo with your mouse the flower image below will change along with the color palette. Try it out.
+
+
+```{ojs}
+
+Plot.plot({
+  x: {
+    label: null
+  },
+  marks: [
+    Plot.cell(palette, {x: (d) => d, fill: (d) => d})
+  ]
+})
+
+viewof flower = selectFlatImages({
+  options: flowerData,
+  value: 'Dahlia 5',
+  imageWidth: 220,
+  imageHeight: 290,
+  output: true,
+  multiple: false,
+  hover: true
+})
+```
+
+```{ojs}
+
+flowerImage = flowerData.filter(d => d.value === flower)
+
+palette = await colorPalette.prominent(flowerImage[0].image, { amount: 10, format: 'hex', group: 50, sample: 20 })
+
+```
+
+## Salvador Dali
+
+I just recently found out about [Wiki Art](https://www.wikiart.org/) through the [Edward Hopper Bot on Twitter](https://twitter.com/artisthopper). I decided to scrape Dali's artwork because Dahlias always remind me of his name. You can click on the picture to see the original source of the image. I set up a scrubber that loops through the paintings to create a little slideshow of Dali's artwork. Feel free to use the slider to move ahead to his surrealism time period (the style that made him famous).
+
+```{ojs}
+
+viewof i = Scrubber(total, {delay: 10000})
+total = Array.from({length: 1178}, (_, i) => i)
+
+loop = paintingData[i].image
+name = paintingData[i].name
+time = paintingData[i].time
+link = paintingData[i].link
+
+palette2 = await colorPalette.prominent(loop, { amount: 10, format: 'hex', group: 50, sample: 20 })
+
+```
+
+```{ojs}
+
+html`<a target="_blank" href="${link}"><img src="${loop}"></a>`
+```
+
+```{ojs}
+viewof stroke = Plot.plot({
+  x: {
+    label: null
+  },
+  marks: [
+    Plot.cell(palette2, {x: (d) => d, fill: (d) => d})
+  ]
+})
+
+```
+
+This painting is ${name} that Dali made in ${time}.  
+
+## Your Painting
+
+In the spirit of Dali, feel free to select a color and brush width to paint. After you have selected your color click on the white space below and drag your mouse. You can change the color, but changing your color palette (by selecting a new Dahlia from above) will create a new canvas.
+
+
+```{ojs}
+
+viewof dahliPalette = Inputs.radio(palette, {label: html`Dahlia Color Palette`, value: palette[9], format: x => html`<span style="color: ${x}; background: ${x};">${x}`})
+
+viewof strokeWidth = Inputs.range([0.5, 50], {value: 30, step: 0.5, label: "Brush Width"})
+
+viewof strokes = Drawer({
+  width,
+  height: 500,
+  stroke: () => viewof dahliPalette.value,
+  strokeWidth: () => viewof strokeWidth.value
+})
+```
+
+Wow what a work of art! Thanks for reading.
+
+## Appendix
+
+### Imports
+
+Check out the [color.js](https://github.com/luukdv/color.js) library. I talk more about how to use [Cheerio.js](https://cheerio.js.org/) and [Axios.js](https://axios-http.com/) libraries in Observable in this [blog post about web scraping recipes](https://thegilpatrick.com/posts/recipe-web-scrape/).
+
+```{ojs}
+//|code-fold: false
+
+// JavaScript Libraries
+
+colorPalette = import('https://unpkg.com/color.js@1.2.0/dist/color.esm.js?module')
+
+Plot = import("https://esm.run/@observablehq/plot")
+
+cheerio = require('https://bundle.run/cheerio@1.0.0-rc.5')
+
+axios = require('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js')
+
+// From Observable Notebooks
+
+import {selectFlatImages} from "@pierreleripoll/selectflatimages"
+import {button} from "@jeremiak/download-data-button"
+import {Scrubber} from "@mbostock/scrubber"
+import {Drawer} from "@d3/draw-me"
+
+```
+
+### Data
+
+Salvador Dali data is actively being scraped from [WikiArt](https://www.wikiart.org/). Everytime you load this page it scrapes the data so hopefully this post doesn't get too popular. If you would like to download the Dali Dataset there is a button below.
+
+
+
+
+```{ojs}
+//|code-fold: false
+
+/* This is how I web scraped for the Dali dataset. 
+I commented it out so it doesn't scrape every time someone loads this blog post.
+
+link = `https://www.wikiart.org/en/salvador-dali/all-works/text-list`
+
+result = axios({
+  method: "get",
+  url: `https://corsproxy.io/?${link}`
+}).then((result) => result.data)
+
+$ = cheerio.load(result)
+
+paintingData2 = [...$(".painting-list-text-row")].map(e => ({
+  name: $(e).find("a").text(),
+  time: +($(e).find("span").text().replace(', ', '')),
+  link: "https://www.wikiart.org" + $(e).find("a").attr("href"),
+  image: "https://uploads4.wikiart.org/images/salvador-dali/" +  $(e).find("a").attr("href").split('/').pop() + ".jpg"
+}));
+
+*/
+
+// Styling for Images
+
+html`<style> 
+img {
+  object-fit: contain;
+  width: 100%;
+  height: 500px;}
+#ojs-cell-3-1 {
+  padding-top: 20px;
+  height: 70px;
+}
+`
+
+```
+
+
+
+```{ojs}
+//|code-fold: false
+
+paintingData = FileAttachment('Dali.csv').csv({typed: true})
+
+paintingData
+
+button(paintingData, "Dali.csv")
+
+```
+
+Flower image data was uploaded from my iphone.
+
+```{ojs}
+//|code-fold: false
+
+flowerData = [{ value: "Dahlia 1", image: await FileAttachment('IMG-2863.jpg').image() },
+    { value: "Dahlia 2", image: await FileAttachment('IMG-2864.jpg').image() },
+    { value: "Dahlia 3", image: await FileAttachment('IMG-2865.jpg').image() },
+    { value: "Dahlia 4", image: await FileAttachment('IMG-2866.jpg').image() },
+    { value: "Dahlia 5", image: await FileAttachment('IMG-2867.jpg').image() },
+    { value: "Dahlia 6", image: await FileAttachment('IMG-2868.jpg').image() },
+    { value: "Dahlia 7", image: await FileAttachment('IMG-2869.jpg').image() },
+    { value: "Dahlia 8", image: await FileAttachment('IMG-2871.jpg').image() },
+    { value: "Dahlia 9", image: await FileAttachment('IMG-2872.jpg').image() },
+    { value: "Dahlia 10", image: await FileAttachment('IMG-2873.jpg').image() },
+    { value: "Dahlia Garden", image: await FileAttachment('IMG-2874.jpg').image() }]
+
+```
